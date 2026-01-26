@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Simple HTML Popover</title>
+</head>
+
+<body>
+
+	<style>
+		.popover-container h2,
+		.popover-container p {
+			margin: 0 auto .25rem;
+		}
+
+		[popover] {
+			border: 1px solid #888;
+			border-radius: .5rem;
+			padding: 1em;
+			background: #fff;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		}
+	</style>
+
+	<button popovertarget="my-popover">Show Popover</button>
+
+	<div id="my-popover" popover>
+		<div class="popover-container">
+			<h2>Popover Title</h2>
+			<p>This is a native popover!</p>
+			<button popovertarget="my-popover" popovertargetaction="hide">Close</button>
+		</div>
+	</div>
+
+</body>
+
+</html>

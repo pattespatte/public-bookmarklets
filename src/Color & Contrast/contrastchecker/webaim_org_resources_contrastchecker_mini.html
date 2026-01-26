@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WebAIM Contrast Checker</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Kameron:400,700" rel="stylesheet" type="text/css">
+	<style>
+		*{margin:0;padding:0}html,body,form,fieldset{font:100% Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}body{color:#333;background:#fafafa;width:100%;margin:0 auto}#contrastForm{text-align:center}#contrastForm fieldset{text-align:center;border:1px solid #ccc;border-radius:8px;width:42%;margin:0 .5em;padding:10px;display:inline-block}#contrastForm input{color:#333;border:1px solid #888;border-radius:3px;font:100% Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}#contrastForm input[type=text]{text-transform:uppercase;vertical-align:top;padding:0 4px;font-size:1.5em}#contrastForm input[type=color]{cursor:pointer;width:206px;height:34px;padding:0;display:block}#contrastForm input[type=range]{accent-color:#eee;-webkit-appearance:none;background:#fff8;border-radius:5px;width:100%;height:8px;margin-right:15px}#contrastForm input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;cursor:ew-resize;background:#eee;border:2px solid #555;border-radius:3px;width:10px;height:20px;transition:background .3s ease-in-out}#contrastForm input[type=range]::-moz-range-thumb{cursor:ew-resize;background:#eee;border:2px solid #555;border-radius:3px;width:8px;height:20px;transition:background .3s ease-in-out}#contrastForm label{vertical-align:top;margin-top:.7em;display:inline-block}#contrastForm input[type=number]{width:60px;min-height:32px;padding-left:4px;display:block}#Hex1{width:5.8em}#Hex0{width:4.3em}#Err0,#Err1{display:none}#ratioContainer{text-align:center;padding-top:.6em}#ratio{font-size:3em;display:block}.results{float:left}.results p{padding-bottom:2px}.results span{float:right;text-align:center;width:2.2em;margin:0 .5em;padding:0 .5em;font-weight:700;transition:all .2s}span.pass{color:#fff;background-color:#080;border-radius:1em}span.fail{color:#c00}@media only screen and (max-width:670px){#contrastForm fieldset{width:93%;margin:0}#contrastForm input[type=color]{width:60px}#contrastForm input[type=text]{width:130px}#ratio{font-size:1.5em}}
+	</style>
+	<script>
+		var $Alpha, $colorInputs, $ligSliders, $Hex = [], $Pic = [], $Lig = [], $Err = [], color = [], HSL = []; function validate(r, t, o, e) { 6 !== t.length && 8 !== t.length || isNaN(HexToDec(t)) || 4 == t.length && 0 == o ? (r.attr({ "aria-invalid": !0, "aria-describedby": "Error" + o }), $Err[o].slideDown("fast", function () { r.focus() }), $Lig[o].parents("label").slideUp(), $Pic[o].val("#FFFFFF"), 1 == o && $Alpha.val("")) : ($Hex[o].removeAttr("aria-invalid aria-describedby"), $Err[o].slideUp(), $Lig[o].parents("label").slideDown(), color[o] = t.toUpperCase(), update(), updateAlpha()), $Hex[0].attr("aria-invalid") || $Hex[1].attr("aria-invalid") ? ($("#resultsContainer").slideUp(), $("[aria-invalid]").closest("label").next().find("input[type=color]").val("#FFFFFF")) : $("#resultsContainer").slideDown() } function update() { $Hex[0].val(color[0]), $Hex[1].val(color[1]), "true" != $("#Hex0").attr("aria-invalid") && $Pic[0].val("#" + color[0]), "true" != $("#Hex1").attr("aria-invalid") && $Pic[1].val("#" + color[1].substr(0, 6)), $("#normal, #big, #ui").css({ color: "#" + color[1], "background-color": "#" + color[0] }), $("#uibox").css({ "border-color": "#" + color[1] }), $(".permalink").attr("href", "./?fcolor=" + color[1] + "&bcolor=" + color[0]), $('a[href*="linkcontrastchecker"]').attr("href", "/resources/linkcontrastchecker/?fcolor=" + color[1] + "&bcolor=" + color[0]), $(".apilink").attr("href", "./?fcolor=" + color[1] + "&bcolor=" + color[0] + "&api"), $(".apilink").text("https://webaim.org/resources/contrastchecker/?fcolor=" + color[1] + "&bcolor=" + color[0] + "&api"); var r = RGBtoHSL(HexToDec(color[1].substr(0, 2)), HexToDec(color[1].substr(2, 2)), HexToDec(color[1].substr(4, 2))), t = RGBtoHSL(HexToDec(color[0].substr(0, 2)), HexToDec(color[0].substr(2, 2)), HexToDec(color[0].substr(4, 2))); $Lig[1].val(Math.round(r[2])).parent().css("background", "linear-gradient(to right, #000, hsl(" + r[0] + "," + r[1] + "%,50%), #FFF)"), $Lig[0].val(Math.round(t[2])).parent().css("background", "linear-gradient(to right, #000, hsl(" + t[0] + "," + t[1] + "%,50%), #FFF)"), checkContrast() } function updateAlpha() { "" == $Hex[1].val().substr(6, 2) ? $Alpha.val(1) : $Alpha.val((parseInt($Hex[1].val().substr(6, 2), 16) / 255).toFixed(2)) } function RGBAtoRGB(r, t) { let o = { r: HexToDec(r.substr(0, 2)), g: HexToDec(r.substr(2, 2)), b: HexToDec(r.substr(4, 2)), a: HexToDec(r.substr(6, 2)) / 255 }, e = { r: HexToDec(t.substr(0, 2)), g: HexToDec(t.substr(2, 2)), b: HexToDec(t.substr(4, 2)) }; var a = o.a; isNaN(a) && (a = 1); var l = Math.round((1 - a) * e.r + a * o.r), s = Math.round((1 - a) * e.g + a * o.g), i = Math.round((1 - a) * e.b + a * o.b); return ("0" + l.toString(16)).slice(-2) + ("0" + s.toString(16)).slice(-2) + ("0" + i.toString(16)).slice(-2) } function changeHue(r) { RGB = HSLtoRGB((HSL = RGBtoHSL(HexToDec(color[r].substr(0, 2)), HexToDec(color[r].substr(2, 2)), HexToDec(color[r].substr(4, 2))))[0], HSL[1], $Lig[r].val()); for (var t = 0; t < 3; t++)RGB[t] = RGB[t] >= 16 ? RGB[t].toString(16) : "0" + RGB[t].toString(16); color[r] = (RGB[0] + RGB[1] + RGB[2] + color[r].substr(6, 2)).toUpperCase(), update() } function checkContrast() { var r = RGBAtoRGB(color[1], color[0]), t = getL(r), o = getL(color[0]), e = (Math.max(t, o) + .05) / (Math.min(t, o) + .05); $("#ratio").html("<b>" + Dec2(100 * e / 100) + "</b>:1"), e >= 4.5 ? ($("#normalAA, #bigAAA").attr("class", "pass").text("Pass"), $("#ratioContainer").attr("class", "pass")) : ($("#normalAA, #bigAAA").attr("class", "fail").text("Fail"), $("#ratioContainer").removeClass("pass")), e >= 3 ? ($("#bigAA").attr("class", "pass").text("Pass"), $("#uiAA").attr("class", "pass").text("Pass")) : ($("#bigAA").attr("class", "fail").text("Fail"), $("#uiAA").attr("class", "fail").text("Fail")), e >= 7 ? $("#normalAAA").attr("class", "pass").text("Pass") : $("#normalAAA").attr("class", "fail").text("Fail") } function HexToDec(r) { if (RegExp(/^[a-f|0-9]+$/i).test(r)) return parseInt(r, 16) } function HSLtoRGB(r, t, o) { var e, a; return o /= 100, t /= 100, a = o <= .5 ? o * (1 + t) : o + t - o * t, e = 2 * o - a, 0 == t ? R = G = B = o : (R = findRGB(e, a, r + 120), G = findRGB(e, a, r), B = findRGB(e, a, r - 120)), [Math.round(R *= 255), Math.round(G *= 255), Math.round(B *= 255)] } function RGBtoHSL(r, t, o) { var e, a; return (o = o / 51 * .2) > (a = (r = r / 51 * .2) >= (t = t / 51 * .2) ? r : t) && (a = o), o < (e = r <= t ? r : t) && (e = o), L = (a + e) / 2, a == e ? S = H = 0 : (S = L < .5 ? (a - e) / (a + e) : (a - e) / (2 - a - e), r == a && (H = (t - o) / (a - e)), t == a && (H = 2 + (o - r) / (a - e)), o == a && (H = 4 + (r - t) / (a - e))), (H = Math.round(60 * H)) < 0 && (H += 360), H >= 360 && (H -= 360), [H, Math.round(100 * S), Math.round(100 * L)] } function findRGB(r, t, o) { return (o > 360 && (o -= 360), o < 0 && (o += 360), o < 60) ? r + (t - r) * o / 60 : o < 180 ? t : o < 240 ? r + (t - r) * (240 - o) / 60 : r } function getsRGB(r) { return r = (r = HexToDec(r) / 255) <= .03928 ? r / 12.92 : Math.pow((r + .055) / 1.055, 2.4) } function getL(r) { return .2126 * getsRGB(r.substr(0, 2)) + .7152 * getsRGB(r.substr(2, 2)) + .0722 * getsRGB(r.substr(4, 2)) } function Dec2(r) { if (-1 === (r = String(r)).indexOf(".")) return Number(r); var t = r.split("."); return 1 == t.length ? Number(r) : Number(t[0] + "." + t[1].charAt(0) + t[1].charAt(1)) } $(function () { $Alpha = $("#Alpha1"), $colorInputs = $("#Hex0, #Hex1, #Pic0, #Pic1"), $ligSliders = $("#Lig0, #Lig1"), $Hex[0] = $("#Hex0"), $Hex[1] = $("#Hex1"), $Pic[0] = $("#Pic0"), $Pic[1] = $("#Pic1"), $Lig[0] = $("#Lig0"), $Lig[1] = $("#Lig1"), $Err[0] = $("#Err0"), $Err[1] = $("#Err1"), $ligSliders.on("input", function () { changeHue($(this).attr("id").substr(-1)) }), $colorInputs.change(function () { var r = $(this), t = r.val(), o = r.attr("id").substr(-1); alpha = $Hex[1].val().substr(6, 2), $Err[o].slideUp(), "#" == t.substr(0, 1) && (t = t.slice(1)), (3 == t.length || 4 == t.length && 1 == o) && (t = t.substr(0, 1).repeat(2) + t.substr(1, 1).repeat(2) + t.substr(2, 1).repeat(2) + t.substr(3, 1).repeat(2)), "Pic1" == r.attr("id") && (t += alpha), validate(r, t, o, alpha) }), $(window).on("load", function () { var r = new URLSearchParams(window.location.search); r.get("fcolor") ? color[1] = r.get("fcolor").replace("#", "").substring(0, 8).toUpperCase() : $Hex[1].val() ? color[1] = $Hex[1].val() : color[1] = "0000FF", r.get("bcolor") ? color[0] = r.get("bcolor").replace("#", "").substring(0, 6).toUpperCase() : $Hex[1].val() ? color[0] = $Hex[0].val() : color[0] = "FFFFFF", update(), updateAlpha(), validate($Hex[0], $Hex[0].val(), 0, ""), validate($Hex[1], $Hex[1].val(), 1, $Hex[1].val().substr(6, 2)) }), $Alpha.on("input", function () { if ($(this).val() > 1 ? $(this).val(1) : 0 > $(this).val() && $(this).val(0), 1 == $(this).val()) var r = ""; else var r = ("0" + Math.round(255 * $Alpha.val()).toString(16)).slice(-2); color[1] = $Hex[1].val().substr(0, 6) + r, update() }), $("#contrastForm").submit(function (r) { r.preventDefault() }) });
+	</script>
+	<script>
+		function initialize() {
+			f = '#0000FF', b = '#FFFFFF';
+			update();
+		}
+	</script>
+</head>
+
+<body>
+	<main id="maincontainer">
+		<article id="maincontent">
+			<form id="contrastForm">
+				<fieldset>
+					<legend>Foreground</legend>
+					<p class="error" id="Err1">Please enter a valid <a href="http://en.wikipedia.org/wiki/Web_colors#Hex_triplet">hex value</a> (alpha value optional), or use the color picker.</p>
+					<label>
+						Hex Value
+						<div>#<input id="Hex1" type="text" maxlength="9" required></div>
+					</label>
+					<label>
+						Picker
+						<input id="Pic1" type="color">
+					</label>
+					<label>
+						Alpha
+						<input id="Alpha1" type="number" value="1.00" step="0.01" min="0" max="1">
+					</label>
+					<label class="lum">
+						Luminance
+						<div class="gradient"><input id="Lum1" type="range" min="0" max="100" step="1"></div>
+					</label>
+				</fieldset>
+				<fieldset>
+					<legend>Background</legend>
+					<p class="error" id="Err0">Please enter a valid <a href="https://en.wikipedia.org/wiki/Web_colors#Hex_triplet">hex value</a> (alpha value optional), or use the color picker.</p>
+					<label>
+						Hex Value
+						<div>#<input id="Hex0" type="text" maxlength="7" required></div>
+					</label>
+					<label>
+						Picker
+						<input id="Pic0" type="color">
+					</label>
+					<label class="lum">
+						Luminance
+						<div class="gradient"><input id="Lum0" type="range" min="0" max="100" step="1"></div>
+					</label>
+				</fieldset>
+			</form>
+			<div id="ratioContainer">
+				<span>
+					<span id="ratio" aria-live="polite" aria-atomic="false"></span>
+				</span>
+			</div>
+			<div class="results">
+				<p>Normal Text: <span id="normalAA"></span></p>
+				<p>Large Text: <span id="bigAA"></span></p>
+				<p>Non-text Elements: &nbsp;<span id="uiAA"></span></p>
+			</div>
+			<p style="text-align:center;margin-top:10px;">Powered by <a href="https://webaim.org/" target="_blank" rel="noopener">WebAIM</a></p>
+		</article>
+	</main>
+</body>
+
+</html>

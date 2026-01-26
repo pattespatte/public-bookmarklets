@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ASUS Router Login Unblock Bookmarklet</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			line-height: 1.6;
+		}
+
+		.bookmarklet-container {
+			background-color: #f5f5f5;
+			padding: 15px;
+			border-radius: 5px;
+			margin: 20px 0;
+		}
+
+		.bookmarklet-link {
+			display: inline-block;
+			background-color: #007bff;
+			color: white;
+			padding: 10px 15px;
+			text-decoration: none;
+			border-radius: 4px;
+			margin: 10px 0;
+		}
+
+		.bookmarklet-link:hover {
+			background-color: #0056b3;
+		}
+
+		.instructions {
+			background-color: #e9f7fe;
+			border-left: 4px solid #007bff;
+			padding: 10px 15px;
+			margin: 20px 0;
+		}
+
+		code {
+			background-color: #f0f0f0;
+			padding: 2px 4px;
+			border-radius: 3px;
+			font-family: monospace;
+		}
+
+		.warning {
+			background-color: #fff3cd;
+			border-left: 4px solid #ffc107;
+			padding: 10px 15px;
+			margin: 20px 0;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>ASUS Router Login Unblock Bookmarklet</h1>
+
+	<div class="bookmarklet-container">
+		<h2>Bookmarklet Link</h2>
+		<p>Drag this link to your bookmarks bar or right-click and bookmark it:</p>
+		<a href="javascript:(function(){'use strict';const%20e=['hidden_frame','dmRedirection','https_redirect_component'];function%20r(e){const%20t=document.getElementById(e);t?(t.remove(),console.log(`Removed%20element:%20#${e}`)):console.log(`Element%20not%20found:%20#${e}`)}e.forEach(r),console.log('ASUS%20router%20login%20unblock%20script%20executed')})();" class="bookmarklet-link">Unblock ASUS Router Login</a>
+	</div>
+
+	<div class="instructions">
+		<h2>How to Use</h2>
+		<ol>
+			<li>Drag the "Unblock ASUS Router Login" link above to your bookmarks bar</li>
+			<li>Navigate to your ASUS router login page</li>
+			<li>Click the bookmarklet in your bookmarks bar</li>
+			<li>The bookmarklet will remove blocking elements from the page</li>
+		</ol>
+	</div>
+
+	<div class="warning">
+		<h2>Important Notes</h2>
+		<ul>
+			<li>This bookmarklet only works on ASUS router login pages</li>
+			<li>It removes elements with IDs: <code>hidden_frame</code>, <code>dmRedirection</code>, and <code>https_redirect_component</code></li>
+			<li>Check the browser console for execution messages</li>
+			<li>Only use this on your own router or with proper authorization</li>
+		</ul>
+	</div>
+
+	<h2>Test the Bookmarklet</h2>
+	<p>You can click the button below to test the bookmarklet on this page (it will attempt to remove the specified elements if they exist):</p>
+	<button type="button" onclick="javascript:(function(){'use strict';const e=['hidden_frame','dmRedirection','https_redirect_component'];function r(e){const t=document.getElementById(e);t?(t.remove(),console.log(`Removed element: #${e}`)):console.log(`Element not found: #${e}`)}e.forEach(r),console.log('ASUS router login unblock script executed')})();" class="bookmarklet-link">Test Bookmarklet Now</button>
+</body>
+
+</html>

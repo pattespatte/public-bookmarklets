@@ -1,0 +1,1 @@
+javascript:var%20loc%3Ddocument.location%2Chtml%3Dwindow.open(%22https%3A%2F%2Fvalidator.w3.org%2Fcheck%3Fverbose%3D1%26amp%3Buri%3D%22%2Bloc%2C%22html%22)%3B
