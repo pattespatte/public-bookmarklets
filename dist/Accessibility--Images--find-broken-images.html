@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility / Images / find-broken-images Bookmarklet</title>
+  <style>
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f5f5f5; }
+    .container { text-align: center; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: #f8f8f8; border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; }
+    .hint { margin-top: 1rem; color: #666; font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: #0066cc; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accessibility / Images / find-broken-images</h1>
+    <a href="javascript:%21function()%7Bconst%20e%3Ddocument.images%3Blet%20n%3D0%2Co%3D%22%22%3B(async()%3D%3E%7Bawait%20Promise.all(Array.from(e).map(e%3D%3E(async%20e%3D%3E%7Btry%7B(await%20fetch(e.src%2C%7Bmethod%3A%22HEAD%22%7D)).ok%7C%7C(n%2B%2B%2Co%2B%3D%60URL%3A%20%24%7Be.src%7D%5Cn%60)%7Dcatch(t)%7Bn%2B%2B%2Co%2B%3D%60URL%3A%20%24%7Be.src%7D%5Cn%60%7D%7D)(e)))%3Bconst%20t%3D%60%24%7Bn%7D%20broken%20image%24%7B1%3D%3D%3Dn%3F%22%22%3A%22s%22%7D%60%3Bif(n)%7Bconsole.log(%60%24%7Bt%7D%3A%5Cn%5Cn%24%7Bo%7D%60)%3Bconst%20e%3Dwindow.open(%22%22%2C%22Broken%20Images%22%2C%22width%3D400%2Cheight%3D400%22)%3Be.document.write(%60%3Cpre%3E%24%7Bt%7D%3A%5Cn%5Cn%24%7Bo%7D%3C%2Fpre%3E%60)%2Ce.document.close()%7Delse%20alert(%22No%20broken%20images.%22)%7D)()%7D()%3B" class="bookmarklet">Run Accessibility / Images / find-broken-images</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7Bconst%20e%3Ddocument.images%3Blet%20n%3D0%2Co%3D%22%22%3B(async()%3D%3E%7Bawait%20Promise.all(Array.from(e).map(e%3D%3E(async%20e%3D%3E%7Btry%7B(await%20fetch(e.src%2C%7Bmethod%3A%22HEAD%22%7D)).ok%7C%7C(n%2B%2B%2Co%2B%3D%60URL%3A%20%24%7Be.src%7D%5Cn%60)%7Dcatch(t)%7Bn%2B%2B%2Co%2B%3D%60URL%3A%20%24%7Be.src%7D%5Cn%60%7D%7D)(e)))%3Bconst%20t%3D%60%24%7Bn%7D%20broken%20image%24%7B1%3D%3D%3Dn%3F%22%22%3A%22s%22%7D%60%3Bif(n)%7Bconsole.log(%60%24%7Bt%7D%3A%5Cn%5Cn%24%7Bo%7D%60)%3Bconst%20e%3Dwindow.open(%22%22%2C%22Broken%20Images%22%2C%22width%3D400%2Cheight%3D400%22)%3Be.document.write(%60%3Cpre%3E%24%7Bt%7D%3A%5Cn%5Cn%24%7Bo%7D%3C%2Fpre%3E%60)%2Ce.document.close()%7Delse%20alert(%22No%20broken%20images.%22)%7D)()%7D()%3B</div>
+    <a href="index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

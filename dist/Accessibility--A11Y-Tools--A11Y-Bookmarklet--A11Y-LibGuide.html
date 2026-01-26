@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility / A11Y Tools / A11Y Bookmarklet / A11Y LibGuide Bookmarklet</title>
+  <style>
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f5f5f5; }
+    .container { text-align: center; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: #f8f8f8; border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; }
+    .hint { margin-top: 1rem; color: #666; font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: #0066cc; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accessibility / A11Y Tools / A11Y Bookmarklet / A11Y LibGuide</h1>
+    <a href="javascript:%21function()%7Bfunction%20e()%7Baxe.run().then(e%3D%3E%7BwriteLibGuideReport(e)%7D)%2CremoveLoadingNotice()%7Dvoid%200%3D%3D%3Ddocument.A11Y_REQUIREMENTS%26%26(document.A11Y_REQUIREMENTS%3D%5B%5D)%2Cdocument.A11Y_REQUIREMENTS.push(%22general-report-tests.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22libguide-report-tests.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22report-ui.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22image-reviewer-ui.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22tabbable-reviewer-ui.js%22)%3Bvar%20o%3Ddocument.createElement(%22script%22)%3Bo.onload%3Dfunction()%7BloadingNotice(%22A11Y%20Reporter%20is%20loading...%3Cbr%3ERefresh%20page%20to%20cancel%22)%2CrunA11YTool(e)%7D%2Co.src%3D%22https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2Flibraries%2Fa11y-core-functions.js%22%2Cdocument.body.appendChild(o)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2F%5CnBookmarklet%20name%3A%20A11Y%20LibGuide%5Cn%22)%3B" class="bookmarklet">Run Accessibility / A11Y Tools / A11Y Bookmarklet / A11Y LibGuide</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7Bfunction%20e()%7Baxe.run().then(e%3D%3E%7BwriteLibGuideReport(e)%7D)%2CremoveLoadingNotice()%7Dvoid%200%3D%3D%3Ddocument.A11Y_REQUIREMENTS%26%26(document.A11Y_REQUIREMENTS%3D%5B%5D)%2Cdocument.A11Y_REQUIREMENTS.push(%22general-report-tests.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22libguide-report-tests.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22report-ui.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22image-reviewer-ui.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22tabbable-reviewer-ui.js%22)%3Bvar%20o%3Ddocument.createElement(%22script%22)%3Bo.onload%3Dfunction()%7BloadingNotice(%22A11Y%20Reporter%20is%20loading...%3Cbr%3ERefresh%20page%20to%20cancel%22)%2CrunA11YTool(e)%7D%2Co.src%3D%22https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2Flibraries%2Fa11y-core-functions.js%22%2Cdocument.body.appendChild(o)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2F%5CnBookmarklet%20name%3A%20A11Y%20LibGuide%5Cn%22)%3B</div>
+    <a href="index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>
