@@ -10,10 +10,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const SRC_DIR = join(ROOT, 'src');
 const DIST_DIR = join(ROOT, 'dist');
+const COLLECTIONS_DIR = join(DIST_DIR, 'collections');
 
-// Ensure dist directory exists
+// Ensure dist directories exist
 if (!existsSync(DIST_DIR)) {
   mkdirSync(DIST_DIR, { recursive: true });
+}
+if (!existsSync(COLLECTIONS_DIR)) {
+  mkdirSync(COLLECTIONS_DIR, { recursive: true });
 }
 
 // Recursively find all .js files in directory
@@ -260,6 +264,62 @@ function generateIndex(bookmarklets) {
 </html>`;
 }
 
+// Generate Netscape Bookmark file format (importable by browsers)
+function generateNetscapeBookmarkFile(bookmarklets, title) {
+  const timestamp = Math.floor(Date.now() / 1000);
+  const entries = bookmarklets.map(b =>
+    `    <DT><A HREF="${b.bookmarklet}" ADD_DATE="${timestamp}">${b.name}</A>`
+  ).join('\n');
+
+  return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
+<!-- This is an automatically generated file.
+     It will be read and overwritten.
+     DO NOT EDIT! -->
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<TITLE>${title}</TITLE>
+<H1>Bookmarks</H1>
+<DL><p>
+${entries}
+</DL><p>
+`;
+}
+
+// Build collections - group bookmarklets by category and generate bookmark files
+function buildCollections(bookmarklets) {
+  console.log('\nBuilding collections...');
+
+  // Group bookmarklets by top-level directory
+  const grouped = {};
+  for (const b of bookmarklets) {
+    // Get the top-level category from the display name or path
+    const category = b.name.split(' / ')[0];
+    if (!grouped[category]) {
+      grouped[category] = [];
+    }
+    grouped[category].push(b);
+  }
+
+  // Also create an "all" collection with all bookmarklets
+  const collections = [
+    { name: 'all', title: 'All Bookmarklets', bookmarklets: bookmarklets },
+    ...Object.entries(grouped).map(([category, items]) => ({
+      name: toWebFriendlyName(category),
+      title: `${category} Bookmarklets`,
+      bookmarklets: items
+    }))
+  ];
+
+  for (const collection of collections) {
+    const fileName = `bookmarklets-${collection.name}.html`;
+    const outputPath = join(COLLECTIONS_DIR, fileName);
+    const content = generateNetscapeBookmarkFile(collection.bookmarklets, collection.title);
+    writeFileSync(outputPath, content);
+    console.log(`  ✓ ${fileName} (${collection.bookmarklets.length} bookmarklets)`);
+  }
+
+  console.log(`\n✓ Built ${collections.length} collection(s) to dist/collections/`);
+}
+
 // Main build function
 async function build() {
   console.log('Building bookmarklets...\n');
@@ -296,6 +356,9 @@ async function build() {
 
   console.log(`\n✓ Built ${bookmarklets.length} bookmarklet(s) to dist/`);
   console.log(`✓ Generated index.html`);
+
+  // Build collections
+  buildCollections(bookmarklets);
 }
 
 build().catch(err => {
