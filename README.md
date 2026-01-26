@@ -69,17 +69,26 @@ void 0;
 
 ## Categories
 
+### Accessibility
+- **A11Y Tools** - Graphics, LibGuide, Reporter, Tabbings
 - **Color & Contrast** - Color contrast checking tools
 - **Focus & Interactive** - Focus management and testing
 - **Helpers** - Screen reader helpers (JAWS, NVDA, VoiceOver)
 - **Images** - Image accessibility testing
-- **Miscellaneous** - Various utility bookmarklets
-- **Other** - General purpose tools
 - **Spacing** - Text spacing and target size testing (WCAG)
 - **Structure & Headings** - Document structure analysis
 - **Syntax Check** - HTML/CSS validation
+- **Third Party** - External tools (e.g., Paul J. Adam's aXe Console)
 - **URLs & Links** - Link checking and analysis
 - **WAI-ARIA** - ARIA testing tools
+
+### Other
+- **CSS** - CSS analysis and manipulation
+- **Developer** - Performance and script inspection
+- **Markdown** - Markdown conversion tools
+- **Network** - Network utilities
+- **Validation** - Form and page validation
+- **Visual** - Visual testing aids
 
 ## Build Pipeline
 
@@ -101,11 +110,32 @@ void 0;
 ```
 public-bookmarklets/
 ├── src/                    # Source files
-│   ├── Color & Contrast/
-│   ├── Helpers/
-│   └── ...
-├── dist/                   # Built output
-│   ├── collections/        # Bookmarklet collections
+│   ├── Accessibility/      # Accessibility bookmarklets
+│   │   ├── A11Y Tools/
+│   │   ├── Color & Contrast/
+│   │   ├── Focus & Interactive/
+│   │   ├── Helpers/
+│   │   │   ├── JAWS/
+│   │   │   ├── NVDA/
+│   │   │   └── VoiceOver/
+│   │   ├── Images/
+│   │   ├── Spacing/
+│   │   ├── Structure & Headings/
+│   │   ├── Syntax Check/
+│   │   ├── Third Party/
+│   │   ├── URLs & Links/
+│   │   └── WAI-ARIA/
+│   ├── Other/              # Non-accessibility utilities
+│   │   ├── CSS/
+│   │   ├── Developer/
+│   │   ├── Markdown/
+│   │   ├── Network/
+│   │   ├── Validation/
+│   │   └── Visual/
+│   └── _private/           # Private bookmarklets (not built)
+├── dist/                   # Built output (mirrors src structure)
+│   ├── accessibility/
+│   ├── other/
 │   └── index.html          # Main index page
 ├── scripts/
 │   ├── build.js           # Build script
