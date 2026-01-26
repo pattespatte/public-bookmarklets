@@ -2,6 +2,9 @@
 src/_private/
 dist/_private/
 
+# Collections
+dist/collections/
+
 # Dependencies
 node_modules/
 
