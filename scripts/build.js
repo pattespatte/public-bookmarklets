@@ -84,8 +84,24 @@ async function minifyHTML(html) {
   });
 }
 
+// Convert to web-friendly filename (kebab-case)
+function toWebFriendlyName(name) {
+  return name
+    .replace(/([a-z])([A-Z])/g, '$1-$2') // camelCase to kebab-case
+    .replace(/[\s_&]+/g, '-') // spaces, underscores, ampersands to hyphens
+    .replace(/[^a-zA-Z0-9-]/g, '') // remove special chars
+    .replace(/-+/g, '-') // collapse multiple hyphens
+    .replace(/^-|-$/g, '') // trim leading/trailing hyphens
+    .toLowerCase();
+}
+
+// Convert directory path to web-friendly (keeps slashes, converts dir names)
+function toWebFriendlyPath(path) {
+  return path.split(sep).map(part => toWebFriendlyName(part)).join('/');
+}
+
 // Build a single bookmarklet
-async function buildBookmarklet(srcPath, displayName) {
+async function buildBookmarklet(srcPath, displayName, relPath) {
   if (!existsSync(srcPath)) {
     console.warn(`Warning: ${srcPath} not found, skipping`);
     return null;
@@ -110,6 +126,19 @@ async function buildBookmarklet(srcPath, displayName) {
 
   // Create bookmarklet URL
   const bookmarklet = `javascript:${uriEncode(minified)}`;
+
+  // Get filename from relPath - keep directory structure, only convert filename
+  const fileNameWithoutExt = relPath.replace(/\.js$/, '');
+  const pathParts = fileNameWithoutExt.split(sep);
+  const dirName = pathParts.slice(0, -1).join(sep); // all but last part
+  const baseName = pathParts[pathParts.length - 1]; // last part
+  const webFriendlyDir = toWebFriendlyPath(dirName);
+  const webFriendlyBase = toWebFriendlyName(baseName);
+  const fileName = webFriendlyDir ? `${webFriendlyDir}/${webFriendlyBase}` : webFriendlyBase;
+
+  // Calculate relative path to index.html
+  const depth = pathParts.length - 1;
+  const backPath = depth > 0 ? '../'.repeat(depth) + 'index.html' : 'index.html';
 
   // Write to dist as .html (for drag-and-drop)
   const htmlOutput = `<!DOCTYPE html>
@@ -139,23 +168,27 @@ async function buildBookmarklet(srcPath, displayName) {
     <a href="${bookmarklet}" class="bookmarklet">Run ${displayName}</a>
     <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
     <div class="code">${bookmarklet}</div>
-    <a href="index.html" class="back-link">← Back to all bookmarklets</a>
+    <a href="${backPath}" class="back-link">← Back to all bookmarklets</a>
   </div>
 </body>
 </html>`;
 
-  // Sanitize filename (replace path separators and special chars)
-  const fileName = displayName
-    .replace(/[^a-zA-Z0-9_-]/g, '-')
-    .replace(/-{2,}/g, '--'); // Replace multiple dashes with double dash
-  writeFileSync(join(DIST_DIR, `${fileName}.html`), htmlOutput);
+  // Create output directory structure in dist (using web-friendly paths)
+  const outputPath = join(DIST_DIR, fileName);
+  const outputDir = dirname(outputPath);
+  if (!existsSync(outputDir)) {
+    mkdirSync(outputDir, { recursive: true });
+  }
 
-  // Also write raw bookmarklet URL for copying
-  writeFileSync(join(DIST_DIR, `${fileName}.bookmarklet`), bookmarklet);
+  const htmlPath = `${outputPath}.html`;
+  const bookmarkletPath = `${outputPath}.bookmarklet`;
+
+  writeFileSync(htmlPath, htmlOutput);
+  writeFileSync(bookmarkletPath, bookmarklet);
 
   console.log(`  ✓ ${fileName}.html -> ${bookmarklet.length} bytes`);
 
-  return { name: displayName, bookmarklet, size: bookmarklet.length, fileName };
+  return { name: displayName, bookmarklet, size: bookmarklet.length, fileName, path: `${fileName}.html` };
 }
 
 // Generate index.html with all bookmarklets
@@ -166,7 +199,8 @@ function generateIndex(bookmarklets) {
             <strong>${b.name}</strong>
             <small style="display:block;color:#666;margin-top:4px;">${b.size} bytes</small>
           </div>
-          <a href="${b.bookmarklet}" class="bookmarklet-link">Run</a>
+          <a href="${b.path}" class="bookmarklet-link">View</a>
+          <a href="${b.bookmarklet}" class="bookmarklet-link" style="margin-left: 8px;">Run</a>
         </li>`).join('');
 
   return `<!DOCTYPE html>
@@ -245,13 +279,13 @@ async function build() {
   const bookmarklets = [];
 
   for (const srcPath of jsFiles) {
-    // Get relative path from SRC_DIR and use as display name
+    // Get relative path from SRC_DIR
     const relPath = relative(SRC_DIR, srcPath);
     const displayName = relPath
       .replace(/\.js$/, '')
       .replace(new RegExp(`\\${sep}`, 'g'), ' / '); // Use " / " as separator
 
-    const result = await buildBookmarklet(srcPath, displayName);
+    const result = await buildBookmarklet(srcPath, displayName, relPath);
     if (result) {
       bookmarklets.push(result);
     }

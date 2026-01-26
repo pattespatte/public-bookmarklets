@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Other / CSS / remove-css Bookmarklet</title>
+  <style>
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f5f5f5; }
+    .container { text-align: center; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: #f8f8f8; border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; }
+    .hint { margin-top: 1rem; color: #666; font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: #0066cc; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Other / CSS / remove-css</h1>
+    <a href="javascript:%21function()%7Blet%20e%3D%210%3Bconst%20t%3Ddocument.createElement(%22button%22)%3Bt.innerText%3D%22CSS%20removed%20(click%20to%20toggle)%22%2Ct.style.position%3D%22fixed%22%2Ct.style.cursor%3D%22pointer%22%2Cdocument.body.appendChild(t)%3Bfor(let%20e%3D0%3Be%3Cdocument.styleSheets.length%3Be%2B%2B)document.styleSheets%5Be%5D.disabled%3D%210%3Bconst%20o%3Ddocument.getElementsByTagName(%22*%22)%3Bfor(let%20e%3D0%3Be%3Co.length%3Be%2B%2B)o%5Be%5D.style.cssText%3D%22%22%3Bt.onclick%3Dfunction()%7Be%3D%21e%3Bfor(let%20t%3D0%3Bt%3Cdocument.styleSheets.length%3Bt%2B%2B)document.styleSheets%5Bt%5D.disabled%3De%3Bconst%20o%3Ddocument.getElementsByTagName(%22*%22)%3Bfor(let%20t%3D0%3Bt%3Co.length%3Bt%2B%2B)o%5Bt%5D.style.cssText%3De%3F%22%22%3Ao%5Bt%5D.style.cssText%3Bt.innerText%3De%3F%22CSS%20removed%20(click%20to%20toggle)%22%3A%22CSS%20restored%20(click%20to%20toggle)%22%7D%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fdorward.uk%2Fsoftware%2Fdisablecss%2F%5CnBookmarklet%20name%3A%20Remove%20CSS%5Cn%22)%3B" class="bookmarklet">Run Other / CSS / remove-css</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7Blet%20e%3D%210%3Bconst%20t%3Ddocument.createElement(%22button%22)%3Bt.innerText%3D%22CSS%20removed%20(click%20to%20toggle)%22%2Ct.style.position%3D%22fixed%22%2Ct.style.cursor%3D%22pointer%22%2Cdocument.body.appendChild(t)%3Bfor(let%20e%3D0%3Be%3Cdocument.styleSheets.length%3Be%2B%2B)document.styleSheets%5Be%5D.disabled%3D%210%3Bconst%20o%3Ddocument.getElementsByTagName(%22*%22)%3Bfor(let%20e%3D0%3Be%3Co.length%3Be%2B%2B)o%5Be%5D.style.cssText%3D%22%22%3Bt.onclick%3Dfunction()%7Be%3D%21e%3Bfor(let%20t%3D0%3Bt%3Cdocument.styleSheets.length%3Bt%2B%2B)document.styleSheets%5Bt%5D.disabled%3De%3Bconst%20o%3Ddocument.getElementsByTagName(%22*%22)%3Bfor(let%20t%3D0%3Bt%3Co.length%3Bt%2B%2B)o%5Bt%5D.style.cssText%3De%3F%22%22%3Ao%5Bt%5D.style.cssText%3Bt.innerText%3De%3F%22CSS%20removed%20(click%20to%20toggle)%22%3A%22CSS%20restored%20(click%20to%20toggle)%22%7D%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fdorward.uk%2Fsoftware%2Fdisablecss%2F%5CnBookmarklet%20name%3A%20Remove%20CSS%5Cn%22)%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

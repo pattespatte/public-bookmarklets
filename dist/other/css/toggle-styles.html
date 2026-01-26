@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Other / CSS / toggle-styles Bookmarklet</title>
+  <style>
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f5f5f5; }
+    .container { text-align: center; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: #f8f8f8; border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; }
+    .hint { margin-top: 1rem; color: #666; font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: #0066cc; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Other / CSS / toggle-styles</h1>
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Bfunction%20t(t%2Ce)%7Bt.setAttribute(s%2Ce)%7Dfunction%20e(t)%7Bvar%20e%3Dt.getAttribute(s)%3Breturn%20t.removeAttribute(s)%2Ce%7Dvar%20s%3D%22data-css-storage%22%2Cr%3D%22data-css-disabled%22%2Cn%3D%5B%5D%3B(function()%7Bvar%20t%3Ddocument.body%2Ce%3Dt.hasAttribute(r)%3Breturn%20e%3Ft.removeAttribute(r)%3At.setAttribute(r%2C%22%22)%2Ce%7D)()%3F(n%3Ddocument.querySelectorAll(%22%5B%22%2Bs%2B%22%5D%22)%2C%5B%5D.slice.call(n).forEach(function(t)%7B%22STYLE%22%3D%3D%3Dt.tagName%3Ft.innerHTML%3De(t)%3A%22LINK%22%3D%3D%3Dt.tagName%3Ft.disabled%3D%211%3At.style.cssText%3De(t)%7D))%3A(n%3Ddocument.querySelectorAll(%22%5Bstyle%5D%2C%20link%2C%20style%22)%2C%5B%5D.slice.call(n).forEach(function(e)%7B%22STYLE%22%3D%3D%3De.tagName%3F(t(e%2Ce.innerHTML)%2Ce.innerHTML%3D%22%22)%3A%22LINK%22%3D%3D%3De.tagName%3F(t(e%2C%22%22)%2Ce.disabled%3D%210)%3A(t(e%2Ce.style.cssText)%2Ce.style.cssText%3D%22%22)%7D))%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2FHurtak%2Ftoggle-css-bookmarklet%5CnBookmarklet%20name%3A%20Toggle%20Styles%5Cn%22)%3B" class="bookmarklet">Run Other / CSS / toggle-styles</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Bfunction%20t(t%2Ce)%7Bt.setAttribute(s%2Ce)%7Dfunction%20e(t)%7Bvar%20e%3Dt.getAttribute(s)%3Breturn%20t.removeAttribute(s)%2Ce%7Dvar%20s%3D%22data-css-storage%22%2Cr%3D%22data-css-disabled%22%2Cn%3D%5B%5D%3B(function()%7Bvar%20t%3Ddocument.body%2Ce%3Dt.hasAttribute(r)%3Breturn%20e%3Ft.removeAttribute(r)%3At.setAttribute(r%2C%22%22)%2Ce%7D)()%3F(n%3Ddocument.querySelectorAll(%22%5B%22%2Bs%2B%22%5D%22)%2C%5B%5D.slice.call(n).forEach(function(t)%7B%22STYLE%22%3D%3D%3Dt.tagName%3Ft.innerHTML%3De(t)%3A%22LINK%22%3D%3D%3Dt.tagName%3Ft.disabled%3D%211%3At.style.cssText%3De(t)%7D))%3A(n%3Ddocument.querySelectorAll(%22%5Bstyle%5D%2C%20link%2C%20style%22)%2C%5B%5D.slice.call(n).forEach(function(e)%7B%22STYLE%22%3D%3D%3De.tagName%3F(t(e%2Ce.innerHTML)%2Ce.innerHTML%3D%22%22)%3A%22LINK%22%3D%3D%3De.tagName%3F(t(e%2C%22%22)%2Ce.disabled%3D%210)%3A(t(e%2Ce.style.cssText)%2Ce.style.cssText%3D%22%22)%7D))%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2FHurtak%2Ftoggle-css-bookmarklet%5CnBookmarklet%20name%3A%20Toggle%20Styles%5Cn%22)%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>
