@@ -107,10 +107,14 @@ function toWebFriendlyPath(path) {
 // Extract source URL from source code comments
 function extractSourceInfo(code) {
   // Look for Source: patterns in console.log statements
+  // Must be followed by a URL (http/https) or domain-like pattern
   const sourcePatterns = [
-    /Source:\s*(.+?)(?:\n|Bookmarklet name:|`)/i,
-    /"source:\s*([^"]+)"/i,
-    /'source:\s*([^']+)'/i,
+    // Match Source: followed by URL (in console.log or comments)
+    /Source:\s*(https?:\/\/[^\s\n`]+)/i,
+    // Match Source: followed by domain-like text (before newline, Bookmarklet name:, or backtick)
+    /Source:\s*([a-zA-Z0-9][a-zA-Z0-9-]*\.[^\s\n`]+?)(?=\s*(?:\n|Bookmarklet name:|`))/i,
+    // Match Description: followed by Source: URL pattern
+    /Description:\s*[^\n]*\n\s*(?:\/\/\s*)?Source:\s*(https?:\/\/[^\s\n]+)/i,
   ];
 
   for (const pattern of sourcePatterns) {
@@ -120,6 +124,8 @@ function extractSourceInfo(code) {
       // Clean up common patterns
       source = source.replace(/^original code at\s+/i, '');
       source = source.replace(/^inspired by\s+/i, '');
+      // Remove trailing punctuation
+      source = source.replace(/[.,;:]$/, '');
       return source;
     }
   }
