@@ -1,5 +1,6 @@
 javascript:(function() {
 	"use strict";
+// Description: Helper tools for VoiceOver screen reader testing
 
 	function addVoiceOverGuide() {
 		var modal = document.createElement("div");
@@ -147,6 +148,8 @@ javascript:(function() {
 })();
 
 console.log(`
-Source: original code at https://github.com/joelanman/voiceover-helper
+Source: https://github.com/pattespatte/public-bookmarklets
+Creator: patrik (pattespatte)
+Based on: https://github.com/joelanman/voiceover-helper
 Bookmarklet name: VoiceOver Helper
 `);
