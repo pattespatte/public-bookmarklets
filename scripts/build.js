@@ -255,7 +255,7 @@ function generateIndex(bookmarklets) {
       // Leaf level - output bookmark entries
       return items.map(b => {
         const parts = b.name.split(' / ');
-        const leafName = parts[parts.length - 1];
+        const leafName = parts[parts.length - 1].replace(/-min$/, '');
         let sourceLine = '';
         if (b.sourceUrl) {
           try {
@@ -290,7 +290,7 @@ function generateIndex(bookmarklets) {
         // Flat list of bookmarks at this level
         for (const b of groupItems.sort((a, b) => a.name.localeCompare(b.name))) {
           const parts = b.name.split(' / ');
-          const leafName = parts[parts.length - 1];
+          const leafName = parts[parts.length - 1].replace(/-min$/, '');
           let sourceLine = '';
           if (b.sourceUrl) {
             try {
@@ -435,7 +435,7 @@ function generateNetscapeBookmarkFile(bookmarklets, title) {
       // Leaf level - output bookmark entries with just the leaf name
       return items.map(b => {
         const parts = b.name.split(' / ');
-        const leafName = parts[parts.length - 1];
+        const leafName = parts[parts.length - 1].replace(/-min$/, '');
         return `				<DT><A HREF="${b.bookmarklet}" ADD_DATE="${timestamp}">${leafName}</A>`;
       }).join('\n');
     }
@@ -450,7 +450,7 @@ function generateNetscapeBookmarkFile(bookmarklets, title) {
         // Flat list of bookmarks - use leaf names
         for (const b of groupItems) {
           const parts = b.name.split(' / ');
-          const leafName = parts[parts.length - 1];
+          const leafName = parts[parts.length - 1].replace(/-min$/, '');
           result.push(`				<DT><A HREF="${b.bookmarklet}" ADD_DATE="${timestamp}">${leafName}</A>`);
         }
       } else {
