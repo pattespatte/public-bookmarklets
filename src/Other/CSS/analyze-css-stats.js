@@ -1,3 +1,4 @@
+// Description: Opens CSS stats analysis for the page
 (function () {
 	// Get the current page URL
 	var currentUrl = encodeURIComponent(window.location.href);
@@ -10,6 +11,6 @@
 })();
 
 console.log(`
-Source: inspired by https://raw.githubusercontent.com/DevBubba/Bookmarklets/main/Tools/CSSstats.js
+Source: https://github.com/cssstats/cssstats
 Bookmarklet name: Analyze CSS Stats
 `);
