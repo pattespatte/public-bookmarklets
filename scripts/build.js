@@ -267,20 +267,85 @@ function generateIndex(bookmarklets) {
 // Generate Netscape Bookmark file format (importable by browsers)
 function generateNetscapeBookmarkFile(bookmarklets, title) {
   const timestamp = Math.floor(Date.now() / 1000);
-  const entries = bookmarklets.map(b =>
-    `    <DT><A HREF="${b.bookmarklet}" ADD_DATE="${timestamp}">${b.name}</A>`
-  ).join('\n');
+
+  // Group bookmarklets by their category path (e.g., "Accessibility / A11Y Tools")
+  function groupByPath(items, level = 0) {
+    const groups = {};
+
+    for (const item of items) {
+      const parts = item.name.split(' / ');
+      if (parts.length > level) {
+        const key = parts[level];
+        if (!groups[key]) {
+          groups[key] = [];
+        }
+        groups[key].push(item);
+      }
+    }
+
+    return groups;
+  }
+
+  // Recursively build nested DL structure
+  function buildNestedStructure(items, level = 0) {
+    const groups = groupByPath(items, level);
+
+    if (Object.keys(groups).length === 0) {
+      // Leaf level - output bookmark entries with just the leaf name
+      return items.map(b => {
+        const parts = b.name.split(' / ');
+        const leafName = parts[parts.length - 1];
+        return `				<DT><A HREF="${b.bookmarklet}" ADD_DATE="${timestamp}">${leafName}</A>`;
+      }).join('\n');
+    }
+
+    // Has subgroups - create folders
+    const result = [];
+    for (const [groupName, groupItems] of Object.entries(groups)) {
+      const groupParts = groupItems[0].name.split(' / ');
+      const hasNested = level + 1 < groupParts.length;
+
+      if (!hasNested) {
+        // Flat list of bookmarks - use leaf names
+        for (const b of groupItems) {
+          const parts = b.name.split(' / ');
+          const leafName = parts[parts.length - 1];
+          result.push(`				<DT><A HREF="${b.bookmarklet}" ADD_DATE="${timestamp}">${leafName}</A>`);
+        }
+      } else {
+        // Nested folder structure
+        const subContent = buildNestedStructure(groupItems, level + 1);
+        result.push(`			<DT>
+				<H3 ADD_DATE="${timestamp}">${groupName}</H3>
+				<DL>
+${subContent}
+				</DL>`);
+      }
+    }
+
+    return result.join('\n');
+  }
+
+  const entries = buildNestedStructure(bookmarklets);
 
   return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file.
      It will be read and overwritten.
      DO NOT EDIT! -->
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-<TITLE>${title}</TITLE>
+<script src="https://cdn.jsdelivr.net/npm/bookmark-file-prettify/dist/bundle.js"></script>
+<TITLE>Bookmarks</TITLE>
 <H1>Bookmarks</H1>
-<DL><p>
+<DL>
+	<p>
+		<DT>
+			<H3 ADD_DATE="${timestamp}" LAST_MODIFIED="${timestamp}">${title}</H3>
+			<DL>
 ${entries}
-</DL><p>
+			</DL>
+		</DT>
+	</p>
+</DL>
 `;
 }
 

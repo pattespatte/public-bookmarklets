@@ -50,3 +50,24 @@ void 0;
 1. **Minify**: `terser` (JS), `html-minifier-terser` (HTML), `lightningcss` (CSS)
 2. **Prefix**: Add `javascript:`
 3. **Encode**: URI encode special chars (`%` `%25`, `"` `%22`, `<` `%3C`, `>` `%3E`, `#` `%23`)
+
+**Primary Goals:**
+
+- Organize existing bookmarklets with source control
+- Create reusable patterns and utilities
+- Maintain both readable source and production-ready encoded versions
+- Document usage and compatibility
+
+**Development Tools:**
+
+- Claude Code / glmcode for AI-assisted development
+- Local testing via browser DevTools
+- External minification services for production builds
+
+**Reference Resources:**
+
+- MSDN Bookmarklet Reference - <https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa753582(v=vs.85)>
+- Bookmarklet Maker - <https://caiorss.github.io/bookmarklet-maker/>
+- Toptal JS Minifier - <https://www.toptal.com/developers/javascript-minifier>
+- HTML Minifier - <https://kangax.github.io/html-minifier/>
+- Lightning CSS - <https://lightningcss.dev/playground/>
