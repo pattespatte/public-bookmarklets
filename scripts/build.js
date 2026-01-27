@@ -132,6 +132,16 @@ function extractSourceInfo(code) {
   return null;
 }
 
+// Extract description from source code comments
+function extractDescription(code) {
+  // Match // Description: ... pattern
+  const match = code.match(/\/\/ Description:\s*(.+?)(?:\r?\n|$)/);
+  if (match && match[1]) {
+    return match[1].trim();
+  }
+  return null;
+}
+
 // Build a single bookmarklet
 async function buildBookmarklet(srcPath, displayName, relPath) {
   if (!existsSync(srcPath)) {
@@ -143,8 +153,9 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
 
   let code = readFileSync(srcPath, 'utf-8');
 
-  // Extract source info before minification
+  // Extract source info and description before minification
   const sourceUrl = extractSourceInfo(code);
+  const description = extractDescription(code);
 
   // Process embedded HTML (marked with /* HTML */)
   const htmlMatches = code.match(/\/\*\s*HTML\s*\*\/\s*`([^`]+)`/g);
@@ -198,11 +209,13 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
     }
     .back-link { margin-top: 1rem; display: inline-block; color: #0066cc; text-decoration: none; }
     .back-link:hover { text-decoration: underline; }
+    .description { color: #666; font-size: 1rem; margin-bottom: 1rem; line-height: 1.5; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>${displayName}</h1>
+    ${description ? `<p class="description">${description}</p>` : ''}
     <a href="${bookmarklet}" class="bookmarklet">Run ${leafName}</a>
     <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
     <div class="code">${bookmarklet}</div>
