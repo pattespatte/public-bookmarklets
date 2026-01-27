@@ -1,3 +1,4 @@
+// Description: Blurs the page like looking through glasses
 javascript: (function () {
 	const id = 'blur-toggle-snippet';
 	let existingElement = document.getElementById(id);
@@ -66,6 +67,6 @@ javascript: (function () {
 })();
 
 console.log(`
-Source: original code at https://gist.github.com/Explosion-Scratch/c853c40e4c4c0b7ad74f7d8644c238ba#glasses
+Source: https://gist.github.com/Explosion-Scratch/c853c40e4c4c0b7ad74f7d8644c238ba#glasses
 Bookmarklet name: Glasses (blur a page)
 `);
