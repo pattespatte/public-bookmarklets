@@ -1,4 +1,5 @@
 // Remove blocking elements from ASUS router login page
+// Description: Unblocks ASUS router login page
 (function () {
 	'use strict';
 

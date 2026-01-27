@@ -1,3 +1,4 @@
+// Description: Copies selected text as Markdown using Turndown
 javascript: (function () {
 	/* Check if text is selected */
 	var selection = window.getSelection();

@@ -1,3 +1,4 @@
+// Description: Disables all CSS on the page
 javascript: (function () {
 	let cssDisabled = true; // Set the initial state to true (CSS disabled)
 	const button = document.createElement('button');

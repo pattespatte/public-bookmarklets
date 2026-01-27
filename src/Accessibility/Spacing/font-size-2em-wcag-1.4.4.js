@@ -1,3 +1,4 @@
+// Description: Sets font size to 200% to test WCAG 1.4.4 reflow
 (function () {
 	// Check if the script has already been injected
 	if (document.getElementById('text-zoom-toggle')) return;

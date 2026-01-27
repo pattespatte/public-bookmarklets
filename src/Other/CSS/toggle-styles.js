@@ -1,3 +1,4 @@
+// Description: Toggles page CSS on/off
 (function () {
 	'use strict';
 

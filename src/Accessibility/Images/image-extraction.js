@@ -1,3 +1,4 @@
+// Description: Lists all images on the page with their sources
 javascript: {
 	let e = [],
 		t = /url\([ \t]*['"`]\x3f([^\)'"`]+)['"`]\x3f[ \t]*\)/,

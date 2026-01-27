@@ -1,3 +1,4 @@
+// Description: Remove Colors bookmarklet
 (function() {
 	var newSS, styles = '* { background: white !important; color: black !important } :link, :link * { color: #00e !important } :visited, :visited * { color: #551a8b !important }';
 	if (document.createStyleSheet) {

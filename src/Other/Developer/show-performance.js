@@ -1,3 +1,4 @@
+// Description: Shows page performance metrics
 (function () {
 	var el = document.createElement("script");
 	el.type = "text/javascript";

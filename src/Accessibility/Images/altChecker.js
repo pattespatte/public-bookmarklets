@@ -1,3 +1,4 @@
+// Description: AltChecker bookmarklet
 (function () {
 	'use strict';
 

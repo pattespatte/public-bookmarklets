@@ -1,3 +1,4 @@
+// Description: Lists all scripts loaded on the page
 (function () {
 	var s = document.getElementsByTagName("SCRIPT");
 	var tx = "";

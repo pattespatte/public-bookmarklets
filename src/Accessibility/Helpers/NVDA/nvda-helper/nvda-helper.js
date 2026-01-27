@@ -3,6 +3,7 @@
  * Author: Patrik (pattespatte)
  * License: MIT
  */
+// Description: Helper tools for NVDA screen reader testing
 (function () {
 	"use strict";
 

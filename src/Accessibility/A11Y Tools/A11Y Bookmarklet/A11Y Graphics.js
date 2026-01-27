@@ -1,3 +1,4 @@
+// Description: A11Y Graphics bookmarklet
 (function () {
 	/* From https://github.com/metageeky/accessibility-bookmarklet by metageeky. Mozilla Public License Version 2.0 */ function b() {
 		loadingNotice(

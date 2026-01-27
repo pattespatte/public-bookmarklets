@@ -1,3 +1,4 @@
+// Description: Opens Deque/W3C validator for the current page
 (function () {
 	var doctypeNode = document.doctype;
 	var doctypeHtml =

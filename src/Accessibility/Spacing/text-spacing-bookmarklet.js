@@ -6,6 +6,7 @@ javascript:(function() {
 	var i = 0, l = iframes.length;
 
 	// Function to remove styles from shadow DOMs recursively
+// Description: Tests text spacing requirements (WCAG 1.4.12)
 	function removeFromShadows(root) {
 		for (var el of root.querySelectorAll('*')) {
 			if (el.shadowRoot) {

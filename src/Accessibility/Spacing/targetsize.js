@@ -1,4 +1,5 @@
 // Self-invoking function to prevent polluting the global namespace
+// Description: Checks touch target sizes against WCAG guidelines
 (function () {
 	// Function to get the center of an element
 	function getCenter(el) {

@@ -1,3 +1,4 @@
+// Description: Shows Google Analytics tracking code on the page
 !(function () {
 	let e = (function e() {
 		let t = document.getElementsByTagName("script"),

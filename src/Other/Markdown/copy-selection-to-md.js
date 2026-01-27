@@ -1,3 +1,4 @@
+// Description: Copies selected text as Markdown
 javascript: (function () {
 	var selection = window.getSelection();
 	if (!selection.toString()) {

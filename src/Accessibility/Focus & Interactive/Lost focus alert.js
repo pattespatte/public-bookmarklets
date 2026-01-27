@@ -1,3 +1,4 @@
+// Description: Lost focus alert bookmarklet
 (function () {
 	console.log("Tracking focus loss now ------------------------------------");
 	const focusableThings = document.querySelectorAll('a[href],button,select,input:not([type="hidden"]),textarea,summary,area,[tabindex],[contenteditable]:not([contenteditable="false"])');

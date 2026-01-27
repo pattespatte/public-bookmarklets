@@ -1,3 +1,4 @@
+// Description: Lists ARIA landmarks on the page
 javascript: (function () {
 	const selectors = [
 		'header', 'nav', 'main', 'aside', 'footer', 'section',

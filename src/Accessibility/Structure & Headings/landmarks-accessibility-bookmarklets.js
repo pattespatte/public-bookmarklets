@@ -1,5 +1,6 @@
 if (window.a11yLandmarks) window.a11yLandmarks.run();
 else {
+// Description: Comprehensive landmark and accessibility checker
 	(function () {
 		var link = document.createElement("link");
 		link.rel = "stylesheet";

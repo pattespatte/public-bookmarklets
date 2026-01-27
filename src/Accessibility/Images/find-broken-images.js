@@ -1,3 +1,4 @@
+// Description: Highlights images with broken src attributes
 (function () {
 	const images = document.images;
 	let brokenCount = 0;

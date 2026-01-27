@@ -1,3 +1,4 @@
+// Description: Check required fields on this page  w3c bookmarklet
 void function () {
 	document.querySelectorAll("#wai-styles,#wai-info-box,.required-span").forEach(function (a) {
 		a.remove()

@@ -1,3 +1,4 @@
+// Description: Lists all links with their accessible names
 (function () {
 	'use strict'
 	function listLinks() {

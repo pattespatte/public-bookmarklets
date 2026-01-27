@@ -1,3 +1,4 @@
+// Description: Checks form fields for proper labels
 (function () {
 	try {
 		// Remove existing labels and styles

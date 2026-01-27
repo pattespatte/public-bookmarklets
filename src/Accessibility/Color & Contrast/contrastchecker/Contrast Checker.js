@@ -1,3 +1,4 @@
+// Description: Contrast Checker bookmarklet
 (function(){
 	var constrastletelem = document.getElementById("contrastletdragable");
 	if (constrastletelem == null) {

@@ -5,6 +5,7 @@
  */
 javascript:(function() {
 	"use strict";
+// Description: Helper tools for JAWS screen reader testing
 
 	function addJAWSGuide() {
 		var modal = document.createElement("div");

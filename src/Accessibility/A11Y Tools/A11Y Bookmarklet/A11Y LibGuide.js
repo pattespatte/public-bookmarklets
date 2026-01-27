@@ -1,3 +1,4 @@
+// Description: A11Y LibGuide bookmarklet
 (function () {
 	/* From https://github.com/metageeky/accessibility-bookmarklet by metageeky. Mozilla Public License Version 2.0 */ function a11yStartup() {
 		loadingNotice("A11Y Reporter is loading...<br>Refresh page to cancel");
