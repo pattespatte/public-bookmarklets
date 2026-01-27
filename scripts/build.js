@@ -104,6 +104,28 @@ function toWebFriendlyPath(path) {
   return path.split(sep).map(part => toWebFriendlyName(part)).join('/');
 }
 
+// Extract source URL from source code comments
+function extractSourceInfo(code) {
+  // Look for Source: patterns in console.log statements
+  const sourcePatterns = [
+    /Source:\s*(.+?)(?:\n|Bookmarklet name:|`)/i,
+    /"source:\s*([^"]+)"/i,
+    /'source:\s*([^']+)'/i,
+  ];
+
+  for (const pattern of sourcePatterns) {
+    const match = code.match(pattern);
+    if (match && match[1]) {
+      let source = match[1].trim();
+      // Clean up common patterns
+      source = source.replace(/^original code at\s+/i, '');
+      source = source.replace(/^inspired by\s+/i, '');
+      return source;
+    }
+  }
+  return null;
+}
+
 // Build a single bookmarklet
 async function buildBookmarklet(srcPath, displayName, relPath) {
   if (!existsSync(srcPath)) {
@@ -114,6 +136,9 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
   console.log(`Building ${displayName}...`);
 
   let code = readFileSync(srcPath, 'utf-8');
+
+  // Extract source info before minification
+  const sourceUrl = extractSourceInfo(code);
 
   // Process embedded HTML (marked with /* HTML */)
   const htmlMatches = code.match(/\/\*\s*HTML\s*\*\/\s*`([^`]+)`/g);
@@ -195,7 +220,7 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
 
   console.log(`  ✓ ${fileName}.html -> ${bookmarklet.length} bytes`);
 
-  return { name: displayName, bookmarklet, size: bookmarklet.length, fileName, path: `${fileName}.html` };
+  return { name: displayName, bookmarklet, size: bookmarklet.length, fileName, path: `${fileName}.html`, sourceUrl };
 }
 
 // Generate index.html with all bookmarklets
@@ -225,11 +250,22 @@ function generateIndex(bookmarklets) {
       return items.map(b => {
         const parts = b.name.split(' / ');
         const leafName = parts[parts.length - 1];
+        let sourceLine = '';
+        if (b.sourceUrl) {
+          try {
+            const url = new URL(b.sourceUrl);
+            const hostname = url.hostname.replace('www.', '');
+            sourceLine = `<small class="source-link">Source: <a href="${b.sourceUrl}" target="_blank" rel="noopener">${hostname}</a></small>`;
+          } catch {
+            sourceLine = `<small class="source-link">Source: ${b.sourceUrl}</small>`;
+          }
+        }
         return `
               <div class="bookmarklet-item">
                 <div class="bookmarklet-info">
                   <strong>${leafName}</strong>
                   <small style="display:block;color:#666;margin-top:4px;">${b.size} bytes</small>
+                  ${sourceLine}
                 </div>
                 <div class="bookmarklet-actions">
                   <a href="${b.path}" class="bookmarklet-link">View</a>
@@ -250,11 +286,22 @@ function generateIndex(bookmarklets) {
         for (const b of groupItems.sort((a, b) => a.name.localeCompare(b.name))) {
           const parts = b.name.split(' / ');
           const leafName = parts[parts.length - 1];
+          let sourceLine = '';
+          if (b.sourceUrl) {
+            try {
+              const url = new URL(b.sourceUrl);
+              const hostname = url.hostname.replace('www.', '');
+              sourceLine = `<small class="source-link">Source: <a href="${b.sourceUrl}" target="_blank" rel="noopener">${hostname}</a></small>`;
+            } catch {
+              sourceLine = `<small class="source-link">Source: ${b.sourceUrl}</small>`;
+            }
+          }
           result.push(`
               <div class="bookmarklet-item">
                 <div class="bookmarklet-info">
                   <strong>${leafName}</strong>
                   <small style="display:block;color:#666;margin-top:4px;">${b.size} bytes</small>
+                  ${sourceLine}
                 </div>
                 <div class="bookmarklet-actions">
                   <a href="${b.path}" class="bookmarklet-link">View</a>
@@ -311,6 +358,9 @@ ${subContent}
     .bookmarklet-actions { display: flex; gap: 8px; flex-shrink: 0; }
     .bookmarklet-link { display: inline-block; padding: 8px 16px; background: #0066cc; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.2s; white-space: nowrap; cursor: pointer; font-size: 14px; }
     .bookmarklet-link:hover { background: #0052a3; }
+    .source-link { display: block; margin-top: 4px; color: #888; font-size: 12px; }
+    .source-link a { color: #888; text-decoration: none; }
+    .source-link a:hover { text-decoration: underline; color: #0066cc; }
     .footer { text-align: center; margin-top: 20px; color: #666; opacity: 0.8; }
     code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
     @media (max-width: 600px) {
