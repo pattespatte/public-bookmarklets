@@ -18,7 +18,14 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(open http://localhost:8080)",
+      "Bash(tail:*)",
+      "mcp__vision-mcp-server__analyze_image",
+      "Bash(xxd:*)",
+      "Bash(find:*)",
+      "WebSearch",
+      "mcp__zread__search_doc"
     ]
   }
 }
