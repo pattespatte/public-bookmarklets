@@ -148,8 +148,6 @@ javascript:(function() {
 })();
 
 console.log(`
-Source: https://github.com/pattespatte/public-bookmarklets
-Creator: patrik (pattespatte)
-Based on: https://github.com/joelanman/voiceover-helper
+Source: https://github.com/joelanman/voiceover-helper
 Bookmarklet name: VoiceOver Helper
 `);
