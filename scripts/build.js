@@ -144,6 +144,9 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
   const depth = pathParts.length - 1;
   const backPath = depth > 0 ? '../'.repeat(depth) + 'index.html' : 'index.html';
 
+  // Get leaf name for button (last part of display name)
+  const leafName = displayName.split(' / ').pop();
+
   // Write to dist as .html (for drag-and-drop)
   const htmlOutput = `<!DOCTYPE html>
 <html lang="en">
@@ -169,7 +172,7 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
 <body>
   <div class="container">
     <h1>${displayName}</h1>
-    <a href="${bookmarklet}" class="bookmarklet">Run ${displayName}</a>
+    <a href="${bookmarklet}" class="bookmarklet">Run ${leafName}</a>
     <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
     <div class="code">${bookmarklet}</div>
     <a href="${backPath}" class="back-link">← Back to all bookmarklets</a>
@@ -197,15 +200,86 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
 
 // Generate index.html with all bookmarklets
 function generateIndex(bookmarklets) {
-  const bookmarkletList = bookmarklets.map(b => `
-        <li class="bookmarklet-item">
-          <div>
-            <strong>${b.name}</strong>
-            <small style="display:block;color:#666;margin-top:4px;">${b.size} bytes</small>
-          </div>
-          <a href="${b.path}" class="bookmarklet-link">View</a>
-          <a href="${b.bookmarklet}" class="bookmarklet-link" style="margin-left: 8px;">Run</a>
-        </li>`).join('');
+  // Group bookmarklets by their path hierarchy
+  function groupByPath(items, level = 0) {
+    const groups = {};
+    for (const item of items) {
+      const parts = item.name.split(' / ');
+      if (parts.length > level) {
+        const key = parts[level];
+        if (!groups[key]) {
+          groups[key] = [];
+        }
+        groups[key].push(item);
+      }
+    }
+    return groups;
+  }
+
+  // Recursively build nested HTML structure
+  function buildNestedHTML(items, level = 0) {
+    const groups = groupByPath(items, level);
+
+    if (Object.keys(groups).length === 0) {
+      // Leaf level - output bookmark entries
+      return items.map(b => {
+        const parts = b.name.split(' / ');
+        const leafName = parts[parts.length - 1];
+        return `
+              <div class="bookmarklet-item">
+                <div class="bookmarklet-info">
+                  <strong>${leafName}</strong>
+                  <small style="display:block;color:#666;margin-top:4px;">${b.size} bytes</small>
+                </div>
+                <div class="bookmarklet-actions">
+                  <a href="${b.path}" class="bookmarklet-link">View</a>
+                  <a href="${b.bookmarklet}" class="bookmarklet-link">Run</a>
+                </div>
+              </div>`;
+      }).join('');
+    }
+
+    // Has subgroups - create sections with headings
+    const result = [];
+    for (const [groupName, groupItems] of Object.entries(groups).sort()) {
+      const groupParts = groupItems[0].name.split(' / ');
+      const hasNested = level + 1 < groupParts.length;
+
+      if (!hasNested) {
+        // Flat list of bookmarks at this level
+        for (const b of groupItems.sort((a, b) => a.name.localeCompare(b.name))) {
+          const parts = b.name.split(' / ');
+          const leafName = parts[parts.length - 1];
+          result.push(`
+              <div class="bookmarklet-item">
+                <div class="bookmarklet-info">
+                  <strong>${leafName}</strong>
+                  <small style="display:block;color:#666;margin-top:4px;">${b.size} bytes</small>
+                </div>
+                <div class="bookmarklet-actions">
+                  <a href="${b.path}" class="bookmarklet-link">View</a>
+                  <a href="${b.bookmarklet}" class="bookmarklet-link">Run</a>
+                </div>
+              </div>`);
+        }
+      } else {
+        // Nested section with heading
+        const headingLevel = Math.min(level + 2, 6); // Start at h2, max h6
+        const subContent = buildNestedHTML(groupItems, level + 1);
+        result.push(`
+          <section class="category-section">
+            <h${headingLevel} class="category-heading">${groupName}</h${headingLevel}>
+            <div class="category-content">
+${subContent}
+            </div>
+          </section>`);
+      }
+    }
+
+    return result.join('');
+  }
+
+  const content = buildNestedHTML(bookmarklets);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -216,7 +290,7 @@ function generateIndex(bookmarklets) {
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #333; background: #f5f5f5; min-height: 100vh; padding: 20px; }
-    .container { max-width: 800px; margin: 0 auto; }
+    .container { max-width: 900px; margin: 0 auto; }
     header { text-align: center; color: #333; margin-bottom: 40px; }
     h1 { font-size: 2.5rem; margin-bottom: 10px; }
     .subtitle { opacity: 0.7; font-size: 1.1rem; }
@@ -224,13 +298,25 @@ function generateIndex(bookmarklets) {
     .instructions { background: #f8f9fa; border-left: 4px solid #0066cc; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
     .instructions ol { margin-left: 20px; }
     .instructions li { margin-bottom: 8px; }
-    .bookmarklet-list { list-style: none; }
-    .bookmarklet-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 10px; transition: box-shadow 0.2s; }
-    .bookmarklet-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .bookmarklet-link { display: inline-block; padding: 10px 20px; background: #0066cc; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.2s; white-space: nowrap; cursor: pointer; }
+    .category-section { margin-bottom: 30px; }
+    .category-section:last-child { margin-bottom: 0; }
+    .category-heading { font-size: 1.5rem; margin: 25px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #e0e0e0; color: #333; }
+    .category-section .category-section .category-heading { font-size: 1.3rem; margin: 20px 0 12px; border-bottom: 1px solid #e8e8e8; color: #444; }
+    .category-section .category-section .category-section .category-heading { font-size: 1.15rem; margin: 15px 0 10px; border-bottom: 1px solid #f0f0f0; color: #555; }
+    .category-section .category-section .category-section .category-section .category-heading { font-size: 1.05rem; margin: 12px 0 8px; border-bottom: none; color: #666; }
+    .category-content { margin-left: 15px; }
+    .bookmarklet-item { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 15px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 8px; transition: box-shadow 0.2s, background 0.2s; }
+    .bookmarklet-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #fafafa; }
+    .bookmarklet-info { flex: 1; min-width: 0; }
+    .bookmarklet-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .bookmarklet-link { display: inline-block; padding: 8px 16px; background: #0066cc; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.2s; white-space: nowrap; cursor: pointer; font-size: 14px; }
     .bookmarklet-link:hover { background: #0052a3; }
     .footer { text-align: center; margin-top: 20px; color: #666; opacity: 0.8; }
     code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+    @media (max-width: 600px) {
+      .bookmarklet-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .bookmarklet-link { width: 100%; text-align: center; margin: 0 !important; }
+    }
   </style>
 </head>
 <body>
@@ -251,13 +337,11 @@ function generateIndex(bookmarklets) {
       </div>
 
       <h2 style="margin-bottom:15px;">Available Bookmarklets (${bookmarklets.length})</h2>
-      <ul class="bookmarklet-list">
-        ${bookmarkletList || '<li class="empty-state">No bookmarklets built yet. Run <code>npm run build</code></li>'}
-      </ul>
+${content || '<p class="empty-state">No bookmarklets built yet. Run <code>npm run build</code></p>'}
     </div>
 
     <div class="footer">
-      <p>Built with <a href="https://github.com" style="color:white;">Bookmarklet Manager</a></p>
+      <p>Built with <a href="https://github.com" style="color:#0066cc;">Bookmarklet Manager</a></p>
     </div>
   </div>
 </body>
