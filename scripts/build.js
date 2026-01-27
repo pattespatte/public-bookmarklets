@@ -269,12 +269,11 @@ function generateIndex(bookmarklets) {
         return `
               <div class="bookmarklet-item">
                 <div class="bookmarklet-info">
-                  <strong>${leafName}</strong>
+                  <a href="${b.path}"><strong>${leafName}</strong></a>
                   <small style="display:block;color:#666;margin-top:4px;">${b.size} bytes</small>
                   ${sourceLine}
                 </div>
                 <div class="bookmarklet-actions">
-                  <a href="${b.path}" class="bookmarklet-link">View</a>
                   <a href="${b.bookmarklet}" class="bookmarklet-link">Run</a>
                 </div>
               </div>`;
@@ -305,12 +304,11 @@ function generateIndex(bookmarklets) {
           result.push(`
               <div class="bookmarklet-item">
                 <div class="bookmarklet-info">
-                  <strong>${leafName}</strong>
+                  <a href="${b.path}"><strong>${leafName}</strong></a>
                   <small style="display:block;color:#666;margin-top:4px;">${b.size} bytes</small>
                   ${sourceLine}
                 </div>
                 <div class="bookmarklet-actions">
-                  <a href="${b.path}" class="bookmarklet-link">View</a>
                   <a href="${b.bookmarklet}" class="bookmarklet-link">Run</a>
                 </div>
               </div>`);
@@ -361,6 +359,9 @@ ${subContent}
     .bookmarklet-item { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 15px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 8px; transition: box-shadow 0.2s, background 0.2s; }
     .bookmarklet-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #fafafa; }
     .bookmarklet-info { flex: 1; min-width: 0; }
+    .bookmarklet-info > a { text-decoration: none; color: inherit; transition: color 0.2s; }
+    .bookmarklet-info > a:hover { color: #0066cc; }
+    .bookmarklet-info > a strong { pointer-events: none; }
     .bookmarklet-actions { display: flex; gap: 8px; flex-shrink: 0; }
     .bookmarklet-link { display: inline-block; padding: 8px 16px; background: #0066cc; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.2s; white-space: nowrap; cursor: pointer; font-size: 14px; }
     .bookmarklet-link:hover { background: #0052a3; }
