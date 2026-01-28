@@ -104,6 +104,95 @@ function toWebFriendlyPath(path) {
   return path.split(sep).map(part => toWebFriendlyName(part)).join('/');
 }
 
+// Convert kebab-case to Title Case with special handling for acronyms
+function toTitleCase(name) {
+  // Multi-word special cases (must be applied first, before splitting)
+  const multiWordCases = [
+    { from: 'wai-aria', to: 'WAI-ARIA' },
+    { from: 'voiceover-helper', to: 'VoiceOver Helper' },
+    { from: 'lib-guide', to: 'LibGuide' },
+    { from: 'check-language-on-this-page--w3c', to: 'Check Language on This Page W3C' },
+    { from: 'check-required-fields-on-this-page--w3c', to: 'Check Required Fields on This Page W3C' },
+  ];
+
+  // Check multi-word cases first (before any processing)
+  const lowerName = name.toLowerCase();
+  for (const { from, to } of multiWordCases) {
+    if (lowerName === from) {
+      return to;
+    }
+  }
+
+  // Single-word special cases
+  const specialCases = {
+    'jaws': 'JAWS',
+    'nvda': 'NVDA',
+    'wcag': 'WCAG',
+    'voiceover': 'VoiceOver',
+    'xhtml': 'XHTML',
+    'w3c': 'W3C',
+    'css': 'CSS',
+    'css21': 'CSS21',
+    'css3svg': 'CSS3SVG',
+    'ga': 'GA',
+    'md': 'MD',
+    'a11y': 'A11Y',
+    'lib': 'Lib',
+    'guide': 'Guide',
+    'targetsize': 'Target Size',
+    'contrastchecker': 'Contrast Checker',
+    'urls': 'URLs',
+    'asusrouter': 'Asus Router',
+    'asus': 'Asus',
+    'router': 'Router',
+  };
+
+  // Pattern-based replacements (for compound patterns like css21)
+  const patternCases = [
+    { pattern: /^css(\d+)$/, replacement: 'CSS$1' },
+    { pattern: /^css(.+)svg$/, replacement: 'CSS$1SVG' },
+  ];
+
+  // First, handle camelCase by inserting hyphens before uppercase letters
+  let result = name.replace(/([a-z])([A-Z])/g, '$1-$2');
+
+  // Convert to lowercase first, then split by hyphens AND spaces
+  const words = result.toLowerCase().split(/[\s-]+/);
+
+  // Process each word
+  result = words.map(word => {
+    // Check if it's a special case
+    if (specialCases[word]) {
+      return specialCases[word];
+    }
+    // Check pattern-based cases
+    for (const { pattern, replacement } of patternCases) {
+      if (pattern.test(word)) {
+        return word.replace(pattern, replacement);
+      }
+    }
+    // Otherwise capitalize first letter
+    if (word.length > 0) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+    return word;
+  }).join(' ');
+
+  // Clean up any double spaces
+  result = result.replace(/\s+/g, ' ').trim();
+
+  // Post-process specific patterns
+  const postProcessCases = [
+    { from: 'Lib Guide', to: 'LibGuide' },
+    { from: 'Voice Over', to: 'VoiceOver' },
+  ];
+  for (const { from, to } of postProcessCases) {
+    result = result.replace(from, to);
+  }
+
+  return result;
+}
+
 // Extract source URL from source code comments
 function extractSourceInfo(code) {
   // Look for Source: patterns in console.log statements
@@ -268,7 +357,7 @@ function generateIndex(bookmarklets) {
       // Leaf level - output bookmark entries
       return items.map(b => {
         const parts = b.name.split(' / ');
-        const leafName = parts[parts.length - 1].replace(/-min$/, '');
+        const leafName = toTitleCase(parts[parts.length - 1].replace(/-min$/, ''));
         let sourceLine = '';
         if (b.sourceUrl) {
           try {
@@ -303,7 +392,7 @@ function generateIndex(bookmarklets) {
         // Flat list of bookmarks at this level
         for (const b of groupItems.sort((a, b) => a.name.localeCompare(b.name))) {
           const parts = b.name.split(' / ');
-          const leafName = parts[parts.length - 1].replace(/-min$/, '');
+          const leafName = toTitleCase(parts[parts.length - 1].replace(/-min$/, ''));
           let sourceLine = '';
           if (b.sourceUrl) {
             try {
@@ -448,7 +537,7 @@ function generateNetscapeBookmarkFile(bookmarklets, title) {
       // Leaf level - output bookmark entries with just the leaf name
       return items.map(b => {
         const parts = b.name.split(' / ');
-        const leafName = parts[parts.length - 1].replace(/-min$/, '');
+        const leafName = toTitleCase(parts[parts.length - 1].replace(/-min$/, ''));
         return `				<DT><A HREF="${b.bookmarklet}" ADD_DATE="${timestamp}">${leafName}</A>`;
       }).join('\n');
     }
@@ -463,14 +552,15 @@ function generateNetscapeBookmarkFile(bookmarklets, title) {
         // Flat list of bookmarks - use leaf names
         for (const b of groupItems) {
           const parts = b.name.split(' / ');
-          const leafName = parts[parts.length - 1].replace(/-min$/, '');
+          const leafName = toTitleCase(parts[parts.length - 1].replace(/-min$/, ''));
           result.push(`				<DT><A HREF="${b.bookmarklet}" ADD_DATE="${timestamp}">${leafName}</A>`);
         }
       } else {
         // Nested folder structure
         const subContent = buildNestedStructure(groupItems, level + 1);
+        const prettyGroupName = toTitleCase(groupName);
         result.push(`			<DT>
-				<H3 ADD_DATE="${timestamp}">${groupName}</H3>
+				<H3 ADD_DATE="${timestamp}">${prettyGroupName}</H3>
 				<DL>
 ${subContent}
 				</DL>`);
