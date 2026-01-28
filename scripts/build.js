@@ -631,6 +631,128 @@ function buildCollections(bookmarklets) {
   }
 
   console.log(`\n✓ Built ${collections.length} collection(s) to dist/collections/`);
+
+  // Generate collections index.html
+  generateCollectionsIndex(collections);
+}
+
+// Generate collections index.html
+function generateCollectionsIndex(collections) {
+  const allCollection = collections.find(c => c.name === 'all');
+  const accessibilityCollection = collections.find(c => c.name === 'accessibility');
+  const otherCollection = collections.find(c => c.name === 'other');
+
+  const indexContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmarklet Collections</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #333; background: #f5f5f5; min-height: 100vh; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { text-align: center; color: #333; margin-bottom: 40px; }
+    h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    .subtitle { opacity: 0.7; font-size: 1.1rem; }
+    .card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .instructions { background: #f8f9fa; border-left: 4px solid #0066cc; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+    .instructions ol { margin-left: 20px; }
+    .instructions li { margin-bottom: 8px; }
+    .collection-item { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 15px 20px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 12px; transition: box-shadow 0.2s, background 0.2s; }
+    .collection-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #fafafa; }
+    .collection-info { flex: 1; }
+    .collection-info a { text-decoration: none; color: inherit; font-size: 1.1rem; font-weight: 500; }
+    .collection-info a:hover { color: #0066cc; }
+    .collection-info p { margin-top: 5px; color: #666; font-size: 0.9rem; }
+    .collection-link { display: inline-block; padding: 10px 20px; background: #0066cc; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.2s; white-space: nowrap; }
+    .collection-link:hover { background: #0052a3; }
+    .footer { text-align: center; margin-top: 20px; color: #666; opacity: 0.8; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: #0066cc; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+    @media (max-width: 600px) {
+      .collection-item { flex-direction: column; align-items: stretch; gap: 12px; }
+      .collection-link { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">← Back to all bookmarklets</a>
+
+    <header>
+      <h1>📦 Bookmarklet Collections</h1>
+      <p class="subtitle">Import multiple bookmarklets at once</p>
+    </header>
+
+    <div class="card">
+      <h2>How to Import Collections</h2>
+
+      <h3 style="margin: 20px 0 10px; font-size: 1.1rem;">Edge</h3>
+      <div class="instructions">
+        <ol>
+          <li><strong>Download</strong> a collection file by clicking the "Download" button below</li>
+          <li><strong>Open</strong> <code>edge://settings/importData</code> in Edge</li>
+          <li>Select <strong>"Favorites or Bookmarks HTML File"</strong> from the import options</li>
+          <li><strong>Choose</strong> the downloaded HTML file</li>
+        </ol>
+      </div>
+
+      <h3 style="margin: 20px 0 10px; font-size: 1.1rem;">Chrome</h3>
+      <div class="instructions">
+        <ol>
+          <li><strong>Download</strong> a collection file by clicking the "Download" button below</li>
+          <li><strong>Open</strong> <code>chrome://settings/importData</code> in Chrome</li>
+          <li>Select <strong>"Bookmarks HTML File"</strong> from the import options</li>
+          <li><strong>Choose</strong> the downloaded HTML file</li>
+        </ol>
+      </div>
+
+      <h2 style="margin-bottom:15px;">Available Collections</h2>
+
+${allCollection ? `
+      <div class="collection-item">
+        <div class="collection-info">
+          <a href="bookmarklets-${allCollection.name}.html">All Bookmarklets</a>
+          <p>Complete collection of all ${allCollection.bookmarklets.length} bookmarklets</p>
+        </div>
+        <a href="bookmarklets-${allCollection.name}.html" download class="collection-link">Download</a>
+      </div>
+` : ''}
+
+${accessibilityCollection ? `
+      <div class="collection-item">
+        <div class="collection-info">
+          <a href="bookmarklets-${accessibilityCollection.name}.html">Accessibility Bookmarklets</a>
+          <p>${accessibilityCollection.bookmarklets.length} accessibility testing and diagnostic tools</p>
+        </div>
+        <a href="bookmarklets-${accessibilityCollection.name}.html" download class="collection-link">Download</a>
+      </div>
+` : ''}
+
+${otherCollection ? `
+      <div class="collection-item">
+        <div class="collection-info">
+          <a href="bookmarklets-${otherCollection.name}.html">Other Bookmarklets</a>
+          <p>${otherCollection.bookmarklets.length} general utility and developer tools</p>
+        </div>
+        <a href="bookmarklets-${otherCollection.name}.html" download class="collection-link">Download</a>
+      </div>
+` : ''}
+
+    </div>
+
+    <div class="footer">
+      <p><a href="../index.html">← Back to individual bookmarklets</a></p>
+    </div>
+  </div>
+</body>
+</html>
+`;
+
+  writeFileSync(join(COLLECTIONS_DIR, 'index.html'), indexContent);
+  console.log(`  ✓ collections/index.html`);
 }
 
 // Main build function
