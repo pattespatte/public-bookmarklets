@@ -2,6 +2,9 @@
 src/_private/
 dist/_private/
 
+# Build artifacts (optional - keep dist/ but exclude private)
+# dist/
+
 # Collections
 dist/collections/
 
@@ -23,9 +26,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Build artifacts (optional - keep dist/ but exclude private)
-# dist/
-
 # IDE/editor files
 .vscode/
 .idea/
@@ -33,5 +33,6 @@ yarn-error.log*
 *.swo
 *~
 
-# Playwright screenshots
+# Local settings and temp files
+.claude/settings.local.json
 .playwright-mcp/
