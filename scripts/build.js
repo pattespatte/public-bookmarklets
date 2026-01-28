@@ -495,6 +495,10 @@ ${subContent}
         </ol>
       </div>
 
+      <p style="text-align:center;margin:20px 0;">
+        <a href="collections/index.html" style="color:#0066cc;text-decoration:none;font-weight:500;">📦 View Collections (Bulk Import)</a>
+      </p>
+
       <h2 style="margin-bottom:15px;">Available Bookmarklets (${bookmarklets.length})</h2>
 ${content || '<p class="empty-state">No bookmarklets built yet. Run <code>npm run build</code></p>'}
     </div>
