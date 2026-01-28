@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync, readdirSync, mkdirSync, writeFileSync, existsSync, statSync } from 'fs';
+import { readFileSync, readdirSync, mkdirSync, writeFileSync, existsSync, statSync, copyFileSync } from 'fs';
 import { join, dirname, relative, sep } from 'path';
 import { fileURLToPath } from 'url';
 import { minify as terserMinify } from 'terser';
@@ -11,6 +11,7 @@ const ROOT = join(__dirname, '..');
 const SRC_DIR = join(ROOT, 'src');
 const DIST_DIR = join(ROOT, 'dist');
 const COLLECTIONS_DIR = join(DIST_DIR, 'collections');
+const TEST_DIR = join(DIST_DIR, 'test');
 
 // Ensure dist directories exist
 if (!existsSync(DIST_DIR)) {
@@ -18,6 +19,9 @@ if (!existsSync(DIST_DIR)) {
 }
 if (!existsSync(COLLECTIONS_DIR)) {
   mkdirSync(COLLECTIONS_DIR, { recursive: true });
+}
+if (!existsSync(TEST_DIR)) {
+  mkdirSync(TEST_DIR, { recursive: true });
 }
 
 // Recursively find all .js files in directory
@@ -472,6 +476,11 @@ ${subContent}
     .source-link a:hover { text-decoration: underline; color: #0066cc; }
     .footer { text-align: center; margin-top: 20px; color: #666; opacity: 0.8; }
     code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+    .test-pages { margin: 20px 0; padding: 15px; background: #fff8e1; border-left: 4px solid #ffc107; border-radius: 4px; }
+    .test-pages h3 { margin: 0 0 10px; color: #f57c00; font-size: 1.1rem; }
+    .test-pages p { margin: 5px 0; color: #666; font-size: 14px; }
+    .test-pages a { color: #0066cc; text-decoration: none; font-weight: 500; }
+    .test-pages a:hover { text-decoration: underline; }
     @media (max-width: 600px) {
       .bookmarklet-item { flex-direction: column; align-items: flex-start; gap: 10px; }
       .bookmarklet-link { width: 100%; text-align: center; margin: 0 !important; }
@@ -498,6 +507,11 @@ ${subContent}
       <p style="text-align:center;margin:20px 0;">
         <a href="collections/index.html" style="color:#0066cc;text-decoration:none;font-weight:500;">📦 View Collections (Bulk Import)</a>
       </p>
+
+      <div class="test-pages">
+        <h3>🧪 Test Page</h3>
+        <p><a href="test/a11y-nightmare.html" target="_blank">90's A11y Nightmare</a> - Retro test page with 50+ accessibility violations (testing bar auto-loads)</p>
+      </div>
 
       <h2 style="margin-bottom:15px;">Available Bookmarklets (${bookmarklets.length})</h2>
 ${content || '<p class="empty-state">No bookmarklets built yet. Run <code>npm run build</code></p>'}
@@ -755,6 +769,44 @@ ${otherCollection ? `
   console.log(`  ✓ collections/index.html`);
 }
 
+// Generate bookmarklets.json manifest
+function generateManifest(bookmarklets) {
+  console.log('\nGenerating bookmarklets.json manifest...');
+
+  const manifest = bookmarklets.map(b => {
+    const parts = b.name.split(' / ');
+    const category = parts.length > 1 ? parts[0] : 'Other';
+    const leafName = toTitleCase(parts[parts.length - 1].replace(/-min$/, ''));
+
+    return {
+      name: leafName,
+      category: category,
+      url: b.bookmarklet,
+      path: b.path,
+      size: b.size,
+      description: null // Could extract from source in future
+    };
+  });
+
+  writeFileSync(join(DIST_DIR, 'bookmarklets.json'), JSON.stringify(manifest, null, 2));
+  console.log(`  ✓ bookmarklets.json (${manifest.length} entries)`);
+}
+
+// Copy test page to dist
+function copyTestPages() {
+  console.log('\nCopying test page...');
+
+  const a11yNightmareSrc = join(SRC_DIR, 'test', 'a11y-nightmare.html');
+  const a11yNightmareDist = join(TEST_DIR, 'a11y-nightmare.html');
+
+  if (existsSync(a11yNightmareSrc)) {
+    copyFileSync(a11yNightmareSrc, a11yNightmareDist);
+    console.log(`  ✓ test/a11y-nightmare.html`);
+  } else {
+    console.log(`  ! test/a11y-nightmare.html not found, skipping`);
+  }
+}
+
 // Main build function
 async function build() {
   console.log('Building bookmarklets...\n');
@@ -794,6 +846,12 @@ async function build() {
 
   // Build collections
   buildCollections(bookmarklets);
+
+  // Generate bookmarklets.json manifest
+  generateManifest(bookmarklets);
+
+  // Copy test pages
+  copyTestPages();
 }
 
 build().catch(err => {

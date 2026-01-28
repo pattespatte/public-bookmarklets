@@ -36,6 +36,11 @@
     .source-link a:hover { text-decoration: underline; color: #0066cc; }
     .footer { text-align: center; margin-top: 20px; color: #666; opacity: 0.8; }
     code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+    .test-pages { margin: 20px 0; padding: 15px; background: #fff8e1; border-left: 4px solid #ffc107; border-radius: 4px; }
+    .test-pages h3 { margin: 0 0 10px; color: #f57c00; font-size: 1.1rem; }
+    .test-pages p { margin: 5px 0; color: #666; font-size: 14px; }
+    .test-pages a { color: #0066cc; text-decoration: none; font-weight: 500; }
+    .test-pages a:hover { text-decoration: underline; }
     @media (max-width: 600px) {
       .bookmarklet-item { flex-direction: column; align-items: flex-start; gap: 10px; }
       .bookmarklet-link { width: 100%; text-align: center; margin: 0 !important; }
@@ -63,7 +68,12 @@
         <a href="collections/index.html" style="color:#0066cc;text-decoration:none;font-weight:500;">📦 View Collections (Bulk Import)</a>
       </p>
 
-      <h2 style="margin-bottom:15px;">Available Bookmarklets (44)</h2>
+      <div class="test-pages">
+        <h3>🧪 Test Page</h3>
+        <p><a href="test/a11y-nightmare.html" target="_blank">90's A11y Nightmare</a> - Retro test page with 50+ accessibility violations (testing bar auto-loads)</p>
+      </div>
+
+      <h2 style="margin-bottom:15px;">Available Bookmarklets (43)</h2>
 
           <section class="category-section">
             <h2 class="category-heading">Accessibility</h2>
@@ -576,25 +586,19 @@
             </div>
           </section>
           <section class="category-section">
-            <h3 class="category-heading">Network</h3>
-            <div class="category-content">
-
-          <section class="category-section">
-            <h4 class="category-heading">unblock-asusrouter-login</h4>
+            <h3 class="category-heading">Miscellaneous</h3>
             <div class="category-content">
 
               <div class="bookmarklet-item">
                 <div class="bookmarklet-info">
-                  <a href="other/network/unblock-asusrouter-login/unblock-router.html"><strong>Unblock Router</strong></a>
-                  <small style="display:block;color:#666;margin-top:4px;">412 bytes</small>
-                  
+                  <a href="other/miscellaneous/ga-tracking-code.html"><strong>GA Tracking Code</strong></a>
+                  <small style="display:block;color:#666;margin-top:4px;">2178 bytes</small>
+                  <small class="source-link">Source: <a href="https://www.kyleplace.com/post/seo-bookmarklets#viewer-72rwm47669" target="_blank" rel="noopener">kyleplace.com</a></small>
                 </div>
                 <div class="bookmarklet-actions">
-                  <a href="javascript:%21function()%7B%22use%20strict%22%3B%5B%22hidden_frame%22%2C%22dmRedirection%22%2C%22https_redirect_component%22%5D.forEach(function(e)%7Bconst%20o%3Ddocument.getElementById(e)%3Bo%3F(o.remove()%2Cconsole.log(%60Removed%20element%3A%20%23%24%7Be%7D%60))%3Aconsole.log(%60Element%20not%20found%3A%20%23%24%7Be%7D%60)%7D)%2Cconsole.log(%22ASUS%20router%20login%20unblock%20script%20executed%22)%7D()%3B" class="bookmarklet-link">Run</a>
+                  <a href="javascript:%21function()%7Blet%20e%3Dfunction()%7Blet%20e%3Ddocument.getElementsByTagName(%22script%22)%2Ct%3D%5B%5D%3Bfor(let%20n%20of%20e)%7Bif(n.src)%7Blet%20e%3Dn.src.match(%2F(UA-%5Cd%7B4%2C9%7D-%5Cd%7B1%2C4%7D%7CG-%5BA-Za-z0-9%5D%2B%7CGTM-%5BA-Za-z0-9%5D%2B)%2F)%3Be%26%26t.push(e%5B0%5D)%7Dif(n.innerHTML)%7Blet%20e%3Dn.innerHTML.match(%2FUA-%5Cd%7B4%2C9%7D-%5Cd%7B1%2C4%7D%2F)%2Co%3Dn.innerHTML.match(%2FG-%5BA-Za-z0-9%5D%2B%2F)%2Cl%3Dn.innerHTML.match(%2FGTM-%5BA-Za-z0-9%5D%2B%2F)%3Be%26%26t.push(e%5B0%5D)%2Co%26%26t.push(o%5B0%5D)%2Cl%26%26t.push(l%5B0%5D)%7D%7Dreturn%20t%7D()%3Bif(e.length%3E0)%7Bvar%20t%3Blet%20n%2Co%2Cl%2Ca%2Ci%3Bt%3De%2C(n%3Ddocument.createElement(%22div%22)).style.position%3D%22fixed%22%2Cn.style.top%3D%2210%25%22%2Cn.style.left%3D%2250%25%22%2Cn.style.transform%3D%22translateX(-50%25)%22%2Cn.style.padding%3D%2220px%22%2Cn.style.backgroundColor%3D%22white%22%2Cn.style.border%3D%221px%20solid%20%23ccc%22%2Cn.style.boxShadow%3D%220%202px%2010px%20rgba(0%2C0%2C0%2C0.1)%22%2Cn.style.zIndex%3D%2210000%22%2Cn.style.maxWidth%3D%22600px%22%2Cn.style.wordBreak%3D%22break-word%22%2C(o%3Ddocument.createElement(%22h2%22)).innerText%3D%22Google%20Analytics%20%26%20GTM%20Tags%22%2Co.style.margin%3D%220%200%2010px%200%22%2Co.style.fontSize%3D%2218px%22%2Co.style.fontFamily%3D%22Arial%2C%20sans-serif%22%2Cn.appendChild(o)%2C(l%3Ddocument.createElement(%22textarea%22)).style.width%3D%22100%25%22%2Cl.style.height%3D%22400px%22%2Cl.style.marginBottom%3D%2210px%22%2Cl.value%3Dt.join(%22%5Cn%22)%2Cn.appendChild(l)%2C(a%3Ddocument.createElement(%22button%22)).innerText%3D%22Copy%22%2Ca.style.marginRight%3D%2210px%22%2Ca.onclick%3Dfunction()%7Bl.select()%2Cdocument.execCommand(%22copy%22)%7D%2Cn.appendChild(a)%2C(i%3Ddocument.createElement(%22button%22)).innerText%3D%22Close%22%2Ci.onclick%3Dfunction()%7Bdocument.body.removeChild(n)%7D%2Cn.appendChild(i)%2Cdocument.body.appendChild(n)%7Delse%20alert(%22No%20Google%20Analytics%20or%20GTM%20tags%20found.%22)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fwww.kyleplace.com%2Fpost%2Fseo-bookmarklets%23viewer-72rwm47669%5CnBookmarklet%20name%3A%20Show%20GA%20Tracking%20Codes%5Cn%22)%3B" class="bookmarklet-link">Run</a>
                 </div>
               </div>
-            </div>
-          </section>
             </div>
           </section>
           <section class="category-section">
@@ -649,16 +653,6 @@
               </div>
             </div>
           </section>
-              <div class="bookmarklet-item">
-                <div class="bookmarklet-info">
-                  <a href="other/ga-tracking-code.html"><strong>GA Tracking Code</strong></a>
-                  <small style="display:block;color:#666;margin-top:4px;">2178 bytes</small>
-                  <small class="source-link">Source: <a href="https://www.kyleplace.com/post/seo-bookmarklets#viewer-72rwm47669" target="_blank" rel="noopener">kyleplace.com</a></small>
-                </div>
-                <div class="bookmarklet-actions">
-                  <a href="javascript:%21function()%7Blet%20e%3Dfunction()%7Blet%20e%3Ddocument.getElementsByTagName(%22script%22)%2Ct%3D%5B%5D%3Bfor(let%20n%20of%20e)%7Bif(n.src)%7Blet%20e%3Dn.src.match(%2F(UA-%5Cd%7B4%2C9%7D-%5Cd%7B1%2C4%7D%7CG-%5BA-Za-z0-9%5D%2B%7CGTM-%5BA-Za-z0-9%5D%2B)%2F)%3Be%26%26t.push(e%5B0%5D)%7Dif(n.innerHTML)%7Blet%20e%3Dn.innerHTML.match(%2FUA-%5Cd%7B4%2C9%7D-%5Cd%7B1%2C4%7D%2F)%2Co%3Dn.innerHTML.match(%2FG-%5BA-Za-z0-9%5D%2B%2F)%2Cl%3Dn.innerHTML.match(%2FGTM-%5BA-Za-z0-9%5D%2B%2F)%3Be%26%26t.push(e%5B0%5D)%2Co%26%26t.push(o%5B0%5D)%2Cl%26%26t.push(l%5B0%5D)%7D%7Dreturn%20t%7D()%3Bif(e.length%3E0)%7Bvar%20t%3Blet%20n%2Co%2Cl%2Ca%2Ci%3Bt%3De%2C(n%3Ddocument.createElement(%22div%22)).style.position%3D%22fixed%22%2Cn.style.top%3D%2210%25%22%2Cn.style.left%3D%2250%25%22%2Cn.style.transform%3D%22translateX(-50%25)%22%2Cn.style.padding%3D%2220px%22%2Cn.style.backgroundColor%3D%22white%22%2Cn.style.border%3D%221px%20solid%20%23ccc%22%2Cn.style.boxShadow%3D%220%202px%2010px%20rgba(0%2C0%2C0%2C0.1)%22%2Cn.style.zIndex%3D%2210000%22%2Cn.style.maxWidth%3D%22600px%22%2Cn.style.wordBreak%3D%22break-word%22%2C(o%3Ddocument.createElement(%22h2%22)).innerText%3D%22Google%20Analytics%20%26%20GTM%20Tags%22%2Co.style.margin%3D%220%200%2010px%200%22%2Co.style.fontSize%3D%2218px%22%2Co.style.fontFamily%3D%22Arial%2C%20sans-serif%22%2Cn.appendChild(o)%2C(l%3Ddocument.createElement(%22textarea%22)).style.width%3D%22100%25%22%2Cl.style.height%3D%22400px%22%2Cl.style.marginBottom%3D%2210px%22%2Cl.value%3Dt.join(%22%5Cn%22)%2Cn.appendChild(l)%2C(a%3Ddocument.createElement(%22button%22)).innerText%3D%22Copy%22%2Ca.style.marginRight%3D%2210px%22%2Ca.onclick%3Dfunction()%7Bl.select()%2Cdocument.execCommand(%22copy%22)%7D%2Cn.appendChild(a)%2C(i%3Ddocument.createElement(%22button%22)).innerText%3D%22Close%22%2Ci.onclick%3Dfunction()%7Bdocument.body.removeChild(n)%7D%2Cn.appendChild(i)%2Cdocument.body.appendChild(n)%7Delse%20alert(%22No%20Google%20Analytics%20or%20GTM%20tags%20found.%22)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fwww.kyleplace.com%2Fpost%2Fseo-bookmarklets%23viewer-72rwm47669%5CnBookmarklet%20name%3A%20Show%20GA%20Tracking%20Codes%5Cn%22)%3B" class="bookmarklet-link">Run</a>
-                </div>
-              </div>
             </div>
           </section>
     </div>
