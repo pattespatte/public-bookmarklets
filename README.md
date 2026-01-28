@@ -78,7 +78,7 @@ void 0;
 - **Spacing** - Text spacing and target size testing (WCAG)
 - **Structure & Headings** - Document structure analysis
 - **Syntax Check** - HTML/CSS validation
-- **Third Party** - External tools (e.g., Paul J. Adam's aXe Console)
+- **Third Party** - External tools
 - **URLs & Links** - Link checking and analysis
 - **WAI-ARIA** - ARIA testing tools
 
@@ -182,7 +182,5 @@ See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for detailed attributions.
 
 ## Credits
 
-- **Patrik (@pattespatte)** - Project maintainer, JAWS/NVDA helpers
 - **WebAIM** - Contrast Checker
-- **Paul J. Adam** - aXe Console
 - **Various sources** - See individual file headers

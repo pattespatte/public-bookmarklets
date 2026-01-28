@@ -23,7 +23,6 @@ The MPL-2.0 license text is included in `LICENSES/MPL-2.0.txt`
 
 See individual file headers in `src/` for specific attributions to:
 - WebAIM (Contrast Checker)
-- Paul J. Adam (aXe Console)
 - Joel Anan (VoiceOver Helper)
 - Steve Faulkner (Target Size)
 - The Paciello Group (WAI-ARIA)

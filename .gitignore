@@ -5,9 +5,6 @@ dist/_private/
 # Build artifacts (optional - keep dist/ but exclude private)
 # dist/
 
-# Collections
-dist/collections/
-
 # Dependencies
 node_modules/
 
