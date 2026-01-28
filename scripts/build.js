@@ -386,16 +386,22 @@ function generateIndex(bookmarklets) {
       }).join('');
     }
 
-    // Has subgroups - create sections with headings
+    // Create sections with headings
     const result = [];
     for (const [groupName, groupItems] of Object.entries(groups).sort()) {
       const groupParts = groupItems[0].name.split(' / ');
       // Flatten by one level: treat the penultimate level as leaf for display
       const hasNested = level + 2 < groupParts.length;
+      const headingLevel = Math.min(level + 2, 6); // Start at h2, max h6
 
-      if (!hasNested) {
-        // Flat list of bookmarks at this level
-        for (const b of groupItems.sort((a, b) => a.name.localeCompare(b.name))) {
+      // Build the content for this section
+      let subContent;
+      if (hasNested) {
+        // Has more nested levels - recurse
+        subContent = buildNestedHTML(groupItems, level + 1);
+      } else {
+        // Leaf level - output bookmark items
+        subContent = groupItems.sort((a, b) => a.name.localeCompare(b.name)).map(b => {
           const parts = b.name.split(' / ');
           const leafName = toTitleCase(parts[parts.length - 1].replace(/-min$/, ''));
           let sourceLine = '';
@@ -408,7 +414,7 @@ function generateIndex(bookmarklets) {
               sourceLine = `<small class="source-link">Source: ${b.sourceUrl}</small>`;
             }
           }
-          result.push(`
+          return `
               <div class="bookmarklet-item">
                 <div class="bookmarklet-info">
                   <a href="${b.path}"><strong>${leafName}</strong></a>
@@ -418,20 +424,18 @@ function generateIndex(bookmarklets) {
                 <div class="bookmarklet-actions">
                   <a href="${b.bookmarklet}" class="bookmarklet-link">Run</a>
                 </div>
-              </div>`);
-        }
-      } else {
-        // Nested section with heading
-        const headingLevel = Math.min(level + 2, 6); // Start at h2, max h6
-        const subContent = buildNestedHTML(groupItems, level + 1);
-        result.push(`
-          <section class="category-section">
-            <h${headingLevel} class="category-heading">${groupName}</h${headingLevel}>
-            <div class="category-content">
-${subContent}
-            </div>
-          </section>`);
+              </div>`;
+        }).join('');
       }
+
+      // Always create a section with heading
+      result.push(`
+        <section class="category-section">
+          <h${headingLevel} class="category-heading">${groupName}</h${headingLevel}>
+          <div class="category-content">
+${subContent}
+          </div>
+        </section>`);
     }
 
     return result.join('');
