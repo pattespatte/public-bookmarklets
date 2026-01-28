@@ -159,6 +159,27 @@ Contributions are welcome! Please ensure:
 
 MIT unless otherwise noted in individual file headers.
 
+## Legal & Licensing
+
+### Main License
+
+This project is primarily licensed under the **MIT License** - see [LICENSE](LICENSE) for details.
+
+### Multiple Licenses
+
+This repository contains code under multiple licenses:
+
+| License | Bookmarklets |
+|---------|--------------|
+| **MIT** | Most bookmarklets, including JAWS Helper, NVDA Helper |
+| **MPL-2.0** | A11Y Graphics, A11Y LibGuide, A11Y Reporter, A11Y Tabbings |
+| Various | See individual file headers |
+
+### Third-Party Content
+
+All bookmarklets include attribution to their original authors in source file headers.
+See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for detailed attributions.
+
 ## Credits
 
 - **Patrik (@pattespatte)** - Project maintainer, JAWS/NVDA helpers

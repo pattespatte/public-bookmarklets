@@ -22,11 +22,30 @@ SOFTWARE.
 
 ---
 
-Individual bookmarklets may have different licenses. See source file headers
-for specific attribution and licensing information.
+## Multiple Licenses
+
+This repository contains code under different licenses. See source file headers for specific licensing.
+
+### MPL-2.0 Licensed Components
+
+The following bookmarklets are licensed under Mozilla Public License 2.0:
+- A11Y Graphics (src/Accessibility/A11Y Tools/A11Y Bookmarklet/A11Y Graphics.js)
+- A11Y LibGuide (src/Accessibility/A11Y Tools/A11Y Bookmarklet/A11Y LibGuide.js)
+- A11Y Reporter (src/Accessibility/A11Y Tools/A11Y Bookmarklet/A11Y Reporter.js)
+- A11Y Tabbings (src/Accessibility/A11Y Tools/A11Y Bookmarklet/A11Y Tabbings.js)
+
+Source: https://github.com/metageeky/accessibility-bookmarklet
+License: https://www.mozilla.org/en-US/MPL/2.0/
+License text included in: LICENSES/MPL-2.0.txt
+
+### Other Licenses
+
+See individual file headers for specific licensing and attribution information.
 
 Contributors:
 - WebAIM - Contrast Checker bookmarklets
 - Paul J. Adam (pauljadam.com) - aXe Console
 - Joel Anan (voiceover-helper) - VoiceOver helper
+- Steve Faulkner - Target Size
+- The Paciello Group - WAI-ARIA
 - And others - See individual file headers
