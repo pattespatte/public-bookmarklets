@@ -390,7 +390,8 @@ function generateIndex(bookmarklets) {
     const result = [];
     for (const [groupName, groupItems] of Object.entries(groups).sort()) {
       const groupParts = groupItems[0].name.split(' / ');
-      const hasNested = level + 1 < groupParts.length;
+      // Flatten by one level: treat the penultimate level as leaf for display
+      const hasNested = level + 2 < groupParts.length;
 
       if (!hasNested) {
         // Flat list of bookmarks at this level
