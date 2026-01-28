@@ -132,8 +132,8 @@ function toTitleCase(name) {
     'xhtml': 'XHTML',
     'w3c': 'W3C',
     'css': 'CSS',
-    'css21': 'CSS21',
-    'css3svg': 'CSS3SVG',
+    'css21': 'CSS 2.1',
+    'css3svg': 'CSS3 & SVG',
     'ga': 'GA',
     'md': 'MD',
     'a11y': 'A11Y',
@@ -489,9 +489,9 @@ ${subContent}
       <h2>How to Use</h2>
       <div class="instructions">
         <ol>
-          <li><strong>Click</strong> any "Run" button below to test the bookmarklet on this page</li>
-          <li><strong>Drag</strong> the button to your bookmarks bar to install it</li>
-          <li>Navigate to any website and click the bookmarklet to run it</li>
+          <li><strong>Click</strong> any "Run" button below to test the bookmarklet on this page. Reload the page to reset.</li>
+          <li><strong>Drag</strong> the button to your bookmarks bar to install it.</li>
+          <li>Navigate to any website and click the bookmarklet to run it.</li>
         </ol>
       </div>
 
@@ -689,22 +689,22 @@ function generateCollectionsIndex(collections) {
     <div class="card">
       <h2>How to Import Collections</h2>
 
-      <h3 style="margin: 20px 0 10px; font-size: 1.1rem;">Edge</h3>
-      <div class="instructions">
-        <ol>
-          <li><strong>Download</strong> a collection file by clicking the "Download" button below</li>
-          <li><strong>Open</strong> <code>edge://settings/importData</code> in Edge</li>
-          <li>Select <strong>"Favorites or Bookmarks HTML File"</strong> from the import options</li>
-          <li><strong>Choose</strong> the downloaded HTML file</li>
-        </ol>
-      </div>
-
       <h3 style="margin: 20px 0 10px; font-size: 1.1rem;">Chrome</h3>
       <div class="instructions">
         <ol>
           <li><strong>Download</strong> a collection file by clicking the "Download" button below</li>
           <li><strong>Open</strong> <code>chrome://settings/importData</code> in Chrome</li>
           <li>Select <strong>"Bookmarks HTML File"</strong> from the import options</li>
+          <li><strong>Choose</strong> the downloaded HTML file</li>
+        </ol>
+      </div>
+
+      <h3 style="margin: 20px 0 10px; font-size: 1.1rem;">Edge</h3>
+      <div class="instructions">
+        <ol>
+          <li><strong>Download</strong> a collection file by clicking the "Download" button below</li>
+          <li><strong>Open</strong> <code>edge://settings/importData</code> in Edge</li>
+          <li>Select <strong>"Favorites or Bookmarks HTML File"</strong> from the import options</li>
           <li><strong>Choose</strong> the downloaded HTML file</li>
         </ol>
       </div>
