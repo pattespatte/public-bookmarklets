@@ -828,14 +828,35 @@ async function build() {
 
   console.log(`Found ${jsFiles.length} JavaScript file(s)\n`);
 
+  // Normalize path by collapsing redundant intermediate directories
+  function normalizePath(relPath) {
+    const parts = relPath.replace(/\.js$/, '').split(sep);
+    const normalized = [];
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      const nextPart = parts[i + 1];
+      // Skip this directory if next part is exactly the same (redundant intermediate dir)
+      // e.g., "nvda-helper/" directory before "nvda-helper.js" file
+      const isExactMatch = nextPart && part.toLowerCase() === nextPart.toLowerCase();
+      // Also skip if next part is this part + "-" suffix (e.g., "nvda-helper" dir before "nvda-helper-popover.js")
+      // Use case-sensitive match for extended to avoid matching "NVDA" with "nvda-helper"
+      const isExtendedMatch = nextPart && nextPart.startsWith(part + '-');
+      // Special case: skip "A11Y Bookmarklet" directory when next part is "A11Y ..."
+      const isA11YBookmarklet = part === 'A11Y Bookmarklet' && nextPart && nextPart.startsWith('A11Y');
+      if (isExactMatch || isExtendedMatch || isA11YBookmarklet) {
+        continue;
+      }
+      normalized.push(part);
+    }
+    return normalized.join(' / ');
+  }
+
   const bookmarklets = [];
 
   for (const srcPath of jsFiles) {
     // Get relative path from SRC_DIR
     const relPath = relative(SRC_DIR, srcPath);
-    const displayName = relPath
-      .replace(/\.js$/, '')
-      .replace(new RegExp(`\\${sep}`, 'g'), ' / '); // Use " / " as separator
+    const displayName = normalizePath(relPath);
 
     const result = await buildBookmarklet(srcPath, displayName, relPath);
     if (result) {
