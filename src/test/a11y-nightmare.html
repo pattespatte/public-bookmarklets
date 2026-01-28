@@ -712,15 +712,28 @@
             group[cat].push(b);
           });
 
-          let html = '';
+          content.innerHTML = '';
           for (const cat in group) {
-            html += '<div style="margin-bottom:12px;"><strong style="color:#333;display:block;margin-bottom:6px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;">' + cat + '</strong>';
+            const catDiv = document.createElement('div');
+            catDiv.style.cssText = 'margin-bottom:12px;';
+            const catTitle = document.createElement('strong');
+            catTitle.textContent = cat;
+            catTitle.style.cssText = 'color:#333;display:block;margin-bottom:6px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;';
+            catDiv.appendChild(catTitle);
             group[cat].forEach(function(b) {
-              html += '<a href="' + b.url + '" style="display:inline-block;padding:5px 10px;margin:2px;background:#0066cc;color:white;text-decoration:none;border-radius:4px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;" title="' + (b.description || b.name) + '">' + b.name + '</a>';
+              const btn = document.createElement('a');
+              btn.textContent = b.name;
+              btn.href = '#';
+              btn.title = b.description || b.name;
+              btn.style.cssText = 'display:inline-block;padding:5px 10px;margin:2px;background:#0066cc;color:white;text-decoration:none;border-radius:4px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;cursor:pointer;';
+              btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = b.url;
+              });
+              catDiv.appendChild(btn);
             });
-            html += '</div>';
+            content.appendChild(catDiv);
           }
-          content.innerHTML = html;
         }
 
         searchInput.addEventListener('input', render);
