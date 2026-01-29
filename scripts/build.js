@@ -499,7 +499,7 @@ ${subContent}
       <p class="subtitle">Drag links to your bookmarks bar to install</p>
     </header>
 
-    <div class="card">
+    <main class="card">
       <h2>How to Use</h2>
       <div class="instructions">
         <ol>
@@ -520,11 +520,11 @@ ${subContent}
 
       <h2 style="margin-bottom:15px;">Available Bookmarklets (${bookmarklets.length})</h2>
 ${content || '<p class="empty-state">No bookmarklets built yet. Run <code>npm run build</code></p>'}
-    </div>
+    </main>
 
-    <div class="footer">
+    <footer class="footer">
       <p>Built with <a href="https://github.com" style="color:#0066cc;">Bookmarklet Manager</a></p>
-    </div>
+    </footer>
   </div>
 </body>
 </html>`;
@@ -705,7 +705,7 @@ function generateCollectionsIndex(collections) {
       <p class="subtitle">Import multiple bookmarklets at once</p>
     </header>
 
-    <div class="card">
+    <main class="card">
       <h2>How to Import Collections</h2>
 
       <h3 style="margin: 20px 0 10px; font-size: 1.1rem;">Chrome</h3>
@@ -760,11 +760,11 @@ ${otherCollection ? `
       </div>
 ` : ''}
 
-    </div>
+    </main>
 
-    <div class="footer">
+    <footer class="footer">
       <p><a href="../index.html">← Back to individual bookmarklets</a></p>
-    </div>
+    </footer>
   </div>
 </body>
 </html>
