@@ -200,6 +200,8 @@
   </style>
 </head>
 
+<body>
+
   <!-- VIOLATION: No skip links -->
   <table class="header-table" role="presentation">
     <tr>
@@ -515,12 +517,19 @@
   <!-- VIOLATION: Alert on page load (commented out for actual use) -->
   <!-- <body onload="alert('Welcome to my awesome page!')"> -->
 
-  <!-- Bookmarklet Testing Bar - Auto-load on page load -->
+  <!-- Bookmarklet Testing Bar - Load on demand -->
+  <div id="testing-bar-trigger" style="position:fixed;top:10px;right:10px;z-index:999998;">
+    <button onclick="loadTestingBar()" style="padding:10px 20px;background:#0066cc;color:white;border:none;border-radius:5px;cursor:pointer;font-weight:bold;box-shadow:0 2px 8px rgba(0,0,0,0.3);">📚 Load Bookmarklet Testing Bar</button>
+  </div>
+
   <script>
-  (function() {
+  function loadTestingBar() {
     'use strict';
 
     try {
+      // Remove trigger button
+      document.getElementById('testing-bar-trigger').remove();
+
       // Create the bar container
       const bar = document.createElement('div');
       bar.id = 'bookmarklet-testing-bar';
@@ -744,7 +753,7 @@
     } catch (err) {
       console.error('Testing bar error:', err);
     }
-  })();
+  }
   </script>
 
 </body>
