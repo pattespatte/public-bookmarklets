@@ -66,6 +66,7 @@ void 0;
 
 **Reference Resources:**
 
+- WCAG - https://www.w3.org/WAI/standards-guidelines/wcag/
 - MSDN Bookmarklet Reference - <https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa753582(v=vs.85)>
 - Bookmarklet Maker - <https://caiorss.github.io/bookmarklet-maker/>
 - Toptal JS Minifier - <https://www.toptal.com/developers/javascript-minifier>
