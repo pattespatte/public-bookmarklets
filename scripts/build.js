@@ -835,15 +835,25 @@ async function build() {
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       const nextPart = parts[i + 1];
+      const afterNext = parts[i + 2];
+
       // Rename "A11Y Bookmarklet" to "A11Y Tools" for better display
       const displayPart = part === 'A11Y Bookmarklet' ? 'A11Y Tools' : part;
-      // Skip this directory if next part is exactly the same (redundant intermediate dir)
-      // e.g., "nvda-helper/" directory before "nvda-helper.js" file
+
+      // Skip this directory if:
+      // 1. Next part is exactly the same (e.g., "nvda-helper/" before "nvda-helper.js")
       const isExactMatch = nextPart && part.toLowerCase() === nextPart.toLowerCase();
-      // Also skip if next part is this part + "-" suffix (e.g., "nvda-helper" dir before "nvda-helper-popover.js")
-      // Use case-sensitive match for extended to avoid matching "NVDA" with "nvda-helper"
-      const isExtendedMatch = nextPart && nextPart.startsWith(part + '-');
-      if (isExactMatch || isExtendedMatch) {
+      // 2. Next part starts with this part + "-" and there's no further nesting after that
+      //    (e.g., "nvda-helper/" before "nvda-helper-popover.js" when it's the last dir)
+      const isDirectExtendedMatch = !afterNext && nextPart && nextPart.toLowerCase().startsWith(part.toLowerCase() + '-');
+      // 3. When directory name (case-insensitive) is a prefix of the next directory name
+      //    AND the next part after that has more than just the directory name
+      //    (e.g., "JAWS/jaws-helper/jaws-helper-popover.js" - skip "jaws-helper" dir)
+      const isPrefixMatch = nextPart && afterNext &&
+        nextPart.toLowerCase().startsWith(part.toLowerCase()) &&
+        afterNext.toLowerCase().length > nextPart.toLowerCase().length;
+
+      if (isExactMatch || isDirectExtendedMatch || isPrefixMatch) {
         continue;
       }
       normalized.push(displayPart);
