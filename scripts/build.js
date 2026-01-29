@@ -517,7 +517,7 @@ ${subContent}
 
       <div class="test-pages">
         <h3>🧪 Test Page</h3>
-        <p><a href="test/a11y-nightmare.html" target="_blank">90's A11y Nightmare</a> - Retro test page with 50+ accessibility violations (testing bar auto-loads)</p>
+        <p><a href="test/a11y-nightmare.html" target="_blank">90's A11y Nightmare</a> - Retro test page with 50+ accessibility violations (testing bar optional)</p>
       </div>
 
       <h2 style="margin-bottom:15px;">Available Bookmarklets (${bookmarklets.length})</h2>
