@@ -431,7 +431,7 @@ function generateIndex(bookmarklets) {
       // Always create a section with heading
       result.push(`
         <section class="category-section">
-          <h${headingLevel} class="category-heading">${groupName}</h${headingLevel}>
+          <h${headingLevel} class="category-heading">${toTitleCase(groupName)}</h${headingLevel}>
           <div class="category-content">
 ${subContent}
           </div>
