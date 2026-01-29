@@ -380,7 +380,7 @@ function generateIndex(bookmarklets) {
                   ${sourceLine}
                 </div>
                 <div class="bookmarklet-actions">
-                  <a href="${b.bookmarklet}" class="bookmarklet-link">Run</a>
+                  <span style="padding: 8px 0; display: inline-block;">Run or drag to <i>Bookmarks Bar</i>:</span> <a href="${b.bookmarklet}" class="bookmarklet-link">${leafName}</a>
                 </div>
               </div>`;
       }).join('');
@@ -422,7 +422,7 @@ function generateIndex(bookmarklets) {
                   ${sourceLine}
                 </div>
                 <div class="bookmarklet-actions">
-                  <a href="${b.bookmarklet}" class="bookmarklet-link">Run</a>
+                  <span style="padding: 8px 0; display: inline-block;">Run or drag to <i>Bookmarks Bar</i>:</span> <a href="${b.bookmarklet}" class="bookmarklet-link">${leafName}</a>
                 </div>
               </div>`;
         }).join('');
@@ -837,9 +837,6 @@ async function build() {
       const nextPart = parts[i + 1];
       const afterNext = parts[i + 2];
 
-      // Rename "A11Y Bookmarklet" to "A11Y Tools" for better display
-      const displayPart = part === 'A11Y Bookmarklet' ? 'A11Y Tools' : part;
-
       // Skip this directory if:
       // 1. Next part is exactly the same (e.g., "nvda-helper/" before "nvda-helper.js")
       const isExactMatch = nextPart && part.toLowerCase() === nextPart.toLowerCase();
@@ -856,7 +853,7 @@ async function build() {
       if (isExactMatch || isDirectExtendedMatch || isPrefixMatch) {
         continue;
       }
-      normalized.push(displayPart);
+      normalized.push(part);
     }
     return normalized.join(' / ');
   }
