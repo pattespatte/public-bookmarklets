@@ -835,18 +835,18 @@ async function build() {
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       const nextPart = parts[i + 1];
+      // Rename "A11Y Bookmarklet" to "A11Y Tools" for better display
+      const displayPart = part === 'A11Y Bookmarklet' ? 'A11Y Tools' : part;
       // Skip this directory if next part is exactly the same (redundant intermediate dir)
       // e.g., "nvda-helper/" directory before "nvda-helper.js" file
       const isExactMatch = nextPart && part.toLowerCase() === nextPart.toLowerCase();
       // Also skip if next part is this part + "-" suffix (e.g., "nvda-helper" dir before "nvda-helper-popover.js")
       // Use case-sensitive match for extended to avoid matching "NVDA" with "nvda-helper"
       const isExtendedMatch = nextPart && nextPart.startsWith(part + '-');
-      // Special case: skip "A11Y Bookmarklet" directory when next part is "A11Y ..."
-      const isA11YBookmarklet = part === 'A11Y Bookmarklet' && nextPart && nextPart.startsWith('A11Y');
-      if (isExactMatch || isExtendedMatch || isA11YBookmarklet) {
+      if (isExactMatch || isExtendedMatch) {
         continue;
       }
-      normalized.push(part);
+      normalized.push(displayPart);
     }
     return normalized.join(' / ');
   }

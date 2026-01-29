@@ -3,7 +3,7 @@
     "name": "A11Y Graphics",
     "category": "Accessibility",
     "url": "javascript:%21function()%7Bfunction%20e()%7BcreateImageReviewer()%2CremoveLoadingNotice()%7Dvoid%200%3D%3D%3Ddocument.A11Y_REQUIREMENTS%26%26(document.A11Y_REQUIREMENTS%3D%5B%5D)%2Cdocument.A11Y_REQUIREMENTS.push(%22image-reviewer-ui.js%22)%3Bvar%20o%3Ddocument.createElement(%22script%22)%3Bo.onload%3Dfunction()%7BloadingNotice(%22A11Y%20Image%20Reviewer%20is%20loading...%3Cbr%3ERefresh%20page%20to%20cancel%22)%2CrunA11YTool(e)%7D%2Co.src%3D%22https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2Flibraries%2Fa11y-core-functions.js%22%2Cdocument.body.appendChild(o)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2F%5CnBookmarklet%20name%3A%20A11Y%20Graphics%5Cn%22)%3B",
-    "path": "accessibility/a11y-tools/a11y-bookmarklet/a11y-graphics.html",
+    "path": "accessibility/a11y-bookmarklet/a11y-graphics.html",
     "size": 737,
     "description": null
   },
@@ -11,7 +11,7 @@
     "name": "A11Y LibGuide",
     "category": "Accessibility",
     "url": "javascript:%21function()%7Bfunction%20e()%7Baxe.run().then(e%3D%3E%7BwriteLibGuideReport(e)%7D)%2CremoveLoadingNotice()%7Dvoid%200%3D%3D%3Ddocument.A11Y_REQUIREMENTS%26%26(document.A11Y_REQUIREMENTS%3D%5B%5D)%2Cdocument.A11Y_REQUIREMENTS.push(%22general-report-tests.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22libguide-report-tests.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22report-ui.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22image-reviewer-ui.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22tabbable-reviewer-ui.js%22)%3Bvar%20o%3Ddocument.createElement(%22script%22)%3Bo.onload%3Dfunction()%7BloadingNotice(%22A11Y%20Reporter%20is%20loading...%3Cbr%3ERefresh%20page%20to%20cancel%22)%2CrunA11YTool(e)%7D%2Co.src%3D%22https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2Flibraries%2Fa11y-core-functions.js%22%2Cdocument.body.appendChild(o)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2F%5CnBookmarklet%20name%3A%20A11Y%20LibGuide%5Cn%22)%3B",
-    "path": "accessibility/a11y-tools/a11y-bookmarklet/a11y-lib-guide.html",
+    "path": "accessibility/a11y-bookmarklet/a11y-lib-guide.html",
     "size": 1009,
     "description": null
   },
@@ -19,7 +19,7 @@
     "name": "A11Y Reporter",
     "category": "Accessibility",
     "url": "javascript:%21function()%7Bfunction%20e()%7Baxe.run().then(e%3D%3E%7BwriteGeneralReport(e)%7D)%2CremoveLoadingNotice()%7Dvoid%200%3D%3D%3Ddocument.A11Y_REQUIREMENTS%26%26(document.A11Y_REQUIREMENTS%3D%5B%5D)%2Cdocument.A11Y_REQUIREMENTS.push(%22general-report-tests.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22report-ui.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22image-reviewer-ui.js%22)%2Cdocument.A11Y_REQUIREMENTS.push(%22tabbable-reviewer-ui.js%22)%3Bvar%20o%3Ddocument.createElement(%22script%22)%3Bo.onload%3Dfunction()%7BloadingNotice(%22A11Y%20Reporter%20is%20loading...%3Cbr%3ERefresh%20page%20to%20cancel%22)%2CrunA11YTool(e)%7D%2Co.src%3D%22https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2Flibraries%2Fa11y-core-functions.js%22%2Cdocument.body.appendChild(o)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2F%5CnBookmarklet%20name%3A%20A11Y%20Reporter%5Cn%22)%3B",
-    "path": "accessibility/a11y-tools/a11y-bookmarklet/a11y-reporter.html",
+    "path": "accessibility/a11y-bookmarklet/a11y-reporter.html",
     "size": 942,
     "description": null
   },
@@ -27,7 +27,7 @@
     "name": "A11Y Tabbings",
     "category": "Accessibility",
     "url": "javascript:%21function()%7Bfunction%20e()%7BcreateTabbingReviewer()%2CremoveLoadingNotice()%7Dvoid%200%3D%3D%3Ddocument.A11Y_REQUIREMENTS%26%26(document.A11Y_REQUIREMENTS%3D%5B%5D)%2Cdocument.A11Y_REQUIREMENTS.push(%22tabbable-reviewer-ui.js%22)%3Bvar%20o%3Ddocument.createElement(%22script%22)%3Bo.onload%3Dfunction()%7BloadingNotice(%22A11Y%20Tabbable%20Reviewer%20is%20loading...%3Cbr%3ERefresh%20page%20to%20cancel%22)%2CrunA11YTool(e)%7D%2Co.src%3D%22https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2Flibraries%2Fa11y-core-functions.js%22%2Cdocument.body.appendChild(o)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fmetageeky.github.io%2Faccessibility-bookmarklet%2F%5CnBookmarklet%20name%3A%20A11Y%20Tabbings%5Cn%22)%3B",
-    "path": "accessibility/a11y-tools/a11y-bookmarklet/a11y-tabbings.html",
+    "path": "accessibility/a11y-bookmarklet/a11y-tabbings.html",
     "size": 745,
     "description": null
   },
