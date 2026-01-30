@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="300">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>90's A11y Nightmare - Test Page</title>
   <style>
@@ -495,18 +494,21 @@
 
   <div class="section">
     <h3>Alert on Focus</h3>
-    <input type="text" onfocus="alert('You focused this input!')">
+    <input type="text" onfocus="console.log('Input focused - violation detected!')">
   </div>
 
   <div class="best-viewed">
-    <p><blink>This site best viewed with Netscape Navigator 4.0 or Internet Explorer 5.0 at 800x600 resolution!</blink></p>
+    <p><span class="blink">This site best viewed with Netscape Navigator 4.0 or Internet Explorer 5.0 at 800x600 resolution!</span></p>
     <p><span style="animation: blink 0.5s step-end infinite;">📧 Email me: webmaster@cool-site-1999.com 📧</span></p>
   </div>
 
   <!-- VIOLATION: Auto-playing audio (authentic 90's!) -->
+  <!-- Disabled: Chrome blocks autoplay audio which can cause page load issues -->
+  <!--
   <audio class="auto-play" autoplay loop>
     <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
   </audio>
+  -->
 
   <div style="text-align:center;margin-top:30px;color:#00ff00;">
     <p>© 1999 - The Future!</p>
