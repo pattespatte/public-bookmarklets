@@ -29,10 +29,10 @@ This repository contains code under different licenses. See source file headers 
 ### MPL-2.0 Licensed Components
 
 The following bookmarklets are licensed under Mozilla Public License 2.0:
-- A11Y Graphics (src/Accessibility/A11Y Tools/A11Y Bookmarklet/A11Y Graphics.js)
-- A11Y LibGuide (src/Accessibility/A11Y Tools/A11Y Bookmarklet/A11Y LibGuide.js)
-- A11Y Reporter (src/Accessibility/A11Y Tools/A11Y Bookmarklet/A11Y Reporter.js)
-- A11Y Tabbings (src/Accessibility/A11Y Tools/A11Y Bookmarklet/A11Y Tabbings.js)
+- A11Y Graphics (src/accessibility/a11y-bookmarklet/a11y-graphics.js)
+- A11Y LibGuide (src/accessibility/a11y-bookmarklet/a11y-lib-guide.js)
+- A11Y Reporter (src/accessibility/a11y-bookmarklet/a11y-reporter.js)
+- A11Y Tabbings (src/accessibility/a11y-bookmarklet/a11y-tabbings.js)
 
 Source: https://github.com/metageeky/accessibility-bookmarklet
 License: https://www.mozilla.org/en-US/MPL/2.0/

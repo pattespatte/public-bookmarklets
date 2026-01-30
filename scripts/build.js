@@ -858,7 +858,7 @@ async function build() {
       }
       normalized.push(part);
     }
-    return normalized.join(' / ');
+    return normalized.map(part => toTitleCase(part)).join(' / ');
   }
 
   const bookmarklets = [];
