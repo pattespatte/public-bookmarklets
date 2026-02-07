@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Simple HTML Template</title>
+</head>
+
+<body>
+	<div id="nvda-helper-modal" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; background: rgb(255, 255, 255); color: rgb(17, 17, 17); box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px; border-radius: 8px; width: 90%; max-width: 600px; max-height: 80%; overflow-y: auto; padding: 1em; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;"><button style="position: absolute; top: 0.5em; right: 0.5em; background: none; border: none; font-size: 1.5em; cursor: pointer; color: rgb(102, 102, 102);">×</button>
+
+		<style>
+			#nvda-helper-modal>table {
+				border-collapse: collapse;
+				width: 100%;
+			}
+
+			#nvda-helper-modal td,
+			#nvda-helper-modal th {
+				padding: 8px;
+				border: 1px solid #ddd;
+			}
+
+			#nvda-helper-modal td:nth-child(2) {
+				white-space: nowrap;
+			}
+
+			#nvda-helper-modal tr:nth-child(odd) {
+				background: #eee;
+			}
+
+			#nvda-helper-modal tr:nth-child(even) {
+				background: #fff;
+			}
+
+			#nvda-helper-modal a {
+				text-decoration: underline;
+			}
+		</style>
+		<h1>NVDA Guide</h1>
+		<p>The default NVDA key is <strong>Ctrl + Alt + N</strong> or <strong>Insert</strong>.</p>
+		<table>
+			<tr>
+				<th>Task</th>
+				<th>Command</th>
+			</tr>
+			<tr>
+				<td>Turn <strong>NVDA on</strong></td>
+				<td>Control + Alt + N</td>
+			</tr>
+			<tr>
+				<td>Turn <strong>NVDA off</strong></td>
+				<td>NVDA key + Q</td>
+			</tr>
+			<tr>
+				<td><strong>Stop Reading</strong></td>
+				<td>Control</td>
+			</tr>
+			<tr>
+				<td><strong>Start reading</strong> continuously from this point on</td>
+				<td>Insert + ▼ or Numpad Plus (+)</td>
+			</tr>
+			<tr>
+				<td><strong>Read next item</strong></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><strong>Read next focusable item</strong> (e.g. link, button)</td>
+				<td>Tab</td>
+			</tr>
+			<tr>
+				<td><strong>Activate</strong><strong> link</strong></td>
+				<td>Enter</td>
+			</tr>
+			<tr>
+				<td><strong>Activate</strong><strong> button</strong></td>
+				<td>Enter or Spacebar</td>
+			</tr>
+			<tr>
+				<td>Go to <strong>next heading</strong></td>
+				<td>H</td>
+			</tr>
+			<tr>
+				<td>Go to <strong>next heading of level [1-6]</strong></td>
+				<td>1 - 6</td>
+			</tr>
+			<tr>
+				<td>List <strong>all headings</strong></td>
+				<td>NVDA key + F7</td>
+			</tr>
+			<tr>
+				<td>Go to <strong>next landmark/region</strong></td>
+				<td>D</td>
+			</tr>
+			<tr>
+				<td>Show list of <strong>all links, headings, form fields, buttons, and landmarks</strong></td>
+				<td>NVDA key + F7</td>
+			</tr>
+			<tr>
+				<td>Go to the <strong>next table</strong></td>
+				<td>T</td>
+			</tr>
+			<tr>
+				<td>Navigate <strong>table cells</strong></td>
+				<td>Ctrl + Alt + ▼ or ▲ or ◀︎ or ▶︎</td>
+			</tr>
+			<tr>
+				<td>Go to the <strong>next list</strong></td>
+				<td>L</td>
+			</tr>
+			<tr>
+				<td>Go to the <strong>next list item</strong></td>
+				<td>I</td>
+			</tr>
+			<tr>
+				<td>Go to the <strong>next graphic</strong></td>
+				<td>G</td>
+			</tr>
+			<tr>
+				<td>List <strong>all links</strong></td>
+				<td>NVDA key + F7</td>
+			</tr>
+			<tr>
+				<td>Go to the <strong>next link</strong></td>
+				<td>K</td>
+			</tr>
+			<tr>
+				<td>Go to <strong>next unvisited link</strong></td>
+				<td>U</td>
+			</tr>
+			<tr>
+				<td>Go to <strong>next visited link</strong></td>
+				<td>V</td>
+			</tr>
+			<tr>
+				<td><strong>Toggle</strong> between: Radio buttons,&lt;select&gt;list items, Tabs (ARIA widget), Tree view items (ARIA widget), Menu items (ARIA widget)</td>
+				<td>▶︎ or ▼ or ◀︎ or ▲</td>
+			</tr>
+			<tr>
+				<td>To <strong>previous heading, landmark, table, focusable item, etc.</strong></td>
+				<td>Shift + [H, D, T, Tab, etc.]</td>
+			</tr>
+		</table>
+		<p>For more shortcuts, visit <a href="https://dequeuniversity.com/screenreaders/nvda-keyboard-shortcuts">Deque University</a>.</p>
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>90's A11y Nightmare - Test Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+    body {
+      font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+      background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23ff6600%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2210%22 y=%2250%22 font-size=%2220%22 fill=%22%23ff3300%22%3E🔥%3C/text%3E%3C/svg%3E');
+      margin: 0;
+      padding: 20px;
+      color: #ff00ff;
+    }
+
+    .header-table {
+      width: 100%;
+      border: 3px outset #ccc;
+      background: #000080;
+    }
+
+    .header-table td {
+      padding: 10px;
+    }
+
+    .header-table h1 {
+      color: #00ff00;
+      font-size: 24px;
+      text-shadow: 2px 2px #ff0000;
+    }
+
+    .marquee {
+      background: #ff0000;
+      color: #ffff00;
+      padding: 5px;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 15s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .section {
+      border: 3px ridge #ff00ff;
+      margin: 20px 0;
+      padding: 15px;
+      background: #000033;
+    }
+
+    .section h3 {
+      color: #00ffff;
+      text-decoration: underline;
+    }
+
+    .section h2 {
+      color: #ff00ff;
+      font-size: 18px;
+    }
+
+    .violation-grid {
+      display: table;
+      width: 100%;
+    }
+
+    .violation-row {
+      display: table-row;
+    }
+
+    .violation-cell {
+      display: table-cell;
+      padding: 10px;
+      border: 1px solid #666;
+      vertical-align: top;
+    }
+
+    .tiny-target {
+      width: 10px;
+      height: 10px;
+      background: #ff0000;
+      display: inline-block;
+    }
+
+    .cyan-on-white {
+      color: #00ffff;
+      background: #ffffff;
+    }
+
+    .yellow-on-lime {
+      color: #ffff00;
+      background: #00ff00;
+    }
+
+    .magenta-on-red {
+      color: #ff00ff;
+      background: #ff0000;
+    }
+
+    .gray-on-black {
+      color: #444444;
+      background: #000000;
+    }
+
+    .red-link {
+      color: #ff0000;
+    }
+
+    .blue-link {
+      color: #0000ff;
+    }
+
+    .fake-button {
+      background: #cccccc;
+      border: 2px outset #ffffff;
+      padding: 5px 15px;
+      cursor: pointer;
+    }
+
+    input:focus, button:focus, a:focus {
+      outline: none;
+    }
+
+    .auto-play {
+      position: absolute;
+      left: -9999px;
+    }
+
+    .visitor-counter {
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      background: #000;
+      padding: 5px 10px;
+      border: 2px inset #888;
+    }
+
+    .best-viewed {
+      color: #ffff00;
+      font-size: 12px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .under-construction {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .color-only-info {
+      margin: 10px 0;
+    }
+
+    .invalid-html > div {
+      background: #330000;
+      padding: 10px;
+      margin: 5px 0;
+    }
+
+    .no-landmarks > div {
+      padding: 10px;
+      margin: 5px 0;
+    }
+
+    .keyboard-trap {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #000;
+      border: 3px double #ff00ff;
+      padding: 20px;
+      z-index: 1000;
+      display: none;
+    }
+
+    .keyboard-trap.active {
+      display: block;
+    }
+
+    .keyboard-trap button {
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- VIOLATION: No skip links -->
+  <table class="header-table" role="presentation">
+    <tr>
+      <td>
+        <h3>Welcome to my 90's Homepage!</h3>
+      </td>
+      <td style="text-align: right;">
+        <div class="visitor-counter">Visitors: 000000</div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="marquee">
+    <span class="marquee-inner">
+      🚧 UNDER CONSTRUCTION 🚧 Welcome to my AWESOME webpage! 🚧 Last updated: January 1999 🚧
+    </span>
+  </div>
+
+  <div class="under-construction">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" style="width:100px;height:100px;">
+    <!-- VIOLATION: Image without alt (decorative should have alt="") -->
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100px;height:100px;">
+  </div>
+
+  <!-- VIOLATION: Multiple h1s, wrong heading order -->
+  <h1 style="text-align: center;">Welcome!!!</h1>
+  <h3 style="text-align: center; color: #00ffff;">This is my webpage</h3>
+  <h2 style="text-align: center; color: #ff00ff;">About Me</h2>
+  <h1 style="text-align: center;">Cool Stuff</h1>
+  <h4 style="text-align: center;">Skip to h4!</h4>
+
+  <div class="section">
+    <h3><span class="blink">🔥 HOT Links 🔥</span></h3>
+
+    <!-- VIOLATION: Empty link -->
+    <a href=""></a>
+
+    <!-- VIOLATION: Click here link text -->
+    <a href="#nowhere" class="blue-link">Click here</a> for more info!
+
+    <!-- VIOLATION: Broken link -->
+    <a href="/this-page-does-not-exist-404" class="red-link">Broken Link</a>
+
+    <!-- VIOLATION: Link with only icon (emoji) -->
+    <a href="#info">🔗</a>
+
+    <!-- VIOLATION: Hash link to non-existent ID -->
+    <a href="#non-existent-id">Go to section</a>
+
+    <!-- VIOLATION: Color-only information -->
+    <div class="color-only-info">
+      Click on the <span style="color: #ff0000;">red links</span> for important info or
+      <span style="color: #0000ff;">blue links</span> for regular info!
+    </div>
+
+    <p>
+      <a href="javascript:void(0);" class="fake-button">I look like a button but I'm a link!</a>
+    </p>
+  </div>
+
+  <div class="violation-grid">
+    <div class="violation-row">
+      <div class="violation-cell">
+        <h3>Color Contrast Nightmares</h3>
+
+        <!-- VIOLATION: Cyan on white -->
+        <p class="cyan-on-white">Can you read this cyan text on white?</p>
+
+        <!-- VIOLATION: Yellow on lime -->
+        <p class="yellow-on-lime">How about yellow on lime green?</p>
+
+        <!-- VIOLATION: Magenta on red -->
+        <p class="magenta-on-red">Magenta on red background!</p>
+
+        <!-- VIOLATION: Low contrast gray on black -->
+        <p class="gray-on-black">Subtle gray on black - very hard to read!</p>
+      </div>
+
+      <div class="violation-cell">
+        <h3>Image Violations</h3>
+
+        <!-- VIOLATION: Missing alt -->
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="50" height="50">
+        <br><br>
+
+        <!-- VIOLATION: alt="" on informative image -->
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="50" height="50" alt="" title="Important chart!">
+        <br><br>
+
+        <!-- VIOLATION: Poor alt text -->
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="50" height="50" alt="image123.png">
+        <br><br>
+
+        <!-- VIOLATION: Broken image link -->
+        <img src="/broken-image-path.jpg" alt="This image is broken">
+        <br><br>
+
+        <!-- Tiny touch target -->
+        <a href="#" class="tiny-target"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Form Violations Galore!</h3>
+
+    <form>
+      <!-- VIOLATION: Input without label -->
+      <input type="text" placeholder="Your name">
+      <br><br>
+
+      <!-- VIOLATION: Placeholder as label -->
+      <input type="email" placeholder="Enter email">
+      <br><br>
+
+      <!-- VIOLATION: Label without for attribute -->
+      <label>Address:</label>
+      <input type="text">
+      <br><br>
+
+      <!-- VIOLATION: Missing required indicator -->
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required>
+      <br><br>
+
+      <!-- VIOLATION: Radio group without fieldset/legend -->
+      <input type="radio" name="color" id="red" value="red">
+      <label for="red">Red</label>
+      <input type="radio" name="color" id="blue" value="blue">
+      <label for="blue">Blue</label>
+      <input type="radio" name="color" id="green" value="green">
+      <label for="green">Green</label>
+      <br><br>
+
+      <!-- VIOLATION: Invalid autocomplete values -->
+      <input type="text" autocomplete="not-a-valid-value">
+      <br><br>
+
+      <!-- VIOLATION: Custom checkbox without ARIA -->
+      <div onclick="this.querySelector('span').textContent = this.querySelector('span').textContent === '☐' ? '☑' : '☐';" style="cursor:pointer;padding:5px;background:#333;margin:5px 0;">
+        <span>☐</span> Custom checkbox (click me!)
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <h3>Focus & Tabindex Nightmares</h3>
+
+    <!-- VIOLATION: Negative tabindex -->
+    <button tabindex="-1">Can't tab to me</button>
+
+    <!-- VIOLATION: tabindex="1" (should use 0) -->
+    <button tabindex="1">I jump to front of line!</button>
+
+    <!-- VIOLATION: onclick on div (not keyboard accessible) -->
+    <div onclick="alert('You clicked!')" style="background:#ff00ff;padding:10px;margin:5px 0;cursor:pointer;">
+      Click me! (keyboard? what keyboard?)
+    </div>
+
+    <!-- VIOLATION: Role button without keyboard handlers -->
+    <div role="button" style="background:#00ff00;padding:10px;margin:5px 0;cursor:pointer;">
+      I'm a "button" div
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>ARIA Violations</h3>
+
+    <!-- VIOLATION: Invalid ARIA role -->
+    <div role="header">I should be banner, not header</div>
+
+    <!-- VIOLATION: aria-hidden on focusable element -->
+    <button aria-hidden="true">Hidden but focusable!</button>
+
+    <!-- VIOLATION: Empty ARIA label -->
+    <button aria-label="">Empty label</button>
+
+    <!-- VIOLATION: aria-label overrides visible text confusingly -->
+    <button aria-label="Delete">Save Changes</button>
+
+    <!-- VIOLATION: Required ARIA state missing -->
+    <div role="checkbox" aria-checked="false">Checkbox without required states</div>
+
+    <!-- VIOLATION: presentation role on interactive element -->
+    <button role="presentation">Click me</button>
+  </div>
+
+  <div class="section">
+    <h3>No Landmarks Zone</h3>
+    <div class="no-landmarks">
+      <!-- VIOLATION: No semantic landmarks (no nav, main, etc.) -->
+      <div>Just some content in a div</div>
+      <div>More div content</div>
+      <div>Even more divs</div>
+      <span>Nested spans</span>
+      <div>with <span>mixed</span> content</div>
+    </div>
+
+    <!-- VIOLATION: font tag instead of CSS -->
+    <font size="4" color="#ff00ff">This uses the font tag!</font>
+
+    <!-- VIOLATION: Tables for layout -->
+    <table role="presentation" style="width:100%;border:1px solid #666;">
+      <tr>
+        <td style="width:50%;background:#330033;">
+          <p>Left column content</p>
+        </td>
+        <td style="width:50%;background:#003300;">
+          <p>Right column content</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Keyboard Trap Test</h3>
+    <button onclick="document.getElementById('trap').classList.add('active');">Enter Keyboard Trap (Escape to exit)</button>
+
+    <div id="trap" class="keyboard-trap">
+      <h4 style="color:#ff0000;">You're trapped! Tab all you want...</h4>
+      <button autofocus>Can't leave</button>
+      <button>Still here</button>
+      <button onclick="document.getElementById('trap').classList.remove('active');">Escape (or press ESC key)</button>
+
+      <script>
+        document.getElementById('trap').addEventListener('keydown', function(e) {
+          if (e.key === 'Tab') {
+            e.preventDefault();
+            const buttons = this.querySelectorAll('button');
+            const focused = document.activeElement;
+            const index = Array.from(buttons).indexOf(focused);
+            const next = buttons[(index + 1) % buttons.length];
+            next.focus();
+          }
+          if (e.key === 'Escape') {
+            this.classList.remove('active');
+          }
+        });
+      </script>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Invalid HTML</h3>
+    <!-- VIOLATION: Unclosed tags -->
+    <div class="invalid-html">
+      <p>This paragraph is never closed
+      <p>This one is fine</p>
+      <span>Unclosed span
+      <div>Nested content</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Hover-Only Menu</h3>
+    <div style="position:relative;display:inline-block;">
+      <span style="background:#ff00ff;padding:10px;cursor:pointer;">Hover over me!</span>
+      <div style="display:none;position:absolute;background:#000;border:1px solid #ff00ff;padding:10px;top:100%;left:0;min-width:150px;">
+        <a href="#" style="display:block;color:#00ffff;padding:5px;">Link 1</a>
+        <a href="#" style="display:block;color:#00ffff;padding:5px;">Link 2</a>
+        <a href="#" style="display:block;color:#00ffff;padding:5px;">Link 3</a>
+      </div>
+    </div>
+
+    <style>
+      .section > div[style*="position:relative"]:hover > div[style*="display:none"] {
+        display: block !important;
+      }
+    </style>
+  </div>
+
+  <div class="section">
+    <h3>More ARIA Nightmares</h3>
+    <!-- VIOLATION: aria-label with no purpose -->
+    <div aria-label="Totally redundant label" role="region">
+      <p>This already has visible text that explains it</p>
+    </div>
+
+    <!-- VIOLATION: aria-live on static content -->
+    <div aria-live="polite" aria-atomic="true">
+      <p>This is static content that will never change</p>
+    </div>
+
+    <!-- VIOLATION: Misused ARIA roles -->
+    <div role="navigation">
+      <p>This isn't really navigation, just misusing the role</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Alert on Focus</h3>
+    <input type="text" onfocus="console.log('Input focused - violation detected!')">
+  </div>
+
+  <div class="best-viewed">
+    <p><span class="blink">This site best viewed with Netscape Navigator 4.0 or Internet Explorer 5.0 at 800x600 resolution!</span></p>
+    <p><span style="animation: blink 0.5s step-end infinite;">📧 Email me: webmaster@cool-site-1999.com 📧</span></p>
+  </div>
+
+  <!-- VIOLATION: Auto-playing audio (authentic 90's!) -->
+  <!-- Disabled: Chrome blocks autoplay audio which can cause page load issues -->
+  <!--
+  <audio class="auto-play" autoplay loop>
+    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
+  </audio>
+  -->
+
+  <div style="text-align:center;margin-top:30px;color:#00ff00;">
+    <p>© 1999 - The Future!</p>
+    <p><a href="#" class="red-link">Home</a> | <a href="#" class="blue-link">Links</a> | <a href="#" class="red-link">Email</a> | <a href="#" class="blue-link">Guestbook</a></p>
+    <p style="font-size:10px;color:#888;">You are visitor number: <span class="visitor-counter">000001337</span></p>
+  </div>
+
+  <!-- VIOLATION: Alert on page load (commented out for actual use) -->
+  <!-- <body onload="alert('Welcome to my awesome page!')"> -->
+
+  <!-- Bookmarklet Testing Bar - Load on demand -->
+  <div id="testing-bar-trigger" style="position:fixed;top:10px;right:10px;z-index:999998;">
+    <button onclick="loadTestingBar()" style="padding:10px 20px;background:black;color:white;border:2px solid white;border-radius:5px;cursor:pointer;font-weight:bold;box-shadow:0 2px 8px rgba(0,0,0,0.3);">📚 Load Bookmarklet Testing Bar</button>
+  </div>
+
+  <script>
+  function loadTestingBar() {
+    'use strict';
+
+    try {
+      // Remove trigger button
+      document.getElementById('testing-bar-trigger').remove();
+
+      // Create the bar container
+      const bar = document.createElement('div');
+      bar.id = 'bookmarklet-testing-bar';
+      bar.style.cssText = `
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 999999 !important;
+        background: linear-gradient(to bottom, #f0f0f0, #e0e0e0) !important;
+        border-bottom: 2px solid #999 !important;
+        font-family: system-ui, -apple-system, sans-serif !important;
+        font-size: 13px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+      `;
+
+      // Create header
+      const header = document.createElement('div');
+      header.style.cssText = `
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 8px 12px !important;
+        background: linear-gradient(to bottom, #e8e8e8, #d8d8d8) !important;
+        border-bottom: 1px solid #ccc !important;
+        cursor: move !important;
+      `;
+
+      const title = document.createElement('strong');
+      title.textContent = '📚 Bookmarklet Testing Bar';
+      title.style.cssText = `
+        color: #333 !important;
+        font-size: 14px !important;
+      `;
+
+      const controls = document.createElement('div');
+      controls.style.cssText = `
+        display: flex !important;
+        gap: 8px !important;
+        align-items: center !important;
+      `;
+
+      // Search input
+      const searchInput = document.createElement('input');
+      searchInput.type = 'text';
+      searchInput.placeholder = 'Filter...';
+      searchInput.id = 'bar-search';
+      searchInput.style.cssText = `
+        padding: 4px 8px !important;
+        border: 1px solid #999 !important;
+        border-radius: 3px !important;
+        font-size: 12px !important;
+        width: 150px !important;
+      `;
+
+      // Category filter
+      const categorySelect = document.createElement('select');
+      categorySelect.id = 'bar-category';
+      categorySelect.style.cssText = `
+        padding: 4px 8px !important;
+        border: 1px solid #999 !important;
+        border-radius: 3px !important;
+        font-size: 12px !important;
+        background: white !important;
+        cursor: pointer !important;
+      `;
+
+      // Close button
+      const closeBtn = document.createElement('button');
+      closeBtn.innerHTML = '×';
+      closeBtn.title = 'Remove bar (reload page to restore)';
+      closeBtn.style.cssText = `
+        background: #c00 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 3px !important;
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 18px !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        line-height: 1 !important;
+      `;
+
+      controls.appendChild(searchInput);
+      controls.appendChild(categorySelect);
+      controls.appendChild(closeBtn);
+      header.appendChild(title);
+      header.appendChild(controls);
+
+      // Create content area
+      const content = document.createElement('div');
+      content.id = 'bar-content';
+      content.style.cssText = `
+        padding: 10px !important;
+        max-height: 50vh !important;
+        overflow-y: auto !important;
+      `;
+
+      // Loading message
+      content.innerHTML = '<p style="color:#666;margin:0;">Loading bookmarklets...</p>';
+
+      bar.appendChild(header);
+      bar.appendChild(content);
+      document.body.appendChild(bar);
+
+      // Push body down
+      document.body.style.paddingTop = parseInt(getComputedStyle(document.body).paddingTop) + bar.offsetHeight + 'px';
+
+      // Make draggable
+      let isDragging = false;
+      let startY, startTop;
+
+      header.addEventListener('mousedown', function(e) {
+        if (e.target === searchInput || e.target === categorySelect || e.target === closeBtn) return;
+        isDragging = true;
+        startY = e.clientY;
+        startTop = bar.offsetTop;
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        const dy = e.clientY - startY;
+        bar.style.top = Math.max(0, Math.min(window.innerHeight - bar.offsetHeight, startTop + dy)) + 'px';
+      });
+
+      document.addEventListener('mouseup', function() {
+        isDragging = false;
+      });
+
+      // Close handler
+      closeBtn.addEventListener('click', function() {
+        bar.remove();
+        document.body.style.paddingTop = '';
+      });
+
+      // Fetch bookmarklets.json from parent directory
+      fetch('../bookmarklets.json')
+        .then(function(res) {
+          if (!res.ok) throw new Error('Not found');
+          return res.json();
+        })
+        .then(function(data) {
+          renderBookmarklets(data);
+        })
+        .catch(function(err) {
+          content.innerHTML = '<p style="color:#c00;margin:0;">Error loading bookmarklets: ' + err.message + '</p>';
+        });
+
+      function renderBookmarklets(data) {
+        // Populate category filter
+        const categories = ['All'];
+        data.forEach(function(b) {
+          const cat = b.category || 'Other';
+          if (categories.indexOf(cat) === -1) {
+            categories.push(cat);
+          }
+        });
+        categories.sort();
+        categorySelect.innerHTML = categories.map(function(c) {
+          return '<option value="' + c + '">' + c + '</option>';
+        }).join('');
+
+        // Render buttons
+        function render() {
+          const search = searchInput.value.toLowerCase();
+          const catFilter = categorySelect.value;
+
+          const filtered = data.filter(function(b) {
+            const matchSearch = !search ||
+              b.name.toLowerCase().indexOf(search) !== -1 ||
+              (b.description && b.description.toLowerCase().indexOf(search) !== -1);
+            const matchCat = catFilter === 'All' || (b.category || 'Other') === catFilter;
+            return matchSearch && matchCat;
+          });
+
+          // Adjust bar height dynamically based on content
+          const itemCount = filtered.length;
+          const baseHeight = 100; // header + padding
+          const itemHeight = 32; // approximate height per button
+          const calculatedHeight = Math.min(baseHeight + (itemCount * itemHeight), window.innerHeight * 0.6);
+          content.style.maxHeight = calculatedHeight + 'px';
+
+          if (filtered.length === 0) {
+            content.innerHTML = '<p style="color:#666;margin:0;">No matching bookmarklets found.</p>';
+            return;
+          }
+
+          const group = {};
+          filtered.forEach(function(b) {
+            const cat = b.category || 'Other';
+            if (!group[cat]) group[cat] = [];
+            group[cat].push(b);
+          });
+
+          content.innerHTML = '';
+          for (const cat in group) {
+            const catDiv = document.createElement('div');
+            catDiv.style.cssText = 'margin-bottom:12px;';
+            const catTitle = document.createElement('strong');
+            catTitle.textContent = cat;
+            catTitle.style.cssText = 'color:#333;display:block;margin-bottom:6px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;';
+            catDiv.appendChild(catTitle);
+            group[cat].forEach(function(b) {
+              const btn = document.createElement('a');
+              btn.textContent = b.name;
+              btn.href = '#';
+              btn.title = b.description || b.name;
+              btn.style.cssText = 'display:inline-block;padding:5px 10px;margin:2px;background:#0066cc;color:white;text-decoration:none;border-radius:4px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;cursor:pointer;';
+              btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = b.url;
+              });
+              catDiv.appendChild(btn);
+            });
+            content.appendChild(catDiv);
+          }
+        }
+
+        searchInput.addEventListener('input', render);
+        categorySelect.addEventListener('change', render);
+        render();
+      }
+
+    } catch (err) {
+      console.error('Testing bar error:', err);
+    }
+  }
+  </script>
+
+</body>
+</html>

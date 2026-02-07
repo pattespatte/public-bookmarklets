@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility / Color / Rendered Contrast Heatmap Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accessibility / Color / Rendered Contrast Heatmap</h1>
+    <p class="description">The Rendered Contrast Heatmap bookmarklet creates a visual overlay showing contrast pass/fail status for all visible text. Samples foreground and background colors from text elements, traverses the DOM for non-transparent backgrounds, calculates contrast ratios, determines text size and boldness to apply appropriate thresholds (3:1 for large text, 4.5:1 for normal text), overlays text elements with colored backgrounds: green (pass), yellow (borderline within 1 of threshold), or red (fail), and displays an alert with pass/borderline/fail counts. Hover over text to see the contrast ratio. Run again to remove.</p>
+    <div class="badges"><span class="badge badge-secondary">WCAG SC 1.4.3: Contrast</span></div>
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Btry%7Bfunction%20t(t)%7Bconst%20e%3Ddocument.createElement(%22canvas%22).getContext(%222d%22)%3Breturn%20e.fillStyle%3Dt%2Ce.fillStyle%7Dfunction%20e(t)%7Bconst%20e%3Dt.match(%2Frgba%3F%5C((%5Cd%2B)%2C%5Cs*(%5Cd%2B)%2C%5Cs*(%5Cd%2B)%2Fi)%3Breturn%20e%3F%5B%2Be%5B1%5D%2C%2Be%5B2%5D%2C%2Be%5B3%5D%5D%3A%5B0%2C0%2C0%5D%7Dfunction%20n(%5Bt%2Ce%2Cn%5D)%7Breturn%5Bt%2Ce%2Cn%5D%3D%5Bt%2Ce%2Cn%5D.map(t%3D%3E(t%2F%3D255)%3C%3D.03928%3Ft%2F12.92%3AMath.pow((t%2B.055)%2F1.055%2C2.4))%2C.2126*t%2B.7152*e%2B.0722*n%7Dfunction%20o(o%2Cr)%7Bconst%20a%3Dn(e(t(o)))%2Cl%3Dn(e(t(r)))%2C%5Bc%2Ci%5D%3Da%3El%3F%5Ba%2Cl%5D%3A%5Bl%2Ca%5D%3Breturn(c%2B.05)%2F(i%2B.05)%7Dconst%20r%3D%22a11y-contrast-heat%22%2Ca%3Ddocument.getElementById(r)%3Ba%26%26a.remove()%3Bconst%20l%3Ddocument.createElement(%22div%22)%3Bl.id%3Dr%2Cl.style%3D%22position%3Afixed%3Binset%3A0%3Bpointer-events%3Anone%3Bz-index%3A2147483647%22%3Bconst%20c%3D%5B...document.querySelectorAll(%22body%20*%22)%5D.filter(t%3D%3Et.offsetParent%26%26(t.innerText%7C%7C%22%22).trim())%3Blet%20i%3D0%2Cs%3D0%2Cd%3D0%3Bfor(const%20u%20of%20c)%7Bconst%20g%3DgetComputedStyle(u)%2Cm%3Dg.color%3Blet%20p%3Dg.backgroundColor%2Ch%3Du%3Bfor(%3B(%22rgba(0%2C%200%2C%200%2C%200)%22%3D%3D%3Dp%7C%7C%22transparent%22%3D%3D%3Dp)%26%26(h%3Dh.parentElement)%3B)p%3DgetComputedStyle(h).backgroundColor%3Bconst%20f%3Du.getBoundingClientRect()%3Bif(%21f.width%7C%7C%21f.height)continue%3Bconst%20y%3Do(m%2Cp)%3Blet%20b%3D%22rgba(0%2C255%2C0%2C.22)%22%3Bconst%20k%3DparseFloat(g.fontSize)%2Cx%3DparseInt(g.fontWeight%2C10)%3E%3D700%2C%24%3Dk%3E%3D18%7C%7Ck%3E%3D14%26%26x%3F3%3A4.5%3By%3C%24%3F(b%3D%22rgba(255%2C0%2C0%2C.25)%22%2Cd%2B%2B)%3Ay%3C%24%2B1%3F(b%3D%22rgba(255%2C200%2C0%2C.22)%22%2Cs%2B%2B)%3Ai%2B%2B%3Bconst%20C%3Ddocument.createElement(%22div%22)%3BC.title%3D%60%24%7By.toFixed(2)%7D%3A1%60%2CC.style%3D%60position%3Aabsolute%3Bleft%3A%24%7Bf.left%2BscrollX%7Dpx%3Btop%3A%24%7Bf.top%2BscrollY%7Dpx%3Bwidth%3A%24%7Bf.width%7Dpx%3Bheight%3A%24%7Bf.height%7Dpx%3Bbackground%3A%24%7Bb%7D%60%2Cl.appendChild(C)%7Ddocument.body.appendChild(l)%2Calert(%60Pass%20%24%7Bi%7D%20%20Borderline%20%24%7Bs%7D%20%20Fail%20%24%7Bd%7D%60)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Rendered%20contrast%20heatmap%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(S)%7Balert(%22Bookmarklet%20Error%3A%20%22%2BS.message)%7D%7D()%3B" class="bookmarklet">Run Rendered Contrast Heatmap</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Btry%7Bfunction%20t(t)%7Bconst%20e%3Ddocument.createElement(%22canvas%22).getContext(%222d%22)%3Breturn%20e.fillStyle%3Dt%2Ce.fillStyle%7Dfunction%20e(t)%7Bconst%20e%3Dt.match(%2Frgba%3F%5C((%5Cd%2B)%2C%5Cs*(%5Cd%2B)%2C%5Cs*(%5Cd%2B)%2Fi)%3Breturn%20e%3F%5B%2Be%5B1%5D%2C%2Be%5B2%5D%2C%2Be%5B3%5D%5D%3A%5B0%2C0%2C0%5D%7Dfunction%20n(%5Bt%2Ce%2Cn%5D)%7Breturn%5Bt%2Ce%2Cn%5D%3D%5Bt%2Ce%2Cn%5D.map(t%3D%3E(t%2F%3D255)%3C%3D.03928%3Ft%2F12.92%3AMath.pow((t%2B.055)%2F1.055%2C2.4))%2C.2126*t%2B.7152*e%2B.0722*n%7Dfunction%20o(o%2Cr)%7Bconst%20a%3Dn(e(t(o)))%2Cl%3Dn(e(t(r)))%2C%5Bc%2Ci%5D%3Da%3El%3F%5Ba%2Cl%5D%3A%5Bl%2Ca%5D%3Breturn(c%2B.05)%2F(i%2B.05)%7Dconst%20r%3D%22a11y-contrast-heat%22%2Ca%3Ddocument.getElementById(r)%3Ba%26%26a.remove()%3Bconst%20l%3Ddocument.createElement(%22div%22)%3Bl.id%3Dr%2Cl.style%3D%22position%3Afixed%3Binset%3A0%3Bpointer-events%3Anone%3Bz-index%3A2147483647%22%3Bconst%20c%3D%5B...document.querySelectorAll(%22body%20*%22)%5D.filter(t%3D%3Et.offsetParent%26%26(t.innerText%7C%7C%22%22).trim())%3Blet%20i%3D0%2Cs%3D0%2Cd%3D0%3Bfor(const%20u%20of%20c)%7Bconst%20g%3DgetComputedStyle(u)%2Cm%3Dg.color%3Blet%20p%3Dg.backgroundColor%2Ch%3Du%3Bfor(%3B(%22rgba(0%2C%200%2C%200%2C%200)%22%3D%3D%3Dp%7C%7C%22transparent%22%3D%3D%3Dp)%26%26(h%3Dh.parentElement)%3B)p%3DgetComputedStyle(h).backgroundColor%3Bconst%20f%3Du.getBoundingClientRect()%3Bif(%21f.width%7C%7C%21f.height)continue%3Bconst%20y%3Do(m%2Cp)%3Blet%20b%3D%22rgba(0%2C255%2C0%2C.22)%22%3Bconst%20k%3DparseFloat(g.fontSize)%2Cx%3DparseInt(g.fontWeight%2C10)%3E%3D700%2C%24%3Dk%3E%3D18%7C%7Ck%3E%3D14%26%26x%3F3%3A4.5%3By%3C%24%3F(b%3D%22rgba(255%2C0%2C0%2C.25)%22%2Cd%2B%2B)%3Ay%3C%24%2B1%3F(b%3D%22rgba(255%2C200%2C0%2C.22)%22%2Cs%2B%2B)%3Ai%2B%2B%3Bconst%20C%3Ddocument.createElement(%22div%22)%3BC.title%3D%60%24%7By.toFixed(2)%7D%3A1%60%2CC.style%3D%60position%3Aabsolute%3Bleft%3A%24%7Bf.left%2BscrollX%7Dpx%3Btop%3A%24%7Bf.top%2BscrollY%7Dpx%3Bwidth%3A%24%7Bf.width%7Dpx%3Bheight%3A%24%7Bf.height%7Dpx%3Bbackground%3A%24%7Bb%7D%60%2Cl.appendChild(C)%7Ddocument.body.appendChild(l)%2Calert(%60Pass%20%24%7Bi%7D%20%20Borderline%20%24%7Bs%7D%20%20Fail%20%24%7Bd%7D%60)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Rendered%20contrast%20heatmap%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(S)%7Balert(%22Bookmarklet%20Error%3A%20%22%2BS.message)%7D%7D()%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

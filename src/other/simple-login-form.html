@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>CodePen - Simple login form</title>
+	<meta name="viewport" content="width=device-width">
+
+	<style>
+		html {
+			box-sizing: border-box;
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+
+		form {
+			padding: 1em;
+			background: #f9f9f9;
+			border: 1px solid #c1c1c1;
+		}
+
+		form input {
+			margin-bottom: 1rem;
+			background: #fff;
+			border: 1px solid #9c9c9c;
+		}
+
+		form button {
+			background: lightgrey;
+			padding: .7em;
+			border: 0;
+		}
+
+		form button:hover {
+			background: gold;
+		}
+
+		label {
+			text-align: right;
+			display: block;
+			padding: .5em 1.5em .5em 0;
+		}
+
+		input {
+			width: 80%;
+			padding: .7em;
+		}
+
+		input:focus {
+			outline: 3px solid gold;
+		}
+
+		.container {
+			max-width: 80vw;
+			padding: auto;
+			margin: 10%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1 class="login-heading">
+			<strong>Welcome.</strong> Please login.
+		</h1>
+		<form class="form1" action="">
+			<input type="text" id="user" placeholder="Username" required="required" class="input-txt">
+			<input type="password" id="password" placeholder="Password" required="required" class="input-txt">
+			<button type="submit">Submit</button>
+		</form>
+		<br>
+		<a href="javascript:(function()%7Bdocument.getElementById(%22user%22).value%20%3D%20%22My%20user%22%3B%0Adocument.getElementById(%22password%22).value%20%3D%20%22My%20secret%20password%22%3B%7D)()%3B">fill out form &ndash; bookmarklet</a>
+		<br>
+		Source: <a href="https://caiorss.github.io/bookmarklet-maker/">https://caiorss.github.io/bookmarklet-maker/</a>
+	</div>
+
+	<script>
+// document.getElementById("user").value = "My user";
+// document.getElementById("password").value = "My secret password";
+
+
+// javascript:(function()%7Bdocument.getElementById(%22user%22).value%20%3D%20%22My%20user%22%3B%0Adocument.getElementById(%22password%22).value%20%3D%20%22My%20secret%20password%22%3B%7D)()%3B
+
+</script>
+</body>
+
+</html>

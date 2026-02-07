@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility / Forms / Focus Path Recorder Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accessibility / Forms / Focus Path Recorder</h1>
+    <p class="description">The Focus Path Recorder bookmarklet records Tab key navigation through the page and generates a downloadable report. Records each Tab press, capturing the timestamp, element tag name, and accessible name (aria-label, ID, name, alt, or text content), and when Esc is pressed, downloads a text file named "focus-path.txt" with the complete navigation history. Useful for documenting focus order issues and verifying logical tab flow.</p>
+    <div class="badges"><span class="badge badge-secondary">WCAG SC 2.4.3: Focus Order</span></div>
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Btry%7Bconst%20e%3D%5B%5D%3Bfunction%20t(e)%7Breturn%20e.getAttribute(%22aria-label%22)%7C%7Ce.id%7C%7Ce.name%7C%7Ce.alt%7C%7Ce.innerText%3F.slice(0%2C40)%7C%7Ce.tagName%7Dfunction%20n(a)%7Bif(%22Tab%22%3D%3D%3Da.key)%7Bconst%20n%3Ddocument.activeElement%3Be.push(%7Btime%3A(new%20Date).toISOString()%2Cel%3An.tagName.toLowerCase()%2Clabel%3At(n)%7D)%7Delse%20if(%22Escape%22%3D%3D%3Da.key)%7Bdocument.removeEventListener(%22keydown%22%2Cn%2C%210)%3Bconst%20t%3De.map(e%3D%3E%60%24%7Be.time%7D%20%20%24%7Be.el%7D%20%20%24%7Be.label%7D%60).join(%22%5Cn%22)%2Ca%3Dnew%20Blob(%5Bt%7C%7C%22No%20events%20recorded%22%5D%2C%7Btype%3A%22text%2Fplain%22%7D)%2Co%3DURL.createObjectURL(a)%2Cr%3Ddocument.createElement(%22a%22)%3Br.href%3Do%2Cr.download%3D%22focus-path.txt%22%2Cr.click()%2CsetTimeout(()%3D%3EURL.revokeObjectURL(o)%2C1e3)%2Calert(%22Saved%20focus-path.txt%22)%7D%7Dalert(%22Recording%20Tab%20navigation.%20Press%20Esc%20to%20save.%22)%2Cdocument.addEventListener(%22keydown%22%2Cn%2C%210)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Focus%20path%20recorder%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(a)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Ba.message)%7D%7D()%3B" class="bookmarklet">Run Focus Path Recorder</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Btry%7Bconst%20e%3D%5B%5D%3Bfunction%20t(e)%7Breturn%20e.getAttribute(%22aria-label%22)%7C%7Ce.id%7C%7Ce.name%7C%7Ce.alt%7C%7Ce.innerText%3F.slice(0%2C40)%7C%7Ce.tagName%7Dfunction%20n(a)%7Bif(%22Tab%22%3D%3D%3Da.key)%7Bconst%20n%3Ddocument.activeElement%3Be.push(%7Btime%3A(new%20Date).toISOString()%2Cel%3An.tagName.toLowerCase()%2Clabel%3At(n)%7D)%7Delse%20if(%22Escape%22%3D%3D%3Da.key)%7Bdocument.removeEventListener(%22keydown%22%2Cn%2C%210)%3Bconst%20t%3De.map(e%3D%3E%60%24%7Be.time%7D%20%20%24%7Be.el%7D%20%20%24%7Be.label%7D%60).join(%22%5Cn%22)%2Ca%3Dnew%20Blob(%5Bt%7C%7C%22No%20events%20recorded%22%5D%2C%7Btype%3A%22text%2Fplain%22%7D)%2Co%3DURL.createObjectURL(a)%2Cr%3Ddocument.createElement(%22a%22)%3Br.href%3Do%2Cr.download%3D%22focus-path.txt%22%2Cr.click()%2CsetTimeout(()%3D%3EURL.revokeObjectURL(o)%2C1e3)%2Calert(%22Saved%20focus-path.txt%22)%7D%7Dalert(%22Recording%20Tab%20navigation.%20Press%20Esc%20to%20save.%22)%2Cdocument.addEventListener(%22keydown%22%2Cn%2C%210)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Focus%20path%20recorder%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(a)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Ba.message)%7D%7D()%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

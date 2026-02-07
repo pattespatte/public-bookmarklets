@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Other / CSS / Dark Mode Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Other / CSS / Dark Mode</h1>
+    <p class="description">Toggle dark mode on any website using CSS filters. Creates a floating button in the top-right corner that toggles between light and dark modes. Dark mode inverts colors and adjusts hue/contrast to create a pleasant dark theme while maintaining color relationships. Images and videos are excluded from inversion to preserve their appearance. Click the toggle button to switch modes, or run the bookmarklet again to remove it entirely.</p>
+    
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Bfunction%20t()%7Bi%3D%21i%2Ci%3F(s.textContent%3D%60%5Cn%5Ct%5Ct%5Ct%5Cthtml%20%7B%5Cn%5Ct%5Ct%5Ct%5Ct%5Ctfilter%3A%20invert(1)%20hue-rotate(180deg)%3B%5Cn%5Ct%5Ct%5Ct%5Ct%7D%5Cn%5Ct%5Ct%5Ct%5Ctimg%2C%20video%2C%20iframe%2C%20canvas%2C%20svg%2C%20%5Bstyle*%3D%22background-image%22%5D%20%7B%5Cn%5Ct%5Ct%5Ct%5Ct%5Ctfilter%3A%20invert(1)%20hue-rotate(180deg)%3B%5Cn%5Ct%5Ct%5Ct%5Ct%7D%5Cn%5Ct%5Ct%5Ct%5Ct%23%24%7Be%7D%20%7B%5Cn%5Ct%5Ct%5Ct%5Ct%5Ctfilter%3A%20invert(1)%20hue-rotate(180deg)%20%21important%3B%5Cn%5Ct%5Ct%5Ct%5Ct%7D%5Cn%5Ct%5Ct%5Ct%60%2Ca.textContent%3D%22%5Cu2600%5Cufe0f%22%2Ca.style.background%3D%22%23fff%22%2Ca.style.color%3D%22%231a1a1a%22)%3A(s.textContent%3D%22%22%2Ca.textContent%3D%22%5Cud83c%5Cudf19%22%2Ca.style.background%3D%22%231a1a1a%22%2Ca.style.color%3D%22%23fff%22)%7Dconst%20e%3D%22dark-mode-bookmarklet%22%2Cn%3D%22dark-mode-style%22%3Blet%20o%3Ddocument.getElementById(e)%3Bif(o)%7Blet%20t%3Ddocument.getElementById(n)%3Breturn%20t%26%26t.remove()%2Cvoid%20o.remove()%7Dconst%20r%3Ddocument.createElement(%22div%22)%3Br.id%3De%2Cr.style.cssText%3D%22%5Cn%5Ct%5Ctposition%3A%20fixed%3B%5Cn%5Ct%5Cttop%3A%2010px%3B%5Cn%5Ct%5Ctright%3A%2010px%3B%5Cn%5Ct%5Ctz-index%3A%20999999%3B%5Cn%5Ct%5Ctdisplay%3A%20flex%3B%5Cn%5Ct%5Ctgap%3A%208px%3B%5Cn%5Ct%22%3Bconst%20a%3Ddocument.createElement(%22button%22)%3Ba.textContent%3D%22%5Cud83c%5Cudf19%22%2Ca.title%3D%22Toggle%20Dark%20Mode%22%2Ca.style.cssText%3D%22%5Cn%5Ct%5Ctpadding%3A%2010px%2014px%3B%5Cn%5Ct%5Ctbackground%3A%20%231a1a1a%3B%5Cn%5Ct%5Ctcolor%3A%20%23fff%3B%5Cn%5Ct%5Ctborder%3A%202px%20solid%20%23444%3B%5Cn%5Ct%5Ctborder-radius%3A%208px%3B%5Cn%5Ct%5Ctcursor%3A%20pointer%3B%5Cn%5Ct%5Ctfont-size%3A%2018px%3B%5Cn%5Ct%5Cttransition%3A%20all%200.2s%20ease%3B%5Cn%5Ct%22%2Ca.onmouseenter%3Dfunction()%7Bthis.style.background%3D%22%23333%22%2Cthis.style.transform%3D%22scale(1.05)%22%7D%2Ca.onmouseleave%3Dfunction()%7Bthis.style.background%3Di%3F%22%231a1a1a%22%3A%22%23fff%22%2Cthis.style.color%3Di%3F%22%23fff%22%3A%22%231a1a1a%22%2Cthis.style.transform%3D%22scale(1)%22%7D%3Bconst%20d%3Ddocument.createElement(%22button%22)%3Bd.textContent%3D%22%5Cxd7%22%2Cd.title%3D%22Remove%20Dark%20Mode%22%2Cd.style.cssText%3D%22%5Cn%5Ct%5Ctpadding%3A%2010px%2014px%3B%5Cn%5Ct%5Ctbackground%3A%20%23dc3545%3B%5Cn%5Ct%5Ctcolor%3A%20%23fff%3B%5Cn%5Ct%5Ctborder%3A%202px%20solid%20%23dc3545%3B%5Cn%5Ct%5Ctborder-radius%3A%208px%3B%5Cn%5Ct%5Ctcursor%3A%20pointer%3B%5Cn%5Ct%5Ctfont-size%3A%2018px%3B%5Cn%5Ct%5Ctfont-weight%3A%20bold%3B%5Cn%5Ct%5Cttransition%3A%20all%200.2s%20ease%3B%5Cn%5Ct%22%2Cd.onmouseenter%3Dfunction()%7Bthis.style.background%3D%22%23c82333%22%7D%2Cd.onmouseleave%3Dfunction()%7Bthis.style.background%3D%22%23dc3545%22%7D%2Cr.appendChild(a)%2Cr.appendChild(d)%2Cdocument.body.appendChild(r)%3Bconst%20s%3Ddocument.createElement(%22style%22)%3Bs.id%3Dn%2Cdocument.head.appendChild(s)%3Blet%20i%3D%211%3Ba.addEventListener(%22click%22%2Ct)%2Cd.addEventListener(%22click%22%2Cfunction()%7Bs.remove()%2Cr.remove()%7D)%2Ct()%7D()%3B" class="bookmarklet">Run Dark Mode</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Bfunction%20t()%7Bi%3D%21i%2Ci%3F(s.textContent%3D%60%5Cn%5Ct%5Ct%5Ct%5Cthtml%20%7B%5Cn%5Ct%5Ct%5Ct%5Ct%5Ctfilter%3A%20invert(1)%20hue-rotate(180deg)%3B%5Cn%5Ct%5Ct%5Ct%5Ct%7D%5Cn%5Ct%5Ct%5Ct%5Ctimg%2C%20video%2C%20iframe%2C%20canvas%2C%20svg%2C%20%5Bstyle*%3D%22background-image%22%5D%20%7B%5Cn%5Ct%5Ct%5Ct%5Ct%5Ctfilter%3A%20invert(1)%20hue-rotate(180deg)%3B%5Cn%5Ct%5Ct%5Ct%5Ct%7D%5Cn%5Ct%5Ct%5Ct%5Ct%23%24%7Be%7D%20%7B%5Cn%5Ct%5Ct%5Ct%5Ct%5Ctfilter%3A%20invert(1)%20hue-rotate(180deg)%20%21important%3B%5Cn%5Ct%5Ct%5Ct%5Ct%7D%5Cn%5Ct%5Ct%5Ct%60%2Ca.textContent%3D%22%5Cu2600%5Cufe0f%22%2Ca.style.background%3D%22%23fff%22%2Ca.style.color%3D%22%231a1a1a%22)%3A(s.textContent%3D%22%22%2Ca.textContent%3D%22%5Cud83c%5Cudf19%22%2Ca.style.background%3D%22%231a1a1a%22%2Ca.style.color%3D%22%23fff%22)%7Dconst%20e%3D%22dark-mode-bookmarklet%22%2Cn%3D%22dark-mode-style%22%3Blet%20o%3Ddocument.getElementById(e)%3Bif(o)%7Blet%20t%3Ddocument.getElementById(n)%3Breturn%20t%26%26t.remove()%2Cvoid%20o.remove()%7Dconst%20r%3Ddocument.createElement(%22div%22)%3Br.id%3De%2Cr.style.cssText%3D%22%5Cn%5Ct%5Ctposition%3A%20fixed%3B%5Cn%5Ct%5Cttop%3A%2010px%3B%5Cn%5Ct%5Ctright%3A%2010px%3B%5Cn%5Ct%5Ctz-index%3A%20999999%3B%5Cn%5Ct%5Ctdisplay%3A%20flex%3B%5Cn%5Ct%5Ctgap%3A%208px%3B%5Cn%5Ct%22%3Bconst%20a%3Ddocument.createElement(%22button%22)%3Ba.textContent%3D%22%5Cud83c%5Cudf19%22%2Ca.title%3D%22Toggle%20Dark%20Mode%22%2Ca.style.cssText%3D%22%5Cn%5Ct%5Ctpadding%3A%2010px%2014px%3B%5Cn%5Ct%5Ctbackground%3A%20%231a1a1a%3B%5Cn%5Ct%5Ctcolor%3A%20%23fff%3B%5Cn%5Ct%5Ctborder%3A%202px%20solid%20%23444%3B%5Cn%5Ct%5Ctborder-radius%3A%208px%3B%5Cn%5Ct%5Ctcursor%3A%20pointer%3B%5Cn%5Ct%5Ctfont-size%3A%2018px%3B%5Cn%5Ct%5Cttransition%3A%20all%200.2s%20ease%3B%5Cn%5Ct%22%2Ca.onmouseenter%3Dfunction()%7Bthis.style.background%3D%22%23333%22%2Cthis.style.transform%3D%22scale(1.05)%22%7D%2Ca.onmouseleave%3Dfunction()%7Bthis.style.background%3Di%3F%22%231a1a1a%22%3A%22%23fff%22%2Cthis.style.color%3Di%3F%22%23fff%22%3A%22%231a1a1a%22%2Cthis.style.transform%3D%22scale(1)%22%7D%3Bconst%20d%3Ddocument.createElement(%22button%22)%3Bd.textContent%3D%22%5Cxd7%22%2Cd.title%3D%22Remove%20Dark%20Mode%22%2Cd.style.cssText%3D%22%5Cn%5Ct%5Ctpadding%3A%2010px%2014px%3B%5Cn%5Ct%5Ctbackground%3A%20%23dc3545%3B%5Cn%5Ct%5Ctcolor%3A%20%23fff%3B%5Cn%5Ct%5Ctborder%3A%202px%20solid%20%23dc3545%3B%5Cn%5Ct%5Ctborder-radius%3A%208px%3B%5Cn%5Ct%5Ctcursor%3A%20pointer%3B%5Cn%5Ct%5Ctfont-size%3A%2018px%3B%5Cn%5Ct%5Ctfont-weight%3A%20bold%3B%5Cn%5Ct%5Cttransition%3A%20all%200.2s%20ease%3B%5Cn%5Ct%22%2Cd.onmouseenter%3Dfunction()%7Bthis.style.background%3D%22%23c82333%22%7D%2Cd.onmouseleave%3Dfunction()%7Bthis.style.background%3D%22%23dc3545%22%7D%2Cr.appendChild(a)%2Cr.appendChild(d)%2Cdocument.body.appendChild(r)%3Bconst%20s%3Ddocument.createElement(%22style%22)%3Bs.id%3Dn%2Cdocument.head.appendChild(s)%3Blet%20i%3D%211%3Ba.addEventListener(%22click%22%2Ct)%2Cd.addEventListener(%22click%22%2Cfunction()%7Bs.remove()%2Cr.remove()%7D)%2Ct()%7D()%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

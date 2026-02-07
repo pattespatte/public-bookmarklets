@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Simple HTML Popover</title>
+</head>
+
+<body>
+
+	<style>
+		.popover-container h2,
+		.popover-container p {
+			margin: 0 auto .25rem;
+		}
+
+		[popover] {
+			border: 1px solid #888;
+			border-radius: .5rem;
+			padding: 1em;
+			background: #fff;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		}
+	</style>
+
+	<button popovertarget="my-popover">Show Popover</button>
+
+	<div id="my-popover" popover>
+		<div class="popover-container">
+			<h1>VoiceOver guide</h1>
+			<p>The default VoiceOver (VO) button is <strong>ctrl + alt</strong>.</p>
+			<table>
+				<tr>
+					<td>start or stop VoiceOver</td>
+					<td>cmd + F5</td>
+				</tr>
+				<tr>
+					<td>start reading</td>
+					<td>VO + A</td>
+				</tr>
+				<tr>
+					<td>stop reading</td>
+					<td>VO</td>
+				</tr>
+				<tr>
+					<td>go into a section</td>
+					<td>VO + Shift + ▼</td>
+				</tr>
+				<tr>
+					<td>exit a section</td>
+					<td>VO + Shift + ▲</td>
+				</tr>
+				<tr>
+					<td>next</td>
+					<td>VO + ▶︎</td>
+				</tr>
+				<tr>
+					<td>previous</td>
+					<td>VO + ◀︎</td>
+				</tr>
+				<tr>
+					<td>click a link or button</td>
+					<td>Enter</td>
+				</tr>
+				<tr>
+					<td>select a checkbox, radio or dropdown</td>
+					<td>Space</td>
+				</tr>
+			</table>
+			<h2>The rotor</h2>
+			<p>The rotor lets you navigate by element type, for example headings and links.</p>
+			<table>
+				<tr>
+					<td>open the rotor</td>
+					<td>VO + U</td>
+				</tr>
+				<tr>
+					<td>switch between element types</td>
+					<td>◀︎ ▶︎</td>
+				</tr>
+				<tr>
+					<td>select an element</td>
+					<td>▲ ▼</td>
+				</tr>
+				<tr>
+					<td>go to selected element</td>
+					<td>Space or Enter</td>
+				</tr>
+			</table>
+			<p>For more shortcuts, visit <a href="https://support.apple.com/guide/voiceover/general-commands-cpvokys01/mac">Apple</a> or <a href="https://dequeuniversity.com/screenreaders/voiceover-keyboard-shortcuts">Deque University</a>.</p>
+		</div>
+	</div>
+	</div>
+
+</body>
+
+</html>

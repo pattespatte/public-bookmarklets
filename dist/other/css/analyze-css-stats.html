@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Other / CSS / Analyze CSS Stats Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Other / CSS / Analyze CSS Stats</h1>
+    <p class="description">The Analyze CSS Stats bookmarklet opens cssstats.com analysis for the current page's CSS. Detects if the URL is localhost/private (127.0.0.1, file://, etc.), for local URLs extracts CSS from all stylesheets and inline styles then POSTs to the CSS Stats API, for public URLs sends the URL to the CSS Stats ingest API, shows a loading indicator during extraction/analysis, and opens a new tab with comprehensive CSS statistics (rule count, selector complexity, colors, fonts, etc.). Useful for CSS optimization and understanding stylesheet complexity.</p>
+    
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Btry%7Bvar%20t%3Dwindow.location.href%2Ce%3D%2F%5E(localhost%7C127%5C.0%5C.0%5C.1%7C0%5C.0%5C.0%5C.0%7C%3A%3A1%7C10%5C.%7C172%5C.(1%5B6-9%5D%7C2%5B0-9%5D%7C3%5B01%5D)%5C.%7C192%5C.168%5C.%7Cfile%3A)%2Fi.test(t)%2Cn%3Ddocument.createElement(%22div%22)%3Bif(n.style.cssText%3D%22position%3Afixed%3Btop%3A20px%3Bright%3A20px%3Bbackground%3A%23333%3Bcolor%3A%23fff%3Bpadding%3A12px%2020px%3Bborder-radius%3A8px%3Bfont-family%3Asans-serif%3Bfont-size%3A14px%3Bz-index%3A999999%3Bbox-shadow%3A0%204px%2012px%20rgba(0%2C0%2C0%2C0.3)%22%2Cn.textContent%3De%3F%22Extracting%20CSS...%22%3A%22Analyzing%20CSS...%22%2Cdocument.body.appendChild(n)%2Ce)%7Bvar%20s%3D%22%22%2Co%3Ddocument.styleSheets%2Cr%3D0%2Ca%3D0%3Bfunction%20h(t)%7Btry%7Bif(t.cssRules)%7Bfor(var%20e%3D0%3Be%3Ct.cssRules.length%3Be%2B%2B)s%2B%3Dt.cssRules%5Be%5D.cssText%2B%22%5Cn%22%3Breturn%210%7D%7Dcatch(t)%7Breturn%211%7Dreturn%211%7Dfor(var%20c%3D0%3Bc%3Co.length%3Bc%2B%2B)a%2B%2B%2Ch(o%5Bc%5D)%3Fr%2B%2B%3Ao%5Bc%5D.href%3Ffunction(t)%7Bfetch(t).then(function(t)%7Breturn%20t.text()%7D).then(function(t)%7Bs%2B%3Dt%2B%22%5Cn%22%2C%2B%2Br%3D%3D%3Da%26%26d()%7D).catch(function()%7B%2B%2Br%3D%3D%3Da%26%26d()%7D)%7D(o%5Bc%5D.href)%3Ar%2B%2B%3Bfor(var%20i%3Ddocument.querySelectorAll(%27style%3Anot(%5Bmedia%5D)%2C%20style%5Bmedia%3D%22all%22%5D%2C%20style%5Bmedia%3D%22screen%22%5D%27)%2Cl%3D0%3Bl%3Ci.length%3Bl%2B%2B)s%2B%3Di%5Bl%5D.textContent%2B%22%5Cn%22%3Bfunction%20d()%7Bs.trim().length%3E0%3Ffetch(%22https%3A%2F%2Fapi.cssstats.com%2Fv1%2Fanalyze-css%22%2C%7Bmethod%3A%22POST%22%2Cheaders%3A%7B%22Content-Type%22%3A%22application%2Fjson%22%7D%2Cbody%3AJSON.stringify(%7Bcss%3As.trim()%7D)%7D).then(function(t)%7Breturn%20t.json()%7D).then(function(t)%7Bn.remove()%2Ct.snapshotId%3Fwindow.open(%22https%3A%2F%2Fcssstats.com%2Fstats%2F%22%2Bt.snapshotId%2C%22_blank%22)%3Aalert(%22CSS%20Stats%3A%20Could%20not%20analyze%20CSS.%20Error%3A%20%22%2B(t.message%7C%7C%22Unknown%20error%22))%7D).catch(function(t)%7Bn.remove()%2Calert(%22CSS%20Stats%20Error%3A%20%22%2Bt.message)%7D)%3A(n.remove()%2Calert(%22CSS%20Stats%3A%20Could%20not%20extract%20CSS%20from%20this%20page.%20The%20page%20may%20use%20CORS-protected%20stylesheets.%22))%7Dr%3D%3D%3Da%26%26d()%7Delse%20fetch(%22https%3A%2F%2Fapi.cssstats.com%2Fv1%2Fingest%22%2C%7Bmethod%3A%22POST%22%2Cheaders%3A%7B%22Content-Type%22%3A%22application%2Fjson%22%7D%2Cbody%3AJSON.stringify(%7Burl%3At%7D)%7D).then(function(t)%7Breturn%20t.json()%7D).then(function(t)%7Bn.remove()%2Ct.snapshotId%3Fwindow.open(%22https%3A%2F%2Fcssstats.com%2Fstats%2F%22%2Bt.snapshotId%2C%22_blank%22)%3At.error%3Falert(%22CSS%20Stats%3A%20%22%2Bt.error%2B(t.details%3F%22%5Cn%22%2Bt.details%3A%22%22))%3Aalert(%22CSS%20Stats%3A%20Could%20not%20analyze%20page.%20Error%3A%20%22%2B(t.message%7C%7C%22Unknown%20error%22))%7D).catch(function(t)%7Bn.remove()%2Calert(%22CSS%20Stats%20Error%3A%20%22%2Bt.message)%7D)%7Dcatch(f)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Bf.message)%7D%7D()%3B" class="bookmarklet">Run Analyze CSS Stats</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Btry%7Bvar%20t%3Dwindow.location.href%2Ce%3D%2F%5E(localhost%7C127%5C.0%5C.0%5C.1%7C0%5C.0%5C.0%5C.0%7C%3A%3A1%7C10%5C.%7C172%5C.(1%5B6-9%5D%7C2%5B0-9%5D%7C3%5B01%5D)%5C.%7C192%5C.168%5C.%7Cfile%3A)%2Fi.test(t)%2Cn%3Ddocument.createElement(%22div%22)%3Bif(n.style.cssText%3D%22position%3Afixed%3Btop%3A20px%3Bright%3A20px%3Bbackground%3A%23333%3Bcolor%3A%23fff%3Bpadding%3A12px%2020px%3Bborder-radius%3A8px%3Bfont-family%3Asans-serif%3Bfont-size%3A14px%3Bz-index%3A999999%3Bbox-shadow%3A0%204px%2012px%20rgba(0%2C0%2C0%2C0.3)%22%2Cn.textContent%3De%3F%22Extracting%20CSS...%22%3A%22Analyzing%20CSS...%22%2Cdocument.body.appendChild(n)%2Ce)%7Bvar%20s%3D%22%22%2Co%3Ddocument.styleSheets%2Cr%3D0%2Ca%3D0%3Bfunction%20h(t)%7Btry%7Bif(t.cssRules)%7Bfor(var%20e%3D0%3Be%3Ct.cssRules.length%3Be%2B%2B)s%2B%3Dt.cssRules%5Be%5D.cssText%2B%22%5Cn%22%3Breturn%210%7D%7Dcatch(t)%7Breturn%211%7Dreturn%211%7Dfor(var%20c%3D0%3Bc%3Co.length%3Bc%2B%2B)a%2B%2B%2Ch(o%5Bc%5D)%3Fr%2B%2B%3Ao%5Bc%5D.href%3Ffunction(t)%7Bfetch(t).then(function(t)%7Breturn%20t.text()%7D).then(function(t)%7Bs%2B%3Dt%2B%22%5Cn%22%2C%2B%2Br%3D%3D%3Da%26%26d()%7D).catch(function()%7B%2B%2Br%3D%3D%3Da%26%26d()%7D)%7D(o%5Bc%5D.href)%3Ar%2B%2B%3Bfor(var%20i%3Ddocument.querySelectorAll(%27style%3Anot(%5Bmedia%5D)%2C%20style%5Bmedia%3D%22all%22%5D%2C%20style%5Bmedia%3D%22screen%22%5D%27)%2Cl%3D0%3Bl%3Ci.length%3Bl%2B%2B)s%2B%3Di%5Bl%5D.textContent%2B%22%5Cn%22%3Bfunction%20d()%7Bs.trim().length%3E0%3Ffetch(%22https%3A%2F%2Fapi.cssstats.com%2Fv1%2Fanalyze-css%22%2C%7Bmethod%3A%22POST%22%2Cheaders%3A%7B%22Content-Type%22%3A%22application%2Fjson%22%7D%2Cbody%3AJSON.stringify(%7Bcss%3As.trim()%7D)%7D).then(function(t)%7Breturn%20t.json()%7D).then(function(t)%7Bn.remove()%2Ct.snapshotId%3Fwindow.open(%22https%3A%2F%2Fcssstats.com%2Fstats%2F%22%2Bt.snapshotId%2C%22_blank%22)%3Aalert(%22CSS%20Stats%3A%20Could%20not%20analyze%20CSS.%20Error%3A%20%22%2B(t.message%7C%7C%22Unknown%20error%22))%7D).catch(function(t)%7Bn.remove()%2Calert(%22CSS%20Stats%20Error%3A%20%22%2Bt.message)%7D)%3A(n.remove()%2Calert(%22CSS%20Stats%3A%20Could%20not%20extract%20CSS%20from%20this%20page.%20The%20page%20may%20use%20CORS-protected%20stylesheets.%22))%7Dr%3D%3D%3Da%26%26d()%7Delse%20fetch(%22https%3A%2F%2Fapi.cssstats.com%2Fv1%2Fingest%22%2C%7Bmethod%3A%22POST%22%2Cheaders%3A%7B%22Content-Type%22%3A%22application%2Fjson%22%7D%2Cbody%3AJSON.stringify(%7Burl%3At%7D)%7D).then(function(t)%7Breturn%20t.json()%7D).then(function(t)%7Bn.remove()%2Ct.snapshotId%3Fwindow.open(%22https%3A%2F%2Fcssstats.com%2Fstats%2F%22%2Bt.snapshotId%2C%22_blank%22)%3At.error%3Falert(%22CSS%20Stats%3A%20%22%2Bt.error%2B(t.details%3F%22%5Cn%22%2Bt.details%3A%22%22))%3Aalert(%22CSS%20Stats%3A%20Could%20not%20analyze%20page.%20Error%3A%20%22%2B(t.message%7C%7C%22Unknown%20error%22))%7D).catch(function(t)%7Bn.remove()%2Calert(%22CSS%20Stats%20Error%3A%20%22%2Bt.message)%7D)%7Dcatch(f)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Bf.message)%7D%7D()%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility / Analysis / Voice Command Readiness Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accessibility / Analysis / Voice Command Readiness</h1>
+    <p class="description">The Voice Command Readiness bookmarklet checks controls for unique and concise names suitable for voice control. Finds links, buttons, and inputs, extracts their accessible names (aria-label, aria-labelledby, visible text), normalizes names (lowercase, collapse whitespace, truncate to 60), identifies duplicate names used by multiple controls which would prevent voice targeting, and counts excessively long names (>6 words) which are harder to speak. Displays an alert with counts of duplicates and long names. Useful for testing voice control compatibility.</p>
+    
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Btry%7Bfunction%20e(e)%7Bconst%20t%3De%3D%3Ee%26%26document.getElementById(e)%3F.innerText.trim()%3Bif(e.getAttribute(%22aria-label%22))return%20e.getAttribute(%22aria-label%22).trim()%3Bconst%20r%3De.getAttribute(%22aria-labelledby%22)%3Bif(r)return%20r.split(%2F%5Cs%2B%2F).map(t).filter(Boolean).join(%22%20%22).trim()%3Breturn(e.innerText%7C%7C%22%22).trim()%7C%7Ce.getAttribute(%22title%22)%7C%7C%22%22%7Dconst%20t%3D%5B...document.querySelectorAll(%27a%5Bhref%5D%2Cbutton%2C%5Brole%3D%22button%22%5D%2Cinput%2Cselect%2Ctextarea%27)%5D.filter(e%3D%3Ee.offsetParent)%2Cr%3Dt.map(t%3D%3Ee(t).toLowerCase().replace(%2F%5Cs%2B%2Fg%2C%22%20%22).trim()).map(e%3D%3Ee.slice(0%2C60))%2Cn%3Dnew%20Map%3Br.forEach((e%2Cr)%3D%3E%7Bif(%21e)return%3Bconst%20a%3Dn.get(e)%7C%7C%5B%5D%3Ba.push(t%5Br%5D)%2Cn.set(e%2Ca)%7D)%3Bconst%20a%3D%5B...n.entries()%5D.filter((%5Be%2Ct%5D)%3D%3Et.length%3E1%26%26e.length%3E0)%2Ci%3Dr.filter(e%3D%3Ee%26%26e.split(%22%20%22).length%3E6).length%3Balert(%60Duplicate%20names%3A%20%24%7Ba.length%7D%20%20Long%20names%3A%20%24%7Bi%7D%60)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Voice%20command%20readiness%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(l)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Bl.message)%7D%7D()%3B" class="bookmarklet">Run Voice Command Readiness</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Btry%7Bfunction%20e(e)%7Bconst%20t%3De%3D%3Ee%26%26document.getElementById(e)%3F.innerText.trim()%3Bif(e.getAttribute(%22aria-label%22))return%20e.getAttribute(%22aria-label%22).trim()%3Bconst%20r%3De.getAttribute(%22aria-labelledby%22)%3Bif(r)return%20r.split(%2F%5Cs%2B%2F).map(t).filter(Boolean).join(%22%20%22).trim()%3Breturn(e.innerText%7C%7C%22%22).trim()%7C%7Ce.getAttribute(%22title%22)%7C%7C%22%22%7Dconst%20t%3D%5B...document.querySelectorAll(%27a%5Bhref%5D%2Cbutton%2C%5Brole%3D%22button%22%5D%2Cinput%2Cselect%2Ctextarea%27)%5D.filter(e%3D%3Ee.offsetParent)%2Cr%3Dt.map(t%3D%3Ee(t).toLowerCase().replace(%2F%5Cs%2B%2Fg%2C%22%20%22).trim()).map(e%3D%3Ee.slice(0%2C60))%2Cn%3Dnew%20Map%3Br.forEach((e%2Cr)%3D%3E%7Bif(%21e)return%3Bconst%20a%3Dn.get(e)%7C%7C%5B%5D%3Ba.push(t%5Br%5D)%2Cn.set(e%2Ca)%7D)%3Bconst%20a%3D%5B...n.entries()%5D.filter((%5Be%2Ct%5D)%3D%3Et.length%3E1%26%26e.length%3E0)%2Ci%3Dr.filter(e%3D%3Ee%26%26e.split(%22%20%22).length%3E6).length%3Balert(%60Duplicate%20names%3A%20%24%7Ba.length%7D%20%20Long%20names%3A%20%24%7Bi%7D%60)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Voice%20command%20readiness%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(l)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Bl.message)%7D%7D()%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "bookmarklets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "new": "node scripts/new.js",
+    "copy": "node scripts/copy.js",
+    "serve": "npx http-server dist",
+    "format": "prettier --write \"src/**/*.js\" \"scripts/**/*.js\" \"*.md\"",
+    "format:check": "prettier --check \"src/**/*.js\" \"scripts/**/*.js\" \"*.html\" \"*.md\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "clipboardy": "^5.1.0",
+    "html-minifier-terser": "^7.2.0",
+    "lightningcss-cli": "^1.31.1",
+    "prettier": "^3.8.1",
+    "terser": "^5.46.0"
+  }
+}

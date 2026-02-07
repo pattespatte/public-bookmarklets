@@ -1,0 +1,35 @@
+# Private bookmarklets (licensing/copyright under investigation)
+src/_private/
+dist/_private/
+
+# Build artifacts (optional - keep dist/ but exclude private)
+# dist/
+
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local settings and temp files
+.claude/
+.playwright-mcp/

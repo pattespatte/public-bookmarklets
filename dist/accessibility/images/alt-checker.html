@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility / Images / Alt Checker Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accessibility / Images / Alt Checker</h1>
+    <p class="description">The Alt Checker bookmarklet highlights images with missing or empty alt attributes, helping identify non-text content that lacks accessible alternatives. Images without alt text are outlined in red, while decorative images (alt="") are outlined in blue. Run again to remove the overlays.</p>
+    <div class="badges"><span class="badge badge-secondary">WCAG SC 1.1.1: Non-text Content</span></div>
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Bfunction%20t(t%2Ce%2Cl)%7Bvar%20o%3Ddocument.createElement(%22div%22)%3Bo.classList.add(%22alt-text-overlay%22)%2Co.style.position%3D%22absolute%22%2Co.style.backgroundColor%3Dl%2Co.style.color%3D%22white%22%2Co.style.padding%3D%225px%22%2Co.style.fontWeight%3D%22bold%22%2Co.style.zIndex%3D%229999%22%2Co.textContent%3De%3Bvar%20n%3Dt.getBoundingClientRect()%3Bo.style.top%3Dn.top%2B%22px%22%2Co.style.left%3Dn.left%2B%22px%22%2Co.style.width%3Dn.width%2B%22px%22%2Co.style.height%3Dn.height%2B%22px%22%2Cdocument.body.appendChild(o)%7Dvar%20e%2Cl%3Be%3Ddocument.getElementById(%22alt-text-style%22)%2Cl%3Ddocument.querySelectorAll(%22.alt-text-overlay%22)%2Ce%26%26l.length%3E0%3F(e.remove()%2Cdocument.querySelectorAll(%22.alt-text-overlay%22).forEach(function(t)%7Bt.remove()%7D))%3A(function(t%2Ce)%7Bvar%20l%3Ddocument.querySelector(%22head%22)%3Bif(l)%7Bvar%20o%3Ddocument.createElement(%22style%22)%3Bo.type%3D%22text%2Fcss%22%2Co.id%3De%2Co.innerHTML%3Dt%2Cl.appendChild(o)%7D%7D(%22img%5Balt%3D%27%27%5D%20%7B%20filter%3A%20blur(10px)%20%21important%3B%20outline%3A%2010px%20solid%20blue%20%21important%3B%20%7Dimg%3Anot(%5Balt%5D)%20%7B%20filter%3A%20blur(10px)%20%21important%3B%20outline%3A%2010px%20solid%20red%20%21important%3B%20%7D%22%2C%22alt-text-style%22)%2Cdocument.querySelectorAll(%22img%5Balt%3D%27%27%5D%22).forEach(function(e)%7Bt(e%2C%22decorative%20img%22%2C%22rgba(0%2C%200%2C%20255%2C%200.8)%22)%7D)%2Cdocument.querySelectorAll(%22img%3Anot(%5Balt%5D)%22).forEach(function(e)%7Bt(e%2C%22alt-text%20missing%21%22%2C%22rgba(255%2C%200%2C%200%2C%200.8)%22)%7D))%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fblog.ohheybrian.com%2F2021%2F11%2Fcheck-for-alt-tags-with-a-bookmarklet%2F%5CnBookmarklet%20name%3A%20altChecker%5Cn%22)%3B" class="bookmarklet">Run Alt Checker</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Bfunction%20t(t%2Ce%2Cl)%7Bvar%20o%3Ddocument.createElement(%22div%22)%3Bo.classList.add(%22alt-text-overlay%22)%2Co.style.position%3D%22absolute%22%2Co.style.backgroundColor%3Dl%2Co.style.color%3D%22white%22%2Co.style.padding%3D%225px%22%2Co.style.fontWeight%3D%22bold%22%2Co.style.zIndex%3D%229999%22%2Co.textContent%3De%3Bvar%20n%3Dt.getBoundingClientRect()%3Bo.style.top%3Dn.top%2B%22px%22%2Co.style.left%3Dn.left%2B%22px%22%2Co.style.width%3Dn.width%2B%22px%22%2Co.style.height%3Dn.height%2B%22px%22%2Cdocument.body.appendChild(o)%7Dvar%20e%2Cl%3Be%3Ddocument.getElementById(%22alt-text-style%22)%2Cl%3Ddocument.querySelectorAll(%22.alt-text-overlay%22)%2Ce%26%26l.length%3E0%3F(e.remove()%2Cdocument.querySelectorAll(%22.alt-text-overlay%22).forEach(function(t)%7Bt.remove()%7D))%3A(function(t%2Ce)%7Bvar%20l%3Ddocument.querySelector(%22head%22)%3Bif(l)%7Bvar%20o%3Ddocument.createElement(%22style%22)%3Bo.type%3D%22text%2Fcss%22%2Co.id%3De%2Co.innerHTML%3Dt%2Cl.appendChild(o)%7D%7D(%22img%5Balt%3D%27%27%5D%20%7B%20filter%3A%20blur(10px)%20%21important%3B%20outline%3A%2010px%20solid%20blue%20%21important%3B%20%7Dimg%3Anot(%5Balt%5D)%20%7B%20filter%3A%20blur(10px)%20%21important%3B%20outline%3A%2010px%20solid%20red%20%21important%3B%20%7D%22%2C%22alt-text-style%22)%2Cdocument.querySelectorAll(%22img%5Balt%3D%27%27%5D%22).forEach(function(e)%7Bt(e%2C%22decorative%20img%22%2C%22rgba(0%2C%200%2C%20255%2C%200.8)%22)%7D)%2Cdocument.querySelectorAll(%22img%3Anot(%5Balt%5D)%22).forEach(function(e)%7Bt(e%2C%22alt-text%20missing%21%22%2C%22rgba(255%2C%200%2C%200%2C%200.8)%22)%7D))%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fblog.ohheybrian.com%2F2021%2F11%2Fcheck-for-alt-tags-with-a-bookmarklet%2F%5CnBookmarklet%20name%3A%20altChecker%5Cn%22)%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

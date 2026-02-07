@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility / Analysis / Table Structure Verifier Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accessibility / Analysis / Table Structure Verifier</h1>
+    <p class="description">The Table Structure Verifier bookmarklet validates header associations in data tables. Finds all tables on the page, identifies data cells (td), checks if each cell has properly associated headers via the `headers` attribute or `scope` attributes on header cells, outlines cells without clear header associations in red, and displays an alert with the count of problematic cells. Useful for verifying that data tables have proper header relationships for screen reader users. Note: Does not check layout tables, which should not have headers.</p>
+    <div class="badges"><span class="badge badge-secondary">WCAG SC 1.3.1: Info and Relationships</span></div>
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Btry%7Bconst%20e%3D%5B...document.querySelectorAll(%22table%22)%5D%3Bif(%21e.length)return%20void%20alert(%22No%20tables%22)%3Blet%20t%3D0%3Bfunction%20r(e%2Ct)%7Bconst%20r%3D%5B...t.querySelectorAll(%22th%22)%5D%2Co%3D(e.getAttribute(%22headers%22)%7C%7C%22%22).split(%2F%5Cs%2B%2F).filter(Boolean).map(e%3D%3Edocument.getElementById(e)).filter(Boolean)%3Bif(o.length)return%20new%20Set(o)%3Bconst%20l%3Dnew%20Set%2Cn%3De.parentElement%2Ca%3D%5B...n.children%5D.indexOf(e)%3Bfor(const%20e%20of%20r)%7Bconst%20t%3D(e.getAttribute(%22scope%22)%7C%7C%22%22).toLowerCase()%3Bif(%22col%22%3D%3D%3Dt)%7B%5B...e.parentElement.children%5D.indexOf(e)%3D%3D%3Da%26%26l.add(e)%7Delse%22row%22%3D%3D%3Dt%26%26e.parentElement%3D%3D%3Dn%26%26l.add(e)%7Dreturn%20l%7De.forEach(e%3D%3E%7B%5B...e.querySelectorAll(%22td%22)%5D.forEach(o%3D%3E%7Br(o%2Ce).size%7C%7C(o.style.outline%3D%223px%20solid%20%23e00%22%2Ct%2B%2B)%7D)%7D)%2Calert(%60Cells%20without%20clear%20headers%3A%20%24%7Bt%7D%60)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Table%20structure%20verifier%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(o)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Bo.message)%7D%7D()%3B" class="bookmarklet">Run Table Structure Verifier</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Btry%7Bconst%20e%3D%5B...document.querySelectorAll(%22table%22)%5D%3Bif(%21e.length)return%20void%20alert(%22No%20tables%22)%3Blet%20t%3D0%3Bfunction%20r(e%2Ct)%7Bconst%20r%3D%5B...t.querySelectorAll(%22th%22)%5D%2Co%3D(e.getAttribute(%22headers%22)%7C%7C%22%22).split(%2F%5Cs%2B%2F).filter(Boolean).map(e%3D%3Edocument.getElementById(e)).filter(Boolean)%3Bif(o.length)return%20new%20Set(o)%3Bconst%20l%3Dnew%20Set%2Cn%3De.parentElement%2Ca%3D%5B...n.children%5D.indexOf(e)%3Bfor(const%20e%20of%20r)%7Bconst%20t%3D(e.getAttribute(%22scope%22)%7C%7C%22%22).toLowerCase()%3Bif(%22col%22%3D%3D%3Dt)%7B%5B...e.parentElement.children%5D.indexOf(e)%3D%3D%3Da%26%26l.add(e)%7Delse%22row%22%3D%3D%3Dt%26%26e.parentElement%3D%3D%3Dn%26%26l.add(e)%7Dreturn%20l%7De.forEach(e%3D%3E%7B%5B...e.querySelectorAll(%22td%22)%5D.forEach(o%3D%3E%7Br(o%2Ce).size%7C%7C(o.style.outline%3D%223px%20solid%20%23e00%22%2Ct%2B%2B)%7D)%7D)%2Calert(%60Cells%20without%20clear%20headers%3A%20%24%7Bt%7D%60)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Table%20structure%20verifier%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(o)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Bo.message)%7D%7D()%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>

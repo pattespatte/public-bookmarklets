@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Other / Visual / Reading Order Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Other / Visual / Reading Order</h1>
+    <p class="description">The Reading Order bookmarklet visualizes the reading order of content elements based on their display layout. Prompts for a CSS selector (default searches common elements) and display type ("flex" or "grid"), then numbers visible child elements in sequence to show the order they would be encountered. Elements matching the display type are outlined in red, their visible children are outlined in blue, and numbered badges show the reading sequence. Useful for identifying CSS layout issues that affect logical reading order.</p>
+    <div class="badges"><span class="badge badge-secondary">WCAG SC 1.3.2: Meaningful Sequence</span></div>
+    <a href="javascript:%21function()%7Btry%7Bvar%20e%2Ct%3Dprompt(%22Selector%3F%20(blank%20searches%20most)%22%2C%22%22)%2Cr%3Dprompt(%22Flex%20or%20grid%3F%22%2C%22grid%22)%2Cn%3Ddocument.createElement(%22style%22)%3Bif(document.head.appendChild(n)%2C(e%3Dn.sheet).insertRule(%22%23ReadingOrderContainer%20span%7Bposition%3Aabsolute%3Bborder%3A.1rem%20solid%20%2300f%3Bborder-radius%3A50%25%3Bbackground%3A%23fff%3Bcolor%3A%23000%3Bpadding%3A.25rem%20.5rem%3Bfont-family%3A%27Segoe%20UI%27%2C-apple-system%2CBlinkMacSystemFont%2CRoboto%2COxygen-Sans%2CUbuntu%2CCantarell%2C%27Helvetica%20Neue%27%2Csans-serif%3Btext-align%3Acenter%3Bmin-width%3A1rem%3Bline-height%3A1%3Bbox-shadow%3A.2rem%20.2rem%20.2rem%20rgba(0%2C0%2C0%2C.5)%3Bmargin-left%3A-.5rem%3Bmargin-top%3A-.75rem%7D%22%2C0)%2Ce.insertRule(%22%23ReadingOrderContainer%20span%3Afocus%2C%23ReadingOrderContainer%20span%3Ahover%7Bbackground-color%3A%2300f%3Bcolor%3A%23fff%3Bz-index%3A500%3Boutline%3A0%7D%22%2C0)%2C%22%22%3D%3Dt)var%20o%3Ddocument.querySelectorAll(%22address%2C%20article%2C%20aside%2C%20blockquote%2C%20caption%2C%20details%2C%20dialog%2C%20dd%2C%20div%2C%20dl%2C%20dt%2C%20fieldset%2C%20figcaption%2C%20figure%2C%20footer%2C%20form%2C%20h1%2C%20h2%2C%20h3%2C%20h4%2C%20h5%2C%20h6%2C%20header%2C%20hgroup%2C%20hr%2C%20li%2C%20main%2C%20nav%2C%20ol%2C%20p%2C%20pre%2C%20section%2C%20table%2C%20td%2C%20th%2C%20ul%2C%20img%2C%20video%2C%20button%2C%20input%2C%20select%2C%20textarea%22)%3Belse%20o%3Ddocument.querySelectorAll(t)%3Bfor(var%20d%3D%5B%5D%2Ca%3D%5B%5D%2Cl%3D0%2Ci%3D0%2Cs%3D0%3Bs%3Co.length%3Bs%2B%2B)if(window.getComputedStyle(o%5Bs%5D).getPropertyValue(%22display%22)%3D%3D%3Dr)%7Bd%5Bl%5D%3Do%5Bs%5D%2Cl%2B%3D1%2Co%5Bs%5D.style.outline%3D%22.4rem%20dotted%20rgba(255%2C0%2C0%2C.5)%22%3Bfor(var%20c%3D0%3Bc%3Co%5Bs%5D.children.length%3Bc%2B%2B)%22none%22%21%3D%3Dwindow.getComputedStyle(o%5Bs%5D.children%5Bc%5D).getPropertyValue(%22display%22)%26%26(a%5Bi%5D%3Do%5Bs%5D.children%5Bc%5D%2Ci%2B%3D1%2Co%5Bs%5D.children%5Bc%5D.style.outline%3D%22.1rem%20solid%20rgba(0%2C0%2C255%2C.25)%22)%7Dvar%20m%3Ddocument.getElementById(%22ReadingOrderContainer%22)%3Bm%26%26m.parentNode%26%26m.parentNode.removeChild(m)%3Bvar%20g%3Ddocument.querySelector(%22body%22)%2Cu%3Ddocument.createElement(%22aside%22)%3Bu.id%3D%22ReadingOrderContainer%22%2Cg.appendChild(u)%3Bvar%20p%3Ddocument.getElementById(%22ReadingOrderContainer%22)%2Ch%3D1%3Bfor(c%3D0%3Bc%3Ca.length%3Bc%2B%2B)%7Bvar%20f%3Da%5Bc%5D.getBoundingClientRect()%2Cy%3Ddocument.createElement(%22span%22)%3By.setAttribute(%22class%22%2C%22poscount%22)%2Cy.setAttribute(%22tabindex%22%2C%220%22)%2Cy.innerText%3Dh%2Cy.style.left%3Df.left%2B%22px%22%2Cy.style.top%3Df.top%2B%22px%22%2Cp.appendChild(y)%2Ch%2B%3D1%7D%7Dcatch(e)%7Bconsole.log(%22getNodes()%3A%20%22%2Be)%7D%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fadrianroselli.com%2F2019%2F04%2Freading-order-bookmarklet.html%5CnBookmarklet%20name%3A%20Reading%20Order%5Cn%22)%3B" class="bookmarklet">Run Reading Order</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7Btry%7Bvar%20e%2Ct%3Dprompt(%22Selector%3F%20(blank%20searches%20most)%22%2C%22%22)%2Cr%3Dprompt(%22Flex%20or%20grid%3F%22%2C%22grid%22)%2Cn%3Ddocument.createElement(%22style%22)%3Bif(document.head.appendChild(n)%2C(e%3Dn.sheet).insertRule(%22%23ReadingOrderContainer%20span%7Bposition%3Aabsolute%3Bborder%3A.1rem%20solid%20%2300f%3Bborder-radius%3A50%25%3Bbackground%3A%23fff%3Bcolor%3A%23000%3Bpadding%3A.25rem%20.5rem%3Bfont-family%3A%27Segoe%20UI%27%2C-apple-system%2CBlinkMacSystemFont%2CRoboto%2COxygen-Sans%2CUbuntu%2CCantarell%2C%27Helvetica%20Neue%27%2Csans-serif%3Btext-align%3Acenter%3Bmin-width%3A1rem%3Bline-height%3A1%3Bbox-shadow%3A.2rem%20.2rem%20.2rem%20rgba(0%2C0%2C0%2C.5)%3Bmargin-left%3A-.5rem%3Bmargin-top%3A-.75rem%7D%22%2C0)%2Ce.insertRule(%22%23ReadingOrderContainer%20span%3Afocus%2C%23ReadingOrderContainer%20span%3Ahover%7Bbackground-color%3A%2300f%3Bcolor%3A%23fff%3Bz-index%3A500%3Boutline%3A0%7D%22%2C0)%2C%22%22%3D%3Dt)var%20o%3Ddocument.querySelectorAll(%22address%2C%20article%2C%20aside%2C%20blockquote%2C%20caption%2C%20details%2C%20dialog%2C%20dd%2C%20div%2C%20dl%2C%20dt%2C%20fieldset%2C%20figcaption%2C%20figure%2C%20footer%2C%20form%2C%20h1%2C%20h2%2C%20h3%2C%20h4%2C%20h5%2C%20h6%2C%20header%2C%20hgroup%2C%20hr%2C%20li%2C%20main%2C%20nav%2C%20ol%2C%20p%2C%20pre%2C%20section%2C%20table%2C%20td%2C%20th%2C%20ul%2C%20img%2C%20video%2C%20button%2C%20input%2C%20select%2C%20textarea%22)%3Belse%20o%3Ddocument.querySelectorAll(t)%3Bfor(var%20d%3D%5B%5D%2Ca%3D%5B%5D%2Cl%3D0%2Ci%3D0%2Cs%3D0%3Bs%3Co.length%3Bs%2B%2B)if(window.getComputedStyle(o%5Bs%5D).getPropertyValue(%22display%22)%3D%3D%3Dr)%7Bd%5Bl%5D%3Do%5Bs%5D%2Cl%2B%3D1%2Co%5Bs%5D.style.outline%3D%22.4rem%20dotted%20rgba(255%2C0%2C0%2C.5)%22%3Bfor(var%20c%3D0%3Bc%3Co%5Bs%5D.children.length%3Bc%2B%2B)%22none%22%21%3D%3Dwindow.getComputedStyle(o%5Bs%5D.children%5Bc%5D).getPropertyValue(%22display%22)%26%26(a%5Bi%5D%3Do%5Bs%5D.children%5Bc%5D%2Ci%2B%3D1%2Co%5Bs%5D.children%5Bc%5D.style.outline%3D%22.1rem%20solid%20rgba(0%2C0%2C255%2C.25)%22)%7Dvar%20m%3Ddocument.getElementById(%22ReadingOrderContainer%22)%3Bm%26%26m.parentNode%26%26m.parentNode.removeChild(m)%3Bvar%20g%3Ddocument.querySelector(%22body%22)%2Cu%3Ddocument.createElement(%22aside%22)%3Bu.id%3D%22ReadingOrderContainer%22%2Cg.appendChild(u)%3Bvar%20p%3Ddocument.getElementById(%22ReadingOrderContainer%22)%2Ch%3D1%3Bfor(c%3D0%3Bc%3Ca.length%3Bc%2B%2B)%7Bvar%20f%3Da%5Bc%5D.getBoundingClientRect()%2Cy%3Ddocument.createElement(%22span%22)%3By.setAttribute(%22class%22%2C%22poscount%22)%2Cy.setAttribute(%22tabindex%22%2C%220%22)%2Cy.innerText%3Dh%2Cy.style.left%3Df.left%2B%22px%22%2Cy.style.top%3Df.top%2B%22px%22%2Cp.appendChild(y)%2Ch%2B%3D1%7D%7Dcatch(e)%7Bconsole.log(%22getNodes()%3A%20%22%2Be)%7D%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fadrianroselli.com%2F2019%2F04%2Freading-order-bookmarklet.html%5CnBookmarklet%20name%3A%20Reading%20Order%5Cn%22)%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>
