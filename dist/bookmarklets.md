@@ -146,7 +146,7 @@ The Voice Command Readiness bookmarklet checks controls for unique and concise n
 
 **Source:** https://github.com/alejandrogiga98/A11y-Bookmarklets
 
-**Size:** 2.14 KB
+**Size:** 1.88 KB
 
 The Color Vision Filters bookmarklet applies SVG color matrix filters to simulate different types of color blindness (color vision deficiencies). Cycles through four modes: protanopia (red-blind), deuteranopia (green-blind), tritanopia (blue-blind), and normal vision. Each run advances to the next mode. Uses SVG feColorMatrix elements to transform colors according to scientific color perception data, helping designers test content accessibility for users with color vision deficiencies. Run four times to return to normal. WCAG SC 1.4.1: Use of Color.
 
