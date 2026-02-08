@@ -200,9 +200,12 @@
 		document.addEventListener('keydown', onKey, true);
 		console.log(`
 Source: https://github.com/alejandrogiga98/A11y-Bookmarklets
-Bookmarklet name: Contrast spot-check
-Author: alejandrogiga98
-License: MIT License
+Original author: alejandrogiga98 (MIT License)
+Enhanced by: pattespatte
+- Fixed color parsing for hex colors (#RGB, #RRGGBB)
+- Replaced alert dialogs with persistent Shadow DOM modal
+- Added draggable UI with color swatches and WCAG badges
+- Original: https://github.com/alejandrogiga98/A11y-Bookmarklets
 `);
 	} catch (err) {
 		alert('Bookmarklet Error: ' + err.message);
