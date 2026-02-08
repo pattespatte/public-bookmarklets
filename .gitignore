@@ -1,6 +1,7 @@
 # Private bookmarklets (licensing/copyright under investigation)
 src/_private/
-dist/_private/
+dist/private/
+dist/collections/bookmarklets-private.html
 
 # Build artifacts (optional - keep dist/ but exclude private)
 # dist/

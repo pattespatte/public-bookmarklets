@@ -19,12 +19,16 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const SRC_DIR = join(ROOT, 'src');
 const DIST_DIR = join(ROOT, 'dist');
+const DIST_PRIVATE_DIR = join(DIST_DIR, 'private');
 const COLLECTIONS_DIR = join(DIST_DIR, 'collections');
 const TEST_DIR = join(DIST_DIR, 'test');
 
 // Ensure dist directories exist
 if (!existsSync(DIST_DIR)) {
 	mkdirSync(DIST_DIR, { recursive: true });
+}
+if (!existsSync(DIST_PRIVATE_DIR)) {
+	mkdirSync(DIST_PRIVATE_DIR, { recursive: true });
 }
 if (!existsSync(COLLECTIONS_DIR)) {
 	mkdirSync(COLLECTIONS_DIR, { recursive: true });
@@ -33,7 +37,7 @@ if (!existsSync(TEST_DIR)) {
 	mkdirSync(TEST_DIR, { recursive: true });
 }
 
-// Recursively find all .js files in directory
+// Recursively find all .js files in directory (public only - skips _private)
 function findJSFiles(dir, baseDir = dir) {
 	const files = [];
 	const entries = readdirSync(dir, { withFileTypes: true });
@@ -45,6 +49,45 @@ function findJSFiles(dir, baseDir = dir) {
 		const fullPath = join(dir, entry.name);
 		if (entry.isDirectory()) {
 			files.push(...findJSFiles(fullPath, baseDir));
+		} else if (entry.isFile() && entry.name.endsWith('.js')) {
+			files.push(fullPath);
+		}
+	}
+
+	return files;
+}
+
+// Recursively find all .js files in _private directories only
+function findJSFilesPrivate(dir, baseDir = dir) {
+	const files = [];
+	const entries = readdirSync(dir, { withFileTypes: true });
+
+	for (const entry of entries) {
+		const fullPath = join(dir, entry.name);
+
+		if (entry.isDirectory()) {
+			// Only process _private directories
+			if (entry.name === '_private') {
+				files.push(...findJSFilesInDir(fullPath, fullPath));
+			} else {
+				// Recursively look for _private subdirectories
+				files.push(...findJSFilesPrivate(fullPath, baseDir));
+			}
+		}
+	}
+
+	return files;
+}
+
+// Helper: Find all .js files in a directory (no filtering, for _private content)
+function findJSFilesInDir(dir, baseDir = dir) {
+	const files = [];
+	const entries = readdirSync(dir, { withFileTypes: true });
+
+	for (const entry of entries) {
+		const fullPath = join(dir, entry.name);
+		if (entry.isDirectory()) {
+			files.push(...findJSFilesInDir(fullPath, baseDir));
 		} else if (entry.isFile() && entry.name.endsWith('.js')) {
 			files.push(fullPath);
 		}
@@ -303,7 +346,7 @@ function generateWCAGBadges(wcagRefs) {
 }
 
 // Build a single bookmarklet
-async function buildBookmarklet(srcPath, displayName, relPath) {
+async function buildBookmarklet(srcPath, displayName, relPath, distDir = DIST_DIR) {
 	if (!existsSync(srcPath)) {
 		console.warn(`Warning: ${srcPath} not found, skipping`);
 		return null;
@@ -346,8 +389,11 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
 
 	// Calculate relative path to index.html
 	const depth = pathParts.length - 1;
+	const isPrivate = distDir === DIST_PRIVATE_DIR;
 	const backPath =
-		depth > 0 ? '../'.repeat(depth) + 'index.html' : 'index.html';
+		depth > 0
+			? '../'.repeat(depth) + (isPrivate ? '../index.html' : 'index.html')
+			: (isPrivate ? '../index.html' : 'index.html');
 
 	// Get leaf name for button (last part of display name)
 	const leafName = displayName.split(' / ').pop();
@@ -422,7 +468,7 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
 </html>`;
 
 	// Create output directory structure in dist (using web-friendly paths)
-	const outputPath = join(DIST_DIR, fileName);
+	const outputPath = join(distDir, fileName);
 	const outputDir = dirname(outputPath);
 	if (!existsSync(outputDir)) {
 		mkdirSync(outputDir, { recursive: true });
@@ -451,7 +497,7 @@ async function buildBookmarklet(srcPath, displayName, relPath) {
 }
 
 // Generate index.html with all bookmarklets
-function generateIndex(bookmarklets) {
+function generateIndex(bookmarklets, isPrivate = false) {
 	// Group bookmarklets by their path hierarchy
 	function groupByPath(items, level = 0) {
 		const groups = {};
@@ -607,6 +653,9 @@ ${subContent}
       --quick-test-bg: #fff8e1;
       --quick-test-border: #ffe082;
       --quick-test-heading: #f57c00;
+      --quick-private-bg: #f5f5f5;
+      --quick-private-border: #d0d0d0;
+      --quick-private-heading: #666666;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -632,6 +681,9 @@ ${subContent}
         --quick-test-bg: #3d2e00;
         --quick-test-border: #5c4400;
         --quick-test-heading: #ff9800;
+        --quick-private-bg: #2a2a2a;
+        --quick-private-border: #3a3a3a;
+        --quick-private-heading: #a0a0a0;
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -683,9 +735,11 @@ ${subContent}
     .quick-link-box { padding: 15px 20px; border-radius: 8px; text-align: center; }
     .quick-link-box.collections { background: var(--quick-collections-bg); border: 1px solid var(--quick-collections-border); }
     .quick-link-box.test { background: var(--quick-test-bg); border: 1px solid var(--quick-test-border); }
+    .quick-link-box.private { background: var(--quick-private-bg); border: 1px solid var(--quick-private-border); }
     .quick-link-box h2 { margin: 0 0 8px; font-size: 1.1rem; }
     .quick-link-box.collections h3 { color: var(--quick-collections-heading); }
     .quick-link-box.test h2 { color: var(--quick-test-heading); }
+    .quick-link-box.private h2 { color: var(--quick-private-heading); }
     .quick-link-box p { margin: 0; color: var(--text-secondary); font-size: 14px; }
     .quick-link-box a { color: var(--text-link); text-decoration: none; font-weight: 500; }
     .quick-link-box a:hover { text-decoration: underline; }
@@ -707,12 +761,19 @@ ${subContent}
       <div class="quick-links">
         <div class="quick-link-box collections">
           <h2>📦 Collections</h2>
-          <p><a href="collections/index.html">View Collections (Bulk Import)</a></p>
+          <p><a href="${isPrivate ? '../collections/index.html' : 'collections/index.html'}">View Collections (Bulk Import)</a></p>
         </div>
+        ${isPrivate ? `
+        <div class="quick-link-box test">
+          <h2>🔓 Public</h2>
+          <p><a href="../index.html">Public Bookmarklets</a> - Return to main collection</p>
+        </div>
+        ` : `
         <div class="quick-link-box test">
           <h2>🧪 Test Page</h2>
           <p><a href="test/a11y-nightmare.html" target="_blank">90's A11y Nightmare</a> - Retro test page with 50+ accessibility violations</p>
         </div>
+        `}
       </div>
 
       <p style="margin-bottom:15px;">Available Bookmarklets (${bookmarklets.length})</p>
@@ -798,6 +859,7 @@ ${content || '<p class="empty-state">No bookmarklets built yet. Run <code>npm ru
 
     <footer class="footer">
       <p>Built with <a href="https://github.com/pattespatte/public-bookmarklets" style="color:var(--text-link);">Bookmarklet Manager</a></p>
+      ${isPrivate ? '<p style="margin-top:10px;"><a href="../index.html" style="color:var(--text-link);">← Back to public bookmarklets</a></p>' : ''}
     </footer>
   </div>
 </body>
@@ -1237,17 +1299,100 @@ function copyTestPages() {
 	}
 }
 
+// Build private bookmarklets
+async function buildPrivate() {
+	console.log('\nBuilding private bookmarklets...\n');
+
+	// Recursively find all .js files in _private directories
+	const jsFiles = findJSFilesPrivate(SRC_DIR);
+
+	if (jsFiles.length === 0) {
+		console.log('No private source files found in src/_private/');
+		return [];
+	}
+
+	console.log(`Found ${jsFiles.length} private JavaScript file(s)\n`);
+
+	// Normalize path by collapsing redundant intermediate directories
+	function normalizePath(relPath) {
+		const parts = relPath.replace(/\.js$/, '').split(sep);
+		const normalized = [];
+		for (let i = 0; i < parts.length; i++) {
+			const part = parts[i];
+			const nextPart = parts[i + 1];
+			const afterNext = parts[i + 2];
+
+			// Skip this directory if:
+			// 1. Next part is exactly the same (e.g., "nvda-helper/" before "nvda-helper.js")
+			const isExactMatch =
+				nextPart && part.toLowerCase() === nextPart.toLowerCase();
+			// 2. When the next directory is a prefix of the current directory, and the one after
+			//    extends the next directory (e.g., "jaws/jaws-helper/jaws-helper-popover.js")
+			//    Skip "jaws" since "jaws-helper" already contains it and is extended further.
+			const isPrefixMatch =
+				nextPart &&
+				afterNext &&
+				nextPart.toLowerCase().startsWith(part.toLowerCase()) &&
+				afterNext.toLowerCase().startsWith(nextPart.toLowerCase() + '-');
+
+			if (isExactMatch || isPrefixMatch) {
+				continue;
+			}
+			normalized.push(part);
+		}
+		// Strip -min suffix before title-casing (handle minified versions)
+		const stripped = normalized.map((part) => part.replace(/-min$/, ''));
+		return stripped.map((part) => toTitleCase(part)).join(' / ');
+	}
+
+	const bookmarklets = [];
+
+	for (const srcPath of jsFiles) {
+		// Get relative path from SRC_DIR, removing _private prefix for display
+		let relPath = relative(SRC_DIR, srcPath);
+		// Remove _private from the path for display purposes
+		const relPathNoPrivate = relPath.replace(/_private[\/\\]?/, '');
+		const displayName = normalizePath(relPathNoPrivate);
+
+		const result = await buildBookmarklet(srcPath, displayName, relPathNoPrivate, DIST_PRIVATE_DIR);
+		if (result) {
+			bookmarklets.push(result);
+		}
+	}
+
+	// Generate private index.html
+	writeFileSync(join(DIST_PRIVATE_DIR, 'index.html'), generateIndex(bookmarklets, true));
+
+	console.log(`\n✓ Built ${bookmarklets.length} private bookmarklet(s) to dist/private/`);
+	console.log(`✓ Generated dist/private/index.html`);
+
+	// Generate private collection
+	if (bookmarklets.length > 0) {
+		const privateCollectionContent = generateNetscapeBookmarkFile(
+			bookmarklets,
+			'Private Bookmarklets'
+		);
+		writeFileSync(
+			join(COLLECTIONS_DIR, 'bookmarklets-private.html'),
+			privateCollectionContent
+		);
+		console.log(`✓ Generated dist/collections/bookmarklets-private.html`);
+	}
+
+	return bookmarklets;
+}
+
 // Main build function
 async function build() {
 	console.log('Building bookmarklets...\n');
 
-	// Recursively find all .js files in src/
+	// Recursively find all .js files in src/ (excluding _private)
 	const jsFiles = findJSFiles(SRC_DIR);
 
 	if (jsFiles.length === 0) {
 		console.log('No source files found in src/');
 		// Still generate index with empty state
-		writeFileSync(join(DIST_DIR, 'index.html'), generateIndex([]));
+		writeFileSync(join(DIST_DIR, 'index.html'), generateIndex([], false));
 		return;
 	}
 
@@ -1315,6 +1460,9 @@ async function build() {
 
 	// Copy test pages
 	copyTestPages();
+
+	// Build private bookmarklets
+	await buildPrivate();
 }
 
 build().catch((err) => {
