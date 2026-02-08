@@ -3,12 +3,18 @@
 	// Description: Click any text element to compute the contrast ratio between foreground and background colors, with pass/fail results for WCAG AA and AAA conformance levels. Displays the ratio, colors, and text size. Press Esc to stop. WCAG SC 1.4.3: Contrast (Minimum).
 	try {
 		const ID = 'a11y-contrast-check';
-		function parseColor(c) {
-			const ctx = document.createElement('canvas').getContext('2d');
-			ctx.fillStyle = c;
-			return ctx.fillStyle;
-		}
 		function rgbToArray(c) {
+			// Handle hex format
+			if (c.startsWith('#')) {
+				const hex = c.slice(1);
+				if (hex.length === 3) {
+					return [parseInt(hex[0] + hex[0], 16), parseInt(hex[1] + hex[1], 16), parseInt(hex[2] + hex[2], 16)];
+				}
+				if (hex.length === 6) {
+					return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)];
+				}
+			}
+			// Handle rgb/rgba format
 			const m = c.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
 			return m ? [+m[1], +m[2], +m[3]] : [0, 0, 0];
 		}
@@ -22,8 +28,8 @@
 			return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 		}
 		function contrast(c1, c2) {
-			const L1 = relLum(rgbToArray(parseColor(c1))),
-				L2 = relLum(rgbToArray(parseColor(c2)));
+			const L1 = relLum(rgbToArray(c1)),
+				L2 = relLum(rgbToArray(c2));
 			const [a, b] = L1 > L2 ? [L1, L2] : [L2, L1];
 			return (a + 0.05) / (b + 0.05);
 		}
@@ -57,6 +63,8 @@
 					align-items: center;
 				}
 				.header-title { font-weight: 600; color: #333; }
+				.close-btn { cursor: pointer; color: #666; font-size: 14px; padding: 2px 6px; border-radius: 3px; }
+				.close-btn:hover { background: #ddd; color: #333; }
 				.hint { font-size: 11px; color: #666; margin: 6px 10px; }
 				.result { padding: 8px 10px; border-top: 1px solid #eee; }
 				.result-label { font-size: 10px; color: #666; text-transform: uppercase; margin-bottom: 2px; }
@@ -82,7 +90,7 @@
 			<div class="modal">
 				<div class="header" id="header">
 					<span class="header-title">Contrast Check</span>
-					<span style="font-size:11px;color:#666;">Esc to close</span>
+					<span class="close-btn" id="close-btn">close ✖</span>
 				</div>
 				<div class="hint">Click any text to check contrast</div>
 				<div class="result" id="result" style="display:none;">
@@ -134,6 +142,11 @@
 		const aaBadge = shadow.getElementById('aa-badge');
 		const aaaBadge = shadow.getElementById('aaa-badge');
 		const sizeInfo = shadow.getElementById('size-info');
+		const closeBtn = shadow.getElementById('close-btn');
+		closeBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			end();
+		});
 		const onClick = (e) => {
 			// Ignore clicks inside the modal
 			if (host.contains(e.target)) return;
