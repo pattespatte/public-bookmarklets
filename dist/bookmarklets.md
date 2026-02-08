@@ -162,6 +162,16 @@ Click any text element to compute the contrast ratio between foreground and back
 
 ---
 
+### [Contrast Spot Check Original](accessibility/color/contrast-spot-check-original.html)
+
+**Source:** https://github.com/alejandrogiga98/A11y-Bookmarklets
+
+**Size:** 2.07 KB
+
+Click any text element to compute the contrast ratio between foreground and background colors, with pass/fail results for WCAG AA and AAA conformance levels. Displays the ratio, colors, and text size. Press Esc to stop. WCAG SC 1.4.3: Contrast (Minimum).
+
+---
+
 ### [Forced Colors Preview](accessibility/color/forced-colors-preview.html)
 
 **Source:** https://github.com/alejandrogiga98/A11y-Bookmarklets

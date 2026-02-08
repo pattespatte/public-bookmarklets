@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility / Color / Contrast Spot Check Original Bookmarklet</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E📚%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg-body: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-code: #f8f8f8;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-link: #0066cc;
+      --text-link-hover: #0052a3;
+      --border-color: rgba(0,0,0,0.1);
+      --badge-bg: #6c757d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #1a1a1a;
+        --bg-card: #2d2d2d;
+        --bg-code: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-link: #4dabf7;
+        --text-link-hover: #74c0fc;
+        --border-color: rgba(255,255,255,0.1);
+        --badge-bg: #495057;
+      }
+    }
+    body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
+    .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
+    h1 { margin: 0 0 1rem; }
+    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet:hover { background: #0052a3; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
+    @media (max-width: 500px) {
+      .hint { font-size: 12px; }
+    }
+    .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
+    .description { color: var(--text-secondary); font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; text-align: left; }
+    .badges { margin: 0.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .badge { display: inline-block; padding: 0.35em 0.65em; font-size: 0.75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Accessibility / Color / Contrast Spot Check Original</h1>
+    <p class="description">Click any text element to compute the contrast ratio between foreground and background colors, with pass/fail results for WCAG AA and AAA conformance levels. Displays the ratio, colors, and text size. Press Esc to stop.</p>
+    <div class="badges"><span class="badge badge-secondary">WCAG SC 1.4.3: Contrast</span></div>
+    <a href="javascript:%21function()%7B%22use%20strict%22%3Btry%7Bfunction%20t(t)%7Bconst%20e%3Dt.match(%2Frgba%3F%5C((%5Cd%2B)%2C%5Cs*(%5Cd%2B)%2C%5Cs*(%5Cd%2B)%2Fi)%3Breturn%20e%3F%5B%2Be%5B1%5D%2C%2Be%5B2%5D%2C%2Be%5B3%5D%5D%3A%5B0%2C0%2C0%5D%7Dfunction%20e(%5Bt%2Ce%2Cn%5D)%7Breturn%5Bt%2Ce%2Cn%5D%3D%5Bt%2Ce%2Cn%5D.map(t%3D%3E(t%2F%3D255)%3C%3D.03928%3Ft%2F12.92%3AMath.pow((t%2B.055)%2F1.055%2C2.4))%2C.2126*t%2B.7152*e%2B.0722*n%7Dfunction%20n(n%2Co)%7Bconst%20r%3De(t(n))%2Ca%3De(t(o))%2C%5Bc%2Cs%5D%3Dr%3Ea%3F%5Br%2Ca%5D%3A%5Ba%2Cr%5D%3Breturn(c%2B.05)%2F(s%2B.05)%7Dconst%20o%3Dt%3D%3E%7Bt.preventDefault()%2Ct.stopPropagation()%3Bconst%20e%3Dt.target%2Co%3DgetComputedStyle(e)%2Ca%3Do.color%3Blet%20c%3Do.backgroundColor%2Cs%3De%3Bfor(%3B%22rgba(0%2C%200%2C%200%2C%200)%22%3D%3D%3Dc%7C%7C%22transparent%22%3D%3D%3Dc%3B)%7Bif(s%3Ds.parentElement%2C%21s)%7Bc%3D%22rgb(255%2C255%2C255)%22%3Bbreak%7Dc%3DgetComputedStyle(s).backgroundColor%7Dconst%20i%3Dn(a%2Cc).toFixed(2)%2Cu%3DparseFloat(o.fontSize)%2Cd%3DparseInt(o.fontWeight%2C10)%3E%3D700%2Cl%3Du%3E%3D18%7C%7Cu%3E%3D14%26%26d%3Balert(%22Contrast%3A%20%22%2Bi%2B%22%3A1%5CnForeground%3A%20%22%2Ba%2B%22%5CnBackground%3A%20%22%2Bc%2B%22%5CnText%20size%3A%20%22%2Bu%2B%22px%22%2B(d%3F%22%20(bold)%22%3A%22%22)%2B%22%5Cn%22%2B(l%3F%22Large%20text%22%3A%22Normal%20text%22)%2B%22%5Cn%5CnWCAG%20AA%3A%20%22%2B((l%3Fi%3E%3D3%3Ai%3E%3D4.5)%3F%22PASS%22%3A%22FAIL%22)%2B%22%5CnWCAG%20AAA%3A%20%22%2B((l%3Fi%3E%3D4.5%3Ai%3E%3D7)%3F%22PASS%22%3A%22FAIL%22)%2B%22%5Cn%5CnEsc%20to%20stop%22)%2Cr()%7D%3Bfunction%20r()%7Bdocument.removeEventListener(%22click%22%2Co%2C%210)%2Cdocument.removeEventListener(%22keydown%22%2Ca%2C%210)%7Dfunction%20a(t)%7B%22Escape%22%3D%3D%3Dt.key%26%26r()%7Ddocument.addEventListener(%22click%22%2Co%2C%210)%2Cdocument.addEventListener(%22keydown%22%2Ca%2C%210)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Contrast%20spot-check%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(c)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Bc.message)%7D%7D()%3B" class="bookmarklet">Run Contrast Spot Check Original</a>
+    <p class="hint">Test run or drag to<br>bookmarklets bar to install</p>
+    <div class="code">javascript:%21function()%7B%22use%20strict%22%3Btry%7Bfunction%20t(t)%7Bconst%20e%3Dt.match(%2Frgba%3F%5C((%5Cd%2B)%2C%5Cs*(%5Cd%2B)%2C%5Cs*(%5Cd%2B)%2Fi)%3Breturn%20e%3F%5B%2Be%5B1%5D%2C%2Be%5B2%5D%2C%2Be%5B3%5D%5D%3A%5B0%2C0%2C0%5D%7Dfunction%20e(%5Bt%2Ce%2Cn%5D)%7Breturn%5Bt%2Ce%2Cn%5D%3D%5Bt%2Ce%2Cn%5D.map(t%3D%3E(t%2F%3D255)%3C%3D.03928%3Ft%2F12.92%3AMath.pow((t%2B.055)%2F1.055%2C2.4))%2C.2126*t%2B.7152*e%2B.0722*n%7Dfunction%20n(n%2Co)%7Bconst%20r%3De(t(n))%2Ca%3De(t(o))%2C%5Bc%2Cs%5D%3Dr%3Ea%3F%5Br%2Ca%5D%3A%5Ba%2Cr%5D%3Breturn(c%2B.05)%2F(s%2B.05)%7Dconst%20o%3Dt%3D%3E%7Bt.preventDefault()%2Ct.stopPropagation()%3Bconst%20e%3Dt.target%2Co%3DgetComputedStyle(e)%2Ca%3Do.color%3Blet%20c%3Do.backgroundColor%2Cs%3De%3Bfor(%3B%22rgba(0%2C%200%2C%200%2C%200)%22%3D%3D%3Dc%7C%7C%22transparent%22%3D%3D%3Dc%3B)%7Bif(s%3Ds.parentElement%2C%21s)%7Bc%3D%22rgb(255%2C255%2C255)%22%3Bbreak%7Dc%3DgetComputedStyle(s).backgroundColor%7Dconst%20i%3Dn(a%2Cc).toFixed(2)%2Cu%3DparseFloat(o.fontSize)%2Cd%3DparseInt(o.fontWeight%2C10)%3E%3D700%2Cl%3Du%3E%3D18%7C%7Cu%3E%3D14%26%26d%3Balert(%22Contrast%3A%20%22%2Bi%2B%22%3A1%5CnForeground%3A%20%22%2Ba%2B%22%5CnBackground%3A%20%22%2Bc%2B%22%5CnText%20size%3A%20%22%2Bu%2B%22px%22%2B(d%3F%22%20(bold)%22%3A%22%22)%2B%22%5Cn%22%2B(l%3F%22Large%20text%22%3A%22Normal%20text%22)%2B%22%5Cn%5CnWCAG%20AA%3A%20%22%2B((l%3Fi%3E%3D3%3Ai%3E%3D4.5)%3F%22PASS%22%3A%22FAIL%22)%2B%22%5CnWCAG%20AAA%3A%20%22%2B((l%3Fi%3E%3D4.5%3Ai%3E%3D7)%3F%22PASS%22%3A%22FAIL%22)%2B%22%5Cn%5CnEsc%20to%20stop%22)%2Cr()%7D%3Bfunction%20r()%7Bdocument.removeEventListener(%22click%22%2Co%2C%210)%2Cdocument.removeEventListener(%22keydown%22%2Ca%2C%210)%7Dfunction%20a(t)%7B%22Escape%22%3D%3D%3Dt.key%26%26r()%7Ddocument.addEventListener(%22click%22%2Co%2C%210)%2Cdocument.addEventListener(%22keydown%22%2Ca%2C%210)%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Falejandrogiga98%2FA11y-Bookmarklets%5CnBookmarklet%20name%3A%20Contrast%20spot-check%5CnAuthor%3A%20alejandrogiga98%5CnLicense%3A%20MIT%20License%5Cn%22)%7Dcatch(c)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Bc.message)%7D%7D()%3B</div>
+    <a href="../../index.html" class="back-link">← Back to all bookmarklets</a>
+  </div>
+</body>
+</html>
