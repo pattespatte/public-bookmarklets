@@ -8,6 +8,7 @@ import {
 	existsSync,
 	statSync,
 	copyFileSync,
+	rmSync,
 } from 'fs';
 import { join, dirname, relative, sep } from 'path';
 import { fileURLToPath } from 'url';
@@ -904,6 +905,16 @@ ${entries}
 // Build collections - group bookmarklets by category and generate bookmark files
 function buildCollections(bookmarklets) {
 	console.log('\nBuilding collections...');
+
+	// Clean up old collection files (except index.html)
+	const existingFiles = readdirSync(COLLECTIONS_DIR);
+	for (const file of existingFiles) {
+		if (file.startsWith('bookmarklets-') && file.endsWith('.html')) {
+			const filePath = join(COLLECTIONS_DIR, file);
+			rmSync(filePath);
+			console.log(`  ✓ Removed old ${file}`);
+		}
+	}
 
 	// Group bookmarklets by top-level directory
 	const grouped = {};
