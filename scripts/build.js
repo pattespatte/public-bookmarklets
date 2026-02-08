@@ -1064,8 +1064,6 @@ function generateCollectionsIndex(collections) {
         </div>
       </div>
 
-    </main>
-
     <h2 style="margin-bottom:20px;">Available Collections</h2>
 
     <div class="collection-grid">
@@ -1111,6 +1109,8 @@ ${otherCollection
 			: ''
 		}
     </div>
+
+    </main>
 
     <footer class="footer">
       <p><a href="../index.html">← Back to individual bookmarklets</a></p>
