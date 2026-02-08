@@ -38,29 +38,34 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--text-primary); background: var(--bg-body); min-height: 100vh; padding: 20px; }
-    .container { max-width: 900px; margin: 0 auto; }
+    .container { max-width: 1000px; margin: 0 auto; }
     header { text-align: center; color: var(--text-primary); margin-bottom: 40px; }
     h1 { font-size: 2.5rem; margin-bottom: 10px; }
     .subtitle { opacity: 0.7; font-size: 1.1rem; }
-    .card { background: var(--bg-card); border-radius: 12px; padding: 30px; box-shadow: 0 4px 20px var(--shadow-color); }
-    .instructions { background: var(--bg-instructions); border-left: 4px solid #0066cc; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+    .card { background: var(--bg-card); border-radius: 12px; padding: 30px; box-shadow: 0 4px 20px var(--shadow-color); margin-bottom: 30px; }
+    .instructions-container { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    .instructions { background: var(--bg-instructions); border-left: 4px solid #0066cc; padding: 15px; border-radius: 4px; }
     .instructions ol { margin-left: 20px; }
     .instructions li { margin-bottom: 8px; }
-    .collection-item { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 15px 20px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 12px; transition: box-shadow 0.2s, background 0.2s; }
-    .collection-item:hover { box-shadow: 0 2px 8px var(--shadow-subtle); background: var(--bg-hover); }
-    .collection-info { flex: 1; }
-    .collection-info a { text-decoration: none; color: inherit; font-size: 1.1rem; font-weight: 500; }
-    .collection-info a:hover { color: var(--text-link); }
-    .collection-info p { margin-top: 5px; color: var(--text-secondary); font-size: 0.9rem; }
-    .collection-link { display: inline-block; padding: 10px 20px; background: #0066cc; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.2s; white-space: nowrap; }
+    @media (min-width: 769px) {
+      .instructions-container { grid-template-columns: 1fr 1fr; }
+    }
+    .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .collection-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; transition: box-shadow 0.2s, transform 0.2s, background 0.2s; display: flex; flex-direction: column; }
+    .collection-card:hover { box-shadow: 0 3px 12px var(--shadow-subtle); transform: translateY(-1px); background: var(--bg-hover); }
+    .collection-icon { font-size: 2rem; margin-bottom: 8px; }
+    .collection-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+    .collection-title a { text-decoration: none; color: inherit; }
+    .collection-title a:hover { color: var(--text-link); }
+    .collection-description { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 12px; flex: 1; }
+    .collection-link { display: inline-block; padding: 8px 16px; background: #0066cc; color: white; text-decoration: none; border-radius: 5px; font-weight: 500; transition: background 0.2s; white-space: nowrap; text-align: center; font-size: 0.9rem; }
     .collection-link:hover { background: #0052a3; }
     .footer { text-align: center; margin-top: 20px; color: var(--text-secondary); opacity: 0.8; }
     .back-link { display: inline-block; margin-bottom: 20px; color: var(--text-link); text-decoration: none; }
     .back-link:hover { text-decoration: underline; }
     code { background: var(--bg-code); padding: 2px 6px; border-radius: 3px; font-size: 13px; }
-    @media (max-width: 600px) {
-      .collection-item { flex-direction: column; align-items: stretch; gap: 12px; }
-      .collection-link { width: 100%; text-align: center; }
+    @media (max-width: 768px) {
+      .collection-grid { grid-template-columns: 2fr; }
     }
   </style>
 </head>
@@ -76,59 +81,70 @@
     <main class="card">
       <h2>How to Import Collections</h2>
 
-      <h3 style="margin: 20px 0 10px; font-size: 1.1rem;">Chrome</h3>
-      <div class="instructions">
-        <ol>
-          <li><strong>Download</strong> a collection file by clicking the "Download" button below</li>
-          <li><strong>Open</strong> <code>chrome://settings/importData</code> in Chrome</li>
-          <li>Select <strong>"Bookmarks HTML File"</strong> from the import options</li>
-          <li><strong>Choose</strong> the downloaded HTML file</li>
-        </ol>
-      </div>
-
-      <h3 style="margin: 20px 0 10px; font-size: 1.1rem;">Edge</h3>
-      <div class="instructions">
-        <ol>
-          <li><strong>Download</strong> a collection file by clicking the "Download" button below</li>
-          <li><strong>Open</strong> <code>edge://settings/importData</code> in Edge</li>
-          <li>Select <strong>"Favorites or Bookmarks HTML File"</strong> from the import options</li>
-          <li><strong>Choose</strong> the downloaded HTML file</li>
-        </ol>
-      </div>
-
-      <h2 style="margin-bottom:15px;">Available Collections</h2>
-
-
-      <div class="collection-item">
-        <div class="collection-info">
-          <a href="bookmarklets-all.html">All Bookmarklets</a>
-          <p>Complete collection of all 83 bookmarklets</p>
+      <div class="instructions-container">
+        <div>
+          <h3 style="margin: 0 0 10px; font-size: 1.1rem;">Chrome</h3>
+          <div class="instructions">
+            <ol>
+              <li><strong>Download</strong> a collection file by clicking "Download"</li>
+              <li><strong>Open</strong> <code>chrome://settings/importData</code> in Chrome</li>
+              <li>Select <strong>"Bookmarks HTML File"</strong> from the import options</li>
+              <li><strong>Choose</strong> the downloaded HTML file</li>
+            </ol>
+          </div>
         </div>
+
+        <div>
+          <h3 style="margin: 0 0 10px; font-size: 1.1rem;">Edge</h3>
+          <div class="instructions">
+            <ol>
+              <li><strong>Download</strong> a collection file by clicking "Download"</li>
+              <li><strong>Open</strong> <code>edge://settings/importData</code> in Edge</li>
+              <li>Select <strong>"Favorites or Bookmarks HTML File"</strong> from the import options</li>
+              <li><strong>Choose</strong> the downloaded HTML file</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <h2 style="margin-bottom:20px;">Available Collections</h2>
+
+    <div class="collection-grid">
+
+      <div class="collection-card">
+        <div class="collection-icon">📚</div>
+        <div class="collection-title">
+          <a href="bookmarklets-all.html">All Bookmarklets</a>
+        </div>
+        <p class="collection-description">Complete collection of all 83 bookmarklets</p>
         <a href="bookmarklets-all.html" download class="collection-link">Download</a>
       </div>
 
 
 
-      <div class="collection-item">
-        <div class="collection-info">
+      <div class="collection-card">
+        <div class="collection-icon">♿</div>
+        <div class="collection-title">
           <a href="bookmarklets-accessibility.html">Accessibility Bookmarklets</a>
-          <p>68 accessibility testing and diagnostic tools</p>
         </div>
+        <p class="collection-description">68 accessibility testing and diagnostic tools</p>
         <a href="bookmarklets-accessibility.html" download class="collection-link">Download</a>
       </div>
 
 
 
-      <div class="collection-item">
-        <div class="collection-info">
+      <div class="collection-card">
+        <div class="collection-icon">🛠️</div>
+        <div class="collection-title">
           <a href="bookmarklets-other.html">Other Bookmarklets</a>
-          <p>15 general utility and developer tools</p>
         </div>
+        <p class="collection-description">15 general utility and developer tools</p>
         <a href="bookmarklets-other.html" download class="collection-link">Download</a>
       </div>
 
-
-    </main>
+    </div>
 
     <footer class="footer">
       <p><a href="../index.html">← Back to individual bookmarklets</a></p>
