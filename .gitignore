@@ -8,10 +8,7 @@ dist/
 node_modules/
 
 # Lock file (optional - uncomment if you prefer not to commit it)
-# package-lock.json
-
-# Dependencies
-node_modules/
+package-lock.json
 
 # OS files
 .DS_Store
