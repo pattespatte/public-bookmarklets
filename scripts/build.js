@@ -650,9 +650,9 @@ ${subContent}
       --quick-collections-bg: #f0f7ff;
       --quick-collections-border: #b3d9ff;
       --quick-collections-heading: #0066cc;
-      --quick-test-bg: #fff8e1;
-      --quick-test-border: #ffe082;
-      --quick-test-heading: #f57c00;
+      --quick-test-bg: #e8f5e9;
+      --quick-test-border: #81c784;
+      --quick-test-heading: #2e7d32;
       --quick-private-bg: #f5f5f5;
       --quick-private-border: #d0d0d0;
       --quick-private-heading: #666666;
@@ -678,9 +678,9 @@ ${subContent}
         --quick-collections-bg: #1a2838;
         --quick-collections-border: #2a4559;
         --quick-collections-heading: #4dabf7;
-        --quick-test-bg: #3d2e00;
-        --quick-test-border: #5c4400;
-        --quick-test-heading: #ff9800;
+        --quick-test-bg: #1b5e20;
+        --quick-test-border: #2e7d32;
+        --quick-test-heading: #66bb6a;
         --quick-private-bg: #2a2a2a;
         --quick-private-border: #3a3a3a;
         --quick-private-heading: #a0a0a0;
@@ -719,7 +719,7 @@ ${subContent}
     .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.7rem; font-weight: 600; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
     .footer { text-align: center; margin-top: 20px; color: var(--text-secondary); opacity: 0.8; }
     code { background: var(--bg-code); padding: 2px 6px; border-radius: 3px; font-size: 13px; }
-    .test-pages { margin: 20px 0; padding: 15px; background: var(--quick-test-bg); border-left: 4px solid #ffc107; border-radius: 4px; }
+    .test-pages { margin: 20px 0; padding: 15px; background: var(--quick-test-bg); border-left: 4px solid #4caf50; border-radius: 4px; }
     .test-pages h3 { margin: 0 0 10px; color: var(--quick-test-heading); font-size: 1.1rem; }
     .test-pages p { margin: 5px 0; color: var(--text-secondary); font-size: 14px; }
     .test-pages a { color: var(--text-link); text-decoration: none; font-weight: 500; }
