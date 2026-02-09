@@ -29,6 +29,9 @@
       --quick-test-bg: #fff8e1;
       --quick-test-border: #ffe082;
       --quick-test-heading: #f57c00;
+      --quick-private-bg: #f5f5f5;
+      --quick-private-border: #d0d0d0;
+      --quick-private-heading: #666666;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -54,6 +57,9 @@
         --quick-test-bg: #3d2e00;
         --quick-test-border: #5c4400;
         --quick-test-heading: #ff9800;
+        --quick-private-bg: #2a2a2a;
+        --quick-private-border: #3a3a3a;
+        --quick-private-heading: #a0a0a0;
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -105,9 +111,11 @@
     .quick-link-box { padding: 15px 20px; border-radius: 8px; text-align: center; }
     .quick-link-box.collections { background: var(--quick-collections-bg); border: 1px solid var(--quick-collections-border); }
     .quick-link-box.test { background: var(--quick-test-bg); border: 1px solid var(--quick-test-border); }
+    .quick-link-box.private { background: var(--quick-private-bg); border: 1px solid var(--quick-private-border); }
     .quick-link-box h2 { margin: 0 0 8px; font-size: 1.1rem; }
     .quick-link-box.collections h3 { color: var(--quick-collections-heading); }
     .quick-link-box.test h2 { color: var(--quick-test-heading); }
+    .quick-link-box.private h2 { color: var(--quick-private-heading); }
     .quick-link-box p { margin: 0; color: var(--text-secondary); font-size: 14px; }
     .quick-link-box a { color: var(--text-link); text-decoration: none; font-weight: 500; }
     .quick-link-box a:hover { text-decoration: underline; }
@@ -131,10 +139,12 @@
           <h2>📦 Collections</h2>
           <p><a href="collections/index.html">View Collections (Bulk Import)</a></p>
         </div>
+        
         <div class="quick-link-box test">
           <h2>🧪 Test Page</h2>
           <p><a href="test/a11y-nightmare.html" target="_blank">90's A11y Nightmare</a> - Retro test page with 50+ accessibility violations</p>
         </div>
+        
       </div>
 
       <p style="margin-bottom:15px;">Available Bookmarklets (84)</p>
@@ -1264,6 +1274,7 @@
 
     <footer class="footer">
       <p>Built with <a href="https://github.com/pattespatte/public-bookmarklets" style="color:var(--text-link);">Bookmarklet Manager</a></p>
+      
     </footer>
   </div>
 </body>
