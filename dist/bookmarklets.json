@@ -584,6 +584,14 @@
     "description": "The Toggle Styles bookmarklet toggles page CSS on/off while preserving state. Stores original CSS in data attributes when disabling (STYLE content, LINK disabled state, inline styles), restores all CSS from storage when re-enabling, and toggles back and forth on each run. Unlike simple \"remove CSS\" bookmarklets, this preserves the original styles for restoration. Useful for testing content structure and accessibility with and without styling."
   },
   {
+    "name": "Google Page Speed Test",
+    "category": "Other",
+    "url": "javascript:%21function()%7B%22use%20strict%22%3Btry%7Bwindow.open(%22https%3A%2F%2Fdevelopers.google.com%2Fspeed%2Fpagespeed%2Finsights%2F%3Furl%3D%22%2BencodeURIComponent(location.href)%2C%22_blank%22)%7Dcatch(e)%7Balert(%22Bookmarklet%20Error%3A%20%22%2Be.message)%7D%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgithub.com%2Fpattespatte%2Fpublic-bookmarklets%2F%5CnBookmarklet%20name%3A%20Google%20Page%20Speed%20Test%20(in%20new%20tab)%5Cn%22)%3B",
+    "path": "other/developer/google-page-speed-test.html",
+    "size": 457,
+    "description": "Open Google PageSpeed Insights analysis for the current page in a new tab. Tests the current URL with Google's performance testing tools to measure Core Web Vitals (LCP, FID, CLS), performance score, and provides optimization suggestions."
+  },
+  {
     "name": "Show Performance",
     "category": "Other",
     "url": "javascript:%21function()%7Bvar%20o%3Ddocument.createElement(%22script%22)%3Bo.type%3D%22text%2Fjavascript%22%2Co.src%3D%22https%3A%2F%2Fmicmro.github.io%2Fperformance-bookmarklet%2Fdist%2FperformanceBookmarklet.min.js%22%2Co.onerror%3Dfunction()%7Balert(%27Looks%20like%20the%20Content%20Security%20Policy%20directive%20is%20blocking%20the%20use%20of%20bookmarklets%5Cn%5CnYou%20can%20copy%20and%20paste%20the%20content%20of%3A%5Cn%5Cn%22https%3A%2F%2Fmicmro.github.io%2Fperformance-bookmarklet%2Fdist%2FperformanceBookmarklet.min.js%22%5Cn%5Cninto%20your%20console%20instead%5Cn%5Cn(link%20is%20in%20console%20already)%27)%2Cconsole.log(%22https%3A%2F%2Fmicmro.github.io%2Fperformance-bookmarklet%2Fdist%2FperformanceBookmarklet.min.js%22)%7D%2Cdocument.getElementsByTagName(%22body%22)%5B0%5D.appendChild(o)%7D()%2Cconsole.log(%22%5CnSource%3A%20https%3A%2F%2Fgist.github.com%2FExplosion-Scratch%2Fc853c40e4c4c0b7ad74f7d8644c238ba%23show-performance%5CnBookmarklet%20name%3A%20performanceBookmarklet%5Cn%22)%3B",

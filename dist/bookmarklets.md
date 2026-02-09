@@ -726,6 +726,16 @@ The Toggle Styles bookmarklet toggles page CSS on/off while preserving state. St
 
 ---
 
+### [Google Page Speed Test](other/developer/google-page-speed-test.html)
+
+**Source:** https://github.com/pattespatte/public-bookmarklets/
+
+**Size:** 457 B
+
+Open Google PageSpeed Insights analysis for the current page in a new tab. Tests the current URL with Google's performance testing tools to measure Core Web Vitals (LCP, FID, CLS), performance score, and provides optimization suggestions.
+
+---
+
 ### [Show Performance](other/developer/show-performance.html)
 
 **Source:** https://gist.github.com/Explosion-Scratch/c853c40e4c4c0b7ad74f7d8644c238ba#show-performance
