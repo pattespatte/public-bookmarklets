@@ -1,10 +1,14 @@
 # Private bookmarklets (licensing/copyright under investigation)
 src/_private/
-dist/private/
-dist/collections/bookmarklets-private.html
 
-# Build artifacts (optional - keep dist/ but exclude private)
-# dist/
+# Build artifacts (rebuilt by deploy workflow)
+dist/
+
+# Dependencies
+node_modules/
+
+# Lock file (optional - uncomment if you prefer not to commit it)
+# package-lock.json
 
 # Dependencies
 node_modules/
