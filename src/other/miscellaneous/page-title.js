@@ -1,4 +1,4 @@
-// Description: Copy the page title to clipboard via prompt. Displays the document.title in a prompt dialog for easy copying (Cmd+C on Mac, Ctrl+C elsewhere). Useful for quickly grabbing page titles for documentation, citations, or sharing.
+// Description: Copy the page title to clipboard via prompt. Displays the document.title in a prompt dialog for easy copying (Cmd+C on Mac, Ctrl+C elsewhere). Useful for quickly grabbing page titles for documentation, citations, or sharing. WCAG SC 2.4.2: Page Titled
 (function () {
 	'use strict';
 	try {
