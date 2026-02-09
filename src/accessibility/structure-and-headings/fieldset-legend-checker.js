@@ -61,14 +61,14 @@
       }
       .fsc-title {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 0.875rem;
         margin: 0;
       }
       .fsc-close {
         background: none;
         border: none;
         color: white;
-        font-size: 20px;
+        font-size: 1.25rem;
         cursor: pointer;
         padding: 0;
         width: 28px;
@@ -91,12 +91,12 @@
         padding: 12px;
         border-radius: 6px;
         margin-bottom: 16px;
-        font-size: 13px;
+        font-size: 0.8125rem;
       }
       .fsc-summary strong {
         display: block;
         margin-bottom: 8px;
-        font-size: 14px;
+        font-size: 0.875rem;
       }
       .fsc-group {
         background: white;
@@ -107,7 +107,7 @@
       }
       .fsc-group-header {
         font-weight: 600;
-        font-size: 13px;
+        font-size: 0.8125rem;
         margin-bottom: 8px;
         padding-bottom: 8px;
         border-bottom: 1px solid #eee;
@@ -116,7 +116,7 @@
         padding: 6px 8px;
         margin: 2px 0;
         border-radius: 4px;
-        font-size: 12px;
+        font-size: 0.75rem;
         display: flex;
         align-items: center;
         cursor: pointer;
@@ -143,7 +143,7 @@
       .fsc-status.pass { color: #28a745; }
       .fsc-status.fail { color: #dc3545; }
       .fsc-legend-text {
-        font-size: 11px;
+        font-size: 0.6875rem;
         color: #666;
         margin-left: 4px;
       }
@@ -267,14 +267,14 @@
 				// Show fieldset/legend status
 				if (group.hasFieldset) {
 					html += `
-            <div style="font-size:11px;color:#28a745;margin-top:4px;padding:4px 8px;background:#e6ffed;border-radius:4px">
+            <div style="font-size:0.6875rem;color:#28a745;margin-top:4px;padding:4px 8px;background:#e6ffed;border-radius:4px">
               ✓ Wrapped in fieldset
               ${group.hasLegend ? `<br>✓ Legend: "${group.legendText}"` : '<br>✗ Missing legend'}
             </div>
           `;
 				} else {
 					html += `
-            <div style="font-size:11px;color:#dc3545;margin-top:4px;padding:4px 8px;background:#ffe6e6;border-radius:4px">
+            <div style="font-size:0.6875rem;color:#dc3545;margin-top:4px;padding:4px 8px;background:#ffe6e6;border-radius:4px">
               ✗ Not wrapped in fieldset
             </div>
           `;

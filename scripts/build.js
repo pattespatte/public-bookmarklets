@@ -440,12 +440,12 @@ async function buildBookmarklet(srcPath, displayName, relPath, distDir = DIST_DI
     body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
     .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
     h1 { margin: 0 0 1rem; }
-    a.bookmarklet { display: inline-block; padding: 12px 24px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; cursor: pointer; }
+    a.bookmarklet { display: inline-block; padding: 0.75rem 1.5rem; background: #0066cc; color: white; text-decoration: none; border-radius: 0.25rem; font-weight: 500; cursor: pointer; }
     a.bookmarklet:hover { background: #0052a3; }
-    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 4px; text-align: left; overflow-x: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; color: var(--text-primary); }
-    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 14px; }
-    @media (max-width: 500px) {
-      .hint { font-size: 12px; }
+    .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 0.25rem; text-align: left; overflow-x: auto; font-family: monospace; font-size: 0.6875rem; white-space: pre-wrap; word-break: break-all; max-height: 12.5rem; overflow-y: auto; color: var(--text-primary); }
+    .hint { margin-top: 1rem; color: var(--text-secondary); font-size: 0.875rem; }
+    @media (max-width: 31.25rem) {
+      .hint { font-size: 0.75rem; }
     }
     .back-link { margin-top: 1rem; display: inline-block; color: var(--text-link); text-decoration: none; }
     .back-link:hover { text-decoration: underline; color: var(--text-link-hover); }
@@ -547,7 +547,7 @@ function generateIndex(bookmarklets, isPrivate = false) {
                   ${sourceLine}
                 </div>
                 <div class="bookmarklet-actions">
-                  <span style="padding: 8px 0; display: inline-block;">Run or drag to <i>Bookmarks Bar</i>:</span> <a href="${b.bookmarklet}" class="bookmarklet-link">${leafName}</a>
+                  <span style="padding: 0.5rem 0; display: inline-block;">Run or drag to <i>Bookmarks Bar</i>:</span> <a href="${b.bookmarklet}" class="bookmarklet-link">${leafName}</a>
                 </div>
               </div>`;
 				})
@@ -600,7 +600,7 @@ function generateIndex(bookmarklets, isPrivate = false) {
                   ${sourceLine}
                 </div>
                 <div class="bookmarklet-actions">
-                  <span style="padding: 8px 0; display: inline-block;">Run or drag to <i>Bookmarks Bar</i>:</span> <a href="${b.bookmarklet}" class="bookmarklet-link">${leafName}</a>
+                  <span style="padding: 0.5rem 0; display: inline-block;">Run or drag to <i>Bookmarks Bar</i>:</span> <a href="${b.bookmarklet}" class="bookmarklet-link">${leafName}</a>
                 </div>
               </div>`;
 					})
@@ -688,64 +688,64 @@ ${subContent}
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--text-primary); background: var(--bg-body); min-height: 100vh; padding: 20px; }
-    .container { max-width: 900px; margin: 0 auto; }
-    header { text-align: center; color: var(--text-primary); margin-bottom: 40px; }
-    h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--text-primary); background: var(--bg-body); min-height: 100vh; padding: 1.25rem; }
+    .container { max-width: 56.25rem; margin: 0 auto; }
+    header { text-align: center; color: var(--text-primary); margin-bottom: 2.5rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.625rem; }
     .subtitle { opacity: 0.7; font-size: 1.1rem; }
-    .card { background: var(--bg-card); border-radius: 12px; padding: 30px; box-shadow: 0 4px 20px var(--shadow-color); }
-    .instructions { background: var(--bg-instructions); border-left: 4px solid #0066cc; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
-    .instructions ol { margin-left: 20px; }
-    .instructions li { margin-bottom: 8px; }
-    .category-section { margin-bottom: 30px; }
+    .card { background: var(--bg-card); border-radius: 0.75rem; padding: 1.875rem; box-shadow: 0 0.25rem 1.25rem var(--shadow-color); }
+    .instructions { background: var(--bg-instructions); border-left: 0.25rem solid #0066cc; padding: 0.9375rem; border-radius: 0.25rem; margin-bottom: 1.25rem; }
+    .instructions ol { margin-left: 1.25rem; }
+    .instructions li { margin-bottom: 0.5rem; }
+    .category-section { margin-bottom: 1.875rem; }
     .category-section:last-child { margin-bottom: 0; }
-    .category-heading { font-size: 1.5rem; margin: 25px 0 15px; padding-bottom: 8px; border-bottom: 2px solid var(--border-color); color: var(--text-primary); }
-    .category-section .category-section .category-heading { font-size: 1.3rem; margin: 20px 0 12px; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
-    .category-section .category-section .category-section .category-heading { font-size: 1.15rem; margin: 15px 0 10px; border-bottom: 1px solid var(--border-faint); color: var(--text-secondary); }
-    .category-section .category-section .category-section .category-section .category-heading { font-size: 1.05rem; margin: 12px 0 8px; border-bottom: none; color: var(--text-tertiary); }
-    .category-content { margin-left: 15px; }
-    .bookmarklet-item { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 8px; transition: box-shadow 0.2s, background 0.2s; }
-    .bookmarklet-item:hover { box-shadow: 0 2px 8px var(--shadow-subtle); background: var(--bg-hover); }
+    .category-heading { font-size: 1.5rem; margin: 1.5625rem 0 0.9375rem; padding-bottom: 0.5rem; border-bottom: 0.125rem solid var(--border-color); color: var(--text-primary); }
+    .category-section .category-section .category-heading { font-size: 1.3rem; margin: 1.25rem 0 0.75rem; border-bottom: 0.0625rem solid var(--border-subtle); color: var(--text-secondary); }
+    .category-section .category-section .category-section .category-heading { font-size: 1.15rem; margin: 0.9375rem 0 0.625rem; border-bottom: 0.0625rem solid var(--border-faint); color: var(--text-secondary); }
+    .category-section .category-section .category-section .category-section .category-heading { font-size: 1.05rem; margin: 0.75rem 0 0.5rem; border-bottom: none; color: var(--text-tertiary); }
+    .category-content { margin-left: 0.9375rem; }
+    .bookmarklet-item { display: flex; align-items: center; justify-content: space-between; gap: 0.9375rem; padding: 0.75rem 0.9375rem; border: 0.0625rem solid var(--border-color); border-radius: 0.5rem; margin-bottom: 0.5rem; transition: box-shadow 0.2s, background 0.2s; }
+    .bookmarklet-item:hover { box-shadow: 0 0.125rem 0.5rem var(--shadow-subtle); background: var(--bg-hover); }
     .bookmarklet-info { flex: 1; min-width: 0; }
     .bookmarklet-info > a { text-decoration: none; color: inherit; transition: color 0.2s; }
     .bookmarklet-info > a:hover { color: var(--text-link); }
     .bookmarklet-info > a strong { pointer-events: none; }
-    .bookmarklet-actions { display: flex; gap: 8px; flex-shrink: 0; }
-    .bookmarklet-link { display: inline-block; padding: 8px 16px; background: #0066cc; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.2s; white-space: nowrap; cursor: pointer; font-size: 14px; }
+    .bookmarklet-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+    .bookmarklet-link { display: inline-block; padding: 0.5rem 1rem; background: #0066cc; color: white; text-decoration: none; border-radius: 0.375rem; font-weight: 500; transition: background 0.2s; white-space: nowrap; cursor: pointer; font-size: 0.875rem; }
     .bookmarklet-link:hover { background: #0052a3; }
-    .source-link { display: block; margin-top: 4px; color: var(--text-tertiary); font-size: 12px; }
-    .source-link a { color: var(--text-tertiary); text-decoration: none; }
+    .source-link { display: block; margin-top: 0.25rem; color: var(--text-secondary); font-size: 0.75rem; }
+    .source-link a { color: var(--text-secondary); text-decoration: none; }
     .source-link a:hover { text-decoration: underline; color: var(--text-link); }
-    .badges { margin: 4px 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .badges { margin: 0.25rem 0; display: flex; flex-wrap: wrap; gap: 0.35rem; }
     .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.7rem; font-weight: 600; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: var(--badge-bg); }
-    .footer { text-align: center; margin-top: 20px; color: var(--text-secondary); opacity: 0.8; }
-    code { background: var(--bg-code); padding: 2px 6px; border-radius: 3px; font-size: 13px; }
-    .test-pages { margin: 20px 0; padding: 15px; background: var(--quick-test-bg); border-left: 4px solid #4caf50; border-radius: 4px; }
-    .test-pages h3 { margin: 0 0 10px; color: var(--quick-test-heading); font-size: 1.1rem; }
-    .test-pages p { margin: 5px 0; color: var(--text-secondary); font-size: 14px; }
+    .footer { text-align: center; margin-top: 1.25rem; color: var(--text-secondary); opacity: 0.8; }
+    code { background: var(--bg-code); padding: 0.125rem 0.375rem; border-radius: 0.1875rem; font-size: 0.8125rem; }
+    .test-pages { margin: 1.25rem 0; padding: 0.9375rem; background: var(--quick-test-bg); border-left: 0.25rem solid #4caf50; border-radius: 0.25rem; }
+    .test-pages h3 { margin: 0 0 0.625rem; color: var(--quick-test-heading); font-size: 1.1rem; }
+    .test-pages p { margin: 0.3125rem 0; color: var(--text-secondary); font-size: 0.875rem; }
     .test-pages a { color: var(--text-link); text-decoration: none; font-weight: 500; }
     .test-pages a:hover { text-decoration: underline; }
-    .search-container { margin-bottom: 20px; }
-    .search-input { width: 100%; padding: 12px 16px; font-size: 16px; border: 2px solid var(--border-color); border-radius: 8px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; font-family: inherit; background: var(--bg-card); color: var(--text-primary); }
-    .search-input:focus { border-color: #0066cc; box-shadow: 0 0 0 3px rgba(0,102,204,0.2); }
+    .search-container { margin-bottom: 1.25rem; }
+    .search-input { width: 100%; padding: 0.75rem 1rem; font-size: 1rem; border: 0.125rem solid var(--border-color); border-radius: 0.5rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; font-family: inherit; background: var(--bg-card); color: var(--text-primary); }
+    .search-input:focus { border-color: #0066cc; box-shadow: 0 0 0 0.1875rem rgba(0,102,204,0.2); }
     .search-input::placeholder { color: var(--text-tertiary); }
-    .no-results { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
+    .no-results { text-align: center; padding: 2.5rem 1.25rem; color: var(--text-secondary); }
     .no-results strong { color: var(--text-primary); }
     .hidden { display: none !important; }
-    .quick-links { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-    .quick-link-box { padding: 15px 20px; border-radius: 8px; text-align: center; }
-    .quick-link-box.collections { background: var(--quick-collections-bg); border: 1px solid var(--quick-collections-border); }
-    .quick-link-box.test { background: var(--quick-test-bg); border: 1px solid var(--quick-test-border); }
-    .quick-link-box.private { background: var(--quick-private-bg); border: 1px solid var(--quick-private-border); }
-    .quick-link-box h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    .quick-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9375rem; margin-bottom: 1.25rem; }
+    .quick-link-box { padding: 0.9375rem 1.25rem; border-radius: 0.5rem; text-align: center; }
+    .quick-link-box.collections { background: var(--quick-collections-bg); border: 0.0625rem solid var(--quick-collections-border); }
+    .quick-link-box.test { background: var(--quick-test-bg); border: 0.0625rem solid var(--quick-test-border); }
+    .quick-link-box.private { background: var(--quick-private-bg); border: 0.0625rem solid var(--quick-private-border); }
+    .quick-link-box h2 { margin: 0 0 0.5rem; font-size: 1.1rem; }
     .quick-link-box.collections h3 { color: var(--quick-collections-heading); }
     .quick-link-box.test h2 { color: var(--quick-test-heading); }
     .quick-link-box.private h2 { color: var(--quick-private-heading); }
-    .quick-link-box p { margin: 0; color: var(--text-secondary); font-size: 14px; }
+    .quick-link-box p { margin: 0; color: var(--text-secondary); font-size: 0.875rem; }
     .quick-link-box a { color: var(--text-link); text-decoration: none; font-weight: 500; }
     .quick-link-box a:hover { text-decoration: underline; }
-    @media (max-width: 600px) {
-      .bookmarklet-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+    @media (max-width: 37.5rem) {
+      .bookmarklet-item { flex-direction: column; align-items: flex-start; gap: 0.625rem; }
       .bookmarklet-link { width: 100%; text-align: center; margin: 0 !important; }
       .quick-links { grid-template-columns: 1fr; }
     }
@@ -777,7 +777,7 @@ ${subContent}
         `}
       </div>
 
-      <p style="margin-bottom:15px;">Available Bookmarklets (${bookmarklets.length})</p>
+      <p style="margin-bottom:0.9375rem;">Available Bookmarklets (${bookmarklets.length})</p>
 
       <div class="search-container">
         <input type="text" id="search-input" class="search-input" placeholder="🔍 Search bookmarklets by name or category..." aria-label="Search bookmarklets">
@@ -860,7 +860,7 @@ ${content || '<p class="empty-state">No bookmarklets built yet. Run <code>npm ru
 
     <footer class="footer">
       <p>Built with <a href="https://github.com/pattespatte/public-bookmarklets" style="color:var(--text-link);">Bookmarklet Manager</a></p>
-      ${isPrivate ? '<p style="margin-top:10px;"><a href="../index.html" style="color:var(--text-link);">← Back to public bookmarklets</a></p>' : ''}
+      ${isPrivate ? '<p style="margin-top:0.625rem;"><a href="../index.html" style="color:var(--text-link);">← Back to public bookmarklets</a></p>' : ''}
     </footer>
   </div>
 </body>
@@ -1069,34 +1069,34 @@ function generateCollectionsIndex(collections) {
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--text-primary); background: var(--bg-body); min-height: 100vh; padding: 20px; }
-    .container { max-width: 900px; margin: 0 auto; }
-    header { text-align: center; color: var(--text-primary); margin-bottom: 40px; }
-    h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--text-primary); background: var(--bg-body); min-height: 100vh; padding: 1.25rem; }
+    .container { max-width: 56.25rem; margin: 0 auto; }
+    header { text-align: center; color: var(--text-primary); margin-bottom: 2.5rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.625rem; }
     .subtitle { opacity: 0.7; font-size: 1.1rem; }
-    .card { background: var(--bg-card); border-radius: 12px; padding: 30px; box-shadow: 0 4px 20px var(--shadow-color); margin-bottom: 30px; }
-    .instructions-container { display: grid; grid-template-columns: 1fr; gap: 16px; }
-    .instructions { background: var(--bg-instructions); border-left: 4px solid #0066cc; padding: 15px; border-radius: 4px; }
-    .instructions ol { margin-left: 20px; }
-    .instructions li { margin-bottom: 8px; }
-    @media (min-width: 769px) {
+    .card { background: var(--bg-card); border-radius: 0.75rem; padding: 1.875rem; box-shadow: 0 0.25rem 1.25rem var(--shadow-color); margin-bottom: 1.875rem; }
+    .instructions-container { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    .instructions { background: var(--bg-instructions); border-left: 0.25rem solid #0066cc; padding: 0.9375rem; border-radius: 0.25rem; }
+    .instructions ol { margin-left: 1.25rem; }
+    .instructions li { margin-bottom: 0.5rem; }
+    @media (min-width: 48.0625rem) {
       .instructions-container { grid-template-columns: 1fr 1fr; }
     }
-    .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .collection-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; transition: box-shadow 0.2s, transform 0.2s, background 0.2s; display: flex; flex-direction: column; }
-    .collection-card:hover { box-shadow: 0 3px 12px var(--shadow-subtle); transform: translateY(-1px); background: var(--bg-hover); }
-    .collection-icon { font-size: 2rem; margin-bottom: 8px; }
-    .collection-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+    .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .collection-card { background: var(--bg-card); border: 0.0625rem solid var(--border-color); border-radius: 0.625rem; padding: 1.125rem; transition: box-shadow 0.2s, transform 0.2s, background 0.2s; display: flex; flex-direction: column; }
+    .collection-card:hover { box-shadow: 0 0.1875rem 0.75rem var(--shadow-subtle); transform: translateY(-0.0625rem); background: var(--bg-hover); }
+    .collection-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .collection-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.375rem; }
     .collection-title a { text-decoration: none; color: inherit; }
     .collection-title a:hover { color: var(--text-link); }
-    .collection-description { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 12px; flex: 1; }
-    .collection-link { display: inline-block; padding: 8px 16px; background: #0066cc; color: white; text-decoration: none; border-radius: 5px; font-weight: 500; transition: background 0.2s; white-space: nowrap; text-align: center; font-size: 0.9rem; }
+    .collection-description { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.75rem; flex: 1; }
+    .collection-link { display: inline-block; padding: 0.5rem 1rem; background: #0066cc; color: white; text-decoration: none; border-radius: 0.3125rem; font-weight: 500; transition: background 0.2s; white-space: nowrap; text-align: center; font-size: 0.9rem; }
     .collection-link:hover { background: #0052a3; }
-    .footer { text-align: center; margin-top: 20px; color: var(--text-secondary); opacity: 0.8; }
-    .back-link { display: inline-block; margin-bottom: 20px; color: var(--text-link); text-decoration: none; }
+    .footer { text-align: center; margin-top: 1.25rem; color: var(--text-secondary); opacity: 0.8; }
+    .back-link { display: inline-block; margin-bottom: 1.25rem; color: var(--text-link); text-decoration: none; }
     .back-link:hover { text-decoration: underline; }
-    code { background: var(--bg-code); padding: 2px 6px; border-radius: 3px; font-size: 13px; }
-    @media (max-width: 768px) {
+    code { background: var(--bg-code); padding: 0.125rem 0.375rem; border-radius: 0.1875rem; font-size: 0.8125rem; }
+    @media (max-width: 48rem) {
       .collection-grid { grid-template-columns: 2fr; }
     }
   </style>
@@ -1115,7 +1115,7 @@ function generateCollectionsIndex(collections) {
 
       <div class="instructions-container">
         <div>
-          <h3 style="margin: 0 0 10px; font-size: 1.1rem;">Chrome</h3>
+          <h3 style="margin: 0 0 0.625rem; font-size: 1.1rem;">Chrome</h3>
           <div class="instructions">
             <ol>
               <li><strong>Download</strong> a collection file by clicking "Download"</li>
@@ -1127,7 +1127,7 @@ function generateCollectionsIndex(collections) {
         </div>
 
         <div>
-          <h3 style="margin: 0 0 10px; font-size: 1.1rem;">Edge</h3>
+          <h3 style="margin: 0 0 0.625rem; font-size: 1.1rem;">Edge</h3>
           <div class="instructions">
             <ol>
               <li><strong>Download</strong> a collection file by clicking "Download"</li>
@@ -1139,7 +1139,7 @@ function generateCollectionsIndex(collections) {
         </div>
       </div>
 
-    <h2 style="margin-bottom:20px;">Available Collections</h2>
+    <h2 style="margin-bottom:1.25rem;">Available Collections</h2>
 
     <div class="collection-grid">
 ${allCollection

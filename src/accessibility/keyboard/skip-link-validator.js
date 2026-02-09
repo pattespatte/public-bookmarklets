@@ -39,14 +39,14 @@
       }
       .slv-title {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 0.875rem;
         margin: 0;
       }
       .slv-close {
         background: none;
         border: none;
         color: white;
-        font-size: 20px;
+        font-size: 1.25rem;
         cursor: pointer;
         padding: 0;
         width: 28px;
@@ -69,7 +69,7 @@
         padding: 12px;
         border-radius: 6px;
         margin-bottom: 16px;
-        font-size: 14px;
+        font-size: 0.875rem;
       }
       .slv-summary strong {
         display: block;
@@ -80,7 +80,7 @@
         margin-bottom: 8px;
         border-radius: 4px;
         border-left: 4px solid #ccc;
-        font-size: 13px;
+        font-size: 0.8125rem;
       }
       .slv-link-item.pass {
         background: #e6ffed;
@@ -101,17 +101,17 @@
       }
       .slv-link-href {
         color: #666;
-        font-size: 12px;
+        font-size: 0.75rem;
         margin-bottom: 4px;
       }
       .slv-link-message {
-        font-size: 12px;
+        font-size: 0.75rem;
       }
       .slv-badge {
         display: inline-block;
         padding: 2px 8px;
         border-radius: 12px;
-        font-size: 11px;
+        font-size: 0.6875rem;
         font-weight: 600;
         margin-right: 6px;
       }

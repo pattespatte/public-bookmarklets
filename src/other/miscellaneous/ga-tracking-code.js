@@ -37,7 +37,7 @@
 			((l = document.createElement('h2')).innerText =
 				'Google Analytics & GTM Tags'),
 			(l.style.margin = '0 0 10px 0'),
-			(l.style.fontSize = '18px'),
+			(l.style.fontSize = '1.125rem'),
 			(l.style.fontFamily = 'Arial, sans-serif'),
 			n.appendChild(l),
 			((a = document.createElement('textarea')).style.width = '100%'),

@@ -49,14 +49,14 @@
       }
       .ktt-title {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 0.875rem;
         margin: 0;
       }
       .ktt-close {
         background: none;
         border: none;
         color: white;
-        font-size: 20px;
+        font-size: 1.25rem;
         cursor: pointer;
         padding: 0;
         width: 28px;
@@ -79,7 +79,7 @@
         padding: 12px;
         border-radius: 6px;
         margin-bottom: 16px;
-        font-size: 13px;
+        font-size: 0.8125rem;
       }
       .ktt-status.testing {
         background: #fff3cd;
@@ -96,7 +96,7 @@
       .ktt-status strong {
         display: block;
         margin-bottom: 8px;
-        font-size: 14px;
+        font-size: 0.875rem;
       }
       .ktt-progress {
         width: 100%;
@@ -129,7 +129,7 @@
         margin-right: 8px;
       }
       .ktt-trap-info {
-        font-size: 12px;
+        font-size: 0.75rem;
         color: #333;
         margin-bottom: 4px;
       }
@@ -138,7 +138,7 @@
         color: #666;
       }
       .ktt-trap-cycle {
-        font-size: 11px;
+        font-size: 0.6875rem;
         color: #666;
         background: white;
         padding: 6px 8px;
@@ -147,7 +147,7 @@
       }
       .ktt-section-title {
         font-weight: 600;
-        font-size: 13px;
+        font-size: 0.8125rem;
         margin-bottom: 8px;
         margin-top: 16px;
         padding-bottom: 4px;
@@ -161,7 +161,7 @@
         padding: 8px;
       }
       .ktt-element-item {
-        font-size: 11px;
+        font-size: 0.6875rem;
         padding: 4px 6px;
         border-radius: 3px;
         margin: 2px 0;
@@ -182,7 +182,7 @@
         border: none;
         padding: 8px 16px;
         border-radius: 4px;
-        font-size: 13px;
+        font-size: 0.8125rem;
         cursor: pointer;
         width: 100%;
         margin-top: 8px;
@@ -226,7 +226,7 @@
         <div class="ktt-status testing" id="ktt-status">
           <strong>Ready to Test</strong>
           <div>This tool will simulate Tab key presses to detect keyboard traps.</div>
-          <div style="margin-top:8px;font-size:11px;color:#666">
+          <div style="margin-top:8px;font-size:0.6875rem;color:#666">
             Warning: This will temporarily change focus as it tests. The test will stop automatically.
           </div>
         </div>

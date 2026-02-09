@@ -61,7 +61,7 @@ javascript: (function () {
 		label.style.backgroundColor = backgroundColor;
 		label.style.color = textColor;
 		label.style.padding = '2px 5px';
-		label.style.fontSize = '12px';
+		label.style.fontSize = '0.75rem';
 		label.style.fontFamily = 'Arial, sans-serif';
 		label.style.zIndex = '9999';
 

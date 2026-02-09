@@ -13,7 +13,7 @@
 	// Create a style element for our custom CSS
 	var style = document.createElement('style');
 	style.textContent =
-		'#text-zoom-toggle{position:fixed;bottom:20px;right:20px;z-index:9999;padding:10px;background-color:#007bff;color:white;border:none;border-radius:5px;cursor:pointer;font-size:16px;animation:attention-grab 0.5s ease-in-out;}@keyframes attention-grab{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}.text-zoom-200{transform:scale(2);transform-origin:0 0;}';
+		'#text-zoom-toggle{position:fixed;bottom:20px;right:20px;z-index:9999;padding:10px;background-color:#007bff;color:white;border:none;border-radius:5px;cursor:pointer;font-size:1rem;animation:attention-grab 0.5s ease-in-out;}@keyframes attention-grab{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}.text-zoom-200{transform:scale(2);transform-origin:0 0;}';
 	document.head.appendChild(style);
 
 	// Create the toggle button

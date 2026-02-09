@@ -49,7 +49,7 @@
 					t = document.createElement('style');
 				document.head.appendChild(t),
 					(e = t.sheet).insertRule(
-						'* {font-size:20px}',
+						'* {font-size:1.25rem}',
 						0
 					),
 					e.insertRule(

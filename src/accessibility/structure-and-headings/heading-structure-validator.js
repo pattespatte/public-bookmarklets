@@ -43,14 +43,14 @@
       }
       .hsv-title {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 0.875rem;
         margin: 0;
       }
       .hsv-close {
         background: none;
         border: none;
         color: white;
-        font-size: 20px;
+        font-size: 1.25rem;
         cursor: pointer;
         padding: 0;
         width: 28px;
@@ -73,12 +73,12 @@
         padding: 12px;
         border-radius: 6px;
         margin-bottom: 16px;
-        font-size: 13px;
+        font-size: 0.8125rem;
       }
       .hsv-summary strong {
         display: block;
         margin-bottom: 8px;
-        font-size: 14px;
+        font-size: 0.875rem;
       }
       .hsv-stat {
         display: inline-block;
@@ -96,7 +96,7 @@
       }
       .hsv-outline-title {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 0.875rem;
         margin-bottom: 12px;
         padding-bottom: 8px;
         border-bottom: 1px solid #ddd;
@@ -107,7 +107,7 @@
         border-radius: 4px;
         cursor: pointer;
         transition: background 0.2s;
-        font-size: 13px;
+        font-size: 0.8125rem;
         display: flex;
         align-items: center;
       }
@@ -138,12 +138,12 @@
       }
       .hsv-issue {
         color: #dc3545;
-        font-size: 11px;
+        font-size: 0.6875rem;
         margin-left: 8px;
       }
       .hsv-warning {
         color: #856404;
-        font-size: 11px;
+        font-size: 0.6875rem;
         margin-left: 8px;
       }
       .hsv-indent {

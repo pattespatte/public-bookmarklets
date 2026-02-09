@@ -44,7 +44,7 @@
 				:host { display: block; }
 				.modal {
 					font-family: system-ui, -apple-system, sans-serif;
-					font-size: 13px;
+					font-size: 0.8125rem;
 					background: #fff;
 					border: 1px solid #ccc;
 					border-radius: 6px;
@@ -63,29 +63,29 @@
 					align-items: center;
 				}
 				.header-title { font-weight: 600; color: #333; }
-				.close-btn { cursor: pointer; color: #666; font-size: 14px; padding: 2px 6px; border-radius: 3px; }
+				.close-btn { cursor: pointer; color: #666; font-size: 0.875rem; padding: 2px 6px; border-radius: 3px; }
 				.close-btn:hover { background: #ddd; color: #333; }
-				.hint { font-size: 11px; color: #666; margin: 6px 10px; }
+				.hint { font-size: 0.6875rem; color: #666; margin: 6px 10px; }
 				.result { padding: 8px 10px; border-top: 1px solid #eee; }
-				.result-label { font-size: 10px; color: #666; text-transform: uppercase; margin-bottom: 2px; }
-				.text-preview { font-size: 11px; color: #333; margin-bottom: 6px; word-break: break-word; max-height: 40px; overflow: hidden; text-overflow: ellipsis; }
+				.result-label { font-size: 0.625rem; color: #666; text-transform: uppercase; margin-bottom: 2px; }
+				.text-preview { font-size: 0.6875rem; color: #333; margin-bottom: 6px; word-break: break-word; max-height: 40px; overflow: hidden; text-overflow: ellipsis; }
 				.colors { display: flex; gap: 8px; margin: 6px 0; }
-				.color-swatch { display: flex; align-items: center; gap: 4px; font-size: 11px; font-family: monospace; }
+				.color-swatch { display: flex; align-items: center; gap: 4px; font-size: 0.6875rem; font-family: monospace; }
 				.swatch-box { width: 20px; height: 20px; border: 1px solid #999; border-radius: 3px; }
-				.ratio { font-size: 24px; font-weight: 700; text-align: center; margin: 8px 0; }
+				.ratio { font-size: 1.5rem; font-weight: 700; text-align: center; margin: 8px 0; }
 				.ratio.pass { color: #28a745; }
 				.ratio.fail { color: #dc3545; }
 				.level-badge {
 					display: inline-block;
 					padding: 2px 6px;
 					border-radius: 3px;
-					font-size: 10px;
+					font-size: 0.625rem;
 					font-weight: 700;
 					margin-right: 4px;
 				}
 				.level-badge.pass { background: #28a745; color: #fff; }
 				.level-badge.fail { background: #dc3545; color: #fff; }
-				.info { font-size: 10px; color: #666; text-align: center; margin-top: 4px; }
+				.info { font-size: 0.625rem; color: #666; text-align: center; margin-top: 4px; }
 			</style>
 			<div class="modal">
 				<div class="header" id="header">

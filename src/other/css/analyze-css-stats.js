@@ -10,7 +10,7 @@
 
 		// Show loading indicator
 		var loadingDiv = document.createElement('div');
-		loadingDiv.style.cssText = 'position:fixed;top:20px;right:20px;background:#333;color:#fff;padding:12px 20px;border-radius:8px;font-family:sans-serif;font-size:14px;z-index:999999;box-shadow:0 4px 12px rgba(0,0,0,0.3)';
+		loadingDiv.style.cssText = 'position:fixed;top:20px;right:20px;background:#333;color:#fff;padding:12px 20px;border-radius:8px;font-family:sans-serif;font-size:0.875rem;z-index:999999;box-shadow:0 4px 12px rgba(0,0,0,0.3)';
 		loadingDiv.textContent = isLocal ? 'Extracting CSS...' : 'Analyzing CSS...';
 		document.body.appendChild(loadingDiv);
 

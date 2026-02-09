@@ -37,7 +37,7 @@ javascript: (function () {
 		border: 2px solid #444;
 		border-radius: 8px;
 		cursor: pointer;
-		font-size: 18px;
+		font-size: 1.125rem;
 		transition: all 0.2s ease;
 	`;
 	toggleButton.onmouseenter = function () {
@@ -61,7 +61,7 @@ javascript: (function () {
 		border: 2px solid #dc3545;
 		border-radius: 8px;
 		cursor: pointer;
-		font-size: 18px;
+		font-size: 1.125rem;
 		font-weight: bold;
 		transition: all 0.2s ease;
 	`;
