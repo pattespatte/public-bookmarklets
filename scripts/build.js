@@ -732,9 +732,9 @@ ${subContent}
     .no-results { text-align: center; padding: 2.5rem 1.25rem; color: var(--text-secondary); }
     .no-results strong { color: var(--text-primary); }
     .hidden { display: none !important; }
-    .quick-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9375rem; margin-bottom: 1.25rem; }
-    .quick-link-box { border-radius: 0.5rem; text-align: center; }
-    .quick-link-box > a { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.9375rem 1.25rem; border-radius: 0.5rem; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; text-decoration: none; color: inherit; }
+    .quick-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9375rem; margin-bottom: 1.25rem; align-items: stretch; }
+    .quick-link-box { border-radius: 0.5rem; text-align: center; height: 100%; }
+    .quick-link-box > a { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.9375rem 1.25rem; border-radius: 0.5rem; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; text-decoration: none; color: inherit; height: 100%; box-sizing: border-box; }
     .quick-link-box.collections > a { background: var(--quick-collections-bg); border: 0.0625rem solid var(--quick-collections-border); }
     .quick-link-box.test > a { background: var(--quick-test-bg); border: 0.0625rem solid var(--quick-test-border); }
     .quick-link-box.private > a { background: var(--quick-private-bg); border: 0.0625rem solid var(--quick-private-border); }
