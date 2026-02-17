@@ -733,17 +733,20 @@ ${subContent}
     .no-results strong { color: var(--text-primary); }
     .hidden { display: none !important; }
     .quick-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9375rem; margin-bottom: 1.25rem; }
-    .quick-link-box { padding: 0.9375rem 1.25rem; border-radius: 0.5rem; text-align: center; }
+    .quick-link-box { padding: 0.9375rem 1.25rem; border-radius: 0.5rem; text-align: center; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; position: relative; }
     .quick-link-box.collections { background: var(--quick-collections-bg); border: 0.0625rem solid var(--quick-collections-border); }
     .quick-link-box.test { background: var(--quick-test-bg); border: 0.0625rem solid var(--quick-test-border); }
     .quick-link-box.private { background: var(--quick-private-bg); border: 0.0625rem solid var(--quick-private-border); }
+    .quick-link-box:hover { transform: translateY(-0.125rem); box-shadow: 0 0.25rem 0.75rem var(--shadow-color); }
     .quick-link-box h2 { margin: 0 0 0.5rem; font-size: 1.1rem; }
     .quick-link-box.collections h3 { color: var(--quick-collections-heading); }
     .quick-link-box.test h2 { color: var(--quick-test-heading); }
     .quick-link-box.private h2 { color: var(--quick-private-heading); }
     .quick-link-box p { margin: 0; color: var(--text-secondary); font-size: 0.875rem; }
     .quick-link-box a { color: var(--text-link); text-decoration: none; font-weight: 500; }
-    .quick-link-box a:hover { text-decoration: underline; }
+    .quick-link-box > a { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.9375rem 1.25rem; border-radius: 0.5rem; }
+    .quick-link-box > a:hover { text-decoration: none; }
+    .quick-link-box > a * { pointer-events: none; }
     @media (max-width: 37.5rem) {
       .bookmarklet-item { flex-direction: column; align-items: flex-start; gap: 0.625rem; }
       .bookmarklet-link { width: 100%; text-align: center; margin: 0 !important; }
@@ -761,18 +764,24 @@ ${subContent}
     <main class="card">
       <div class="quick-links">
         <div class="quick-link-box collections">
-          <h2>📦 Collections</h2>
-          <p><a href="${isPrivate ? '../collections/index.html' : 'collections/index.html'}">View Collections (Bulk Import)</a></p>
+          <a href="${isPrivate ? '../collections/index.html' : 'collections/index.html'}">
+            <h2>📦 Collections</h2>
+            <p>View Collections (Bulk Import)</p>
+          </a>
         </div>
         ${isPrivate ? `
         <div class="quick-link-box test">
-          <h2>🔓 Public</h2>
-          <p><a href="../index.html">Public Bookmarklets</a> - Return to main collection</p>
+          <a href="../index.html">
+            <h2>🔓 Public</h2>
+            <p>Public Bookmarklets - Return to main collection</p>
+          </a>
         </div>
         ` : `
         <div class="quick-link-box test">
-          <h2>🧪 Test Page</h2>
-          <p><a href="test/a11y-nightmare.html" target="_blank">90's A11y Nightmare</a> - Retro test page with 50+ accessibility violations</p>
+          <a href="test/a11y-nightmare.html" target="_blank">
+            <h2>🧪 Test Page</h2>
+            <p>90's A11y Nightmare - Retro test page with 50+ accessibility violations</p>
+          </a>
         </div>
         `}
       </div>
