@@ -76,11 +76,12 @@ The following bookmarklets are from [alejandrogiga98/A11y-Bookmarklets](https://
 **Files:**
 - `src/accessibility/analysis/sa11y.js` - Sa11y
 
-**License:** MIT License
+**License:** GPL v2
 **Organization:** Toronto Metropolitan University (formerly Ryerson University)
 **Source:** <https://github.com/ryersondmp/sa11y>
 **Copyright:** © Toronto Metropolitan University
-**License Text:** See `LICENSES/MIT.txt`
+**License Text:** See `LICENSES/GPL-2.0.txt`
+**Note:** Loads from jsDelivr CDN bookmarklet script that handles multi-language support.
 
 ### Jack Domleo - Checka11y.css
 
@@ -228,8 +229,10 @@ Full license texts are stored in the `LICENSES/` directory:
 
 ## Changelog
 
-- **2026-02-17** - Added HTML_CodeSniffer (BSD-3-Clause), Sa11y (MIT), tota11y (MIT), ANDI (Public Domain), Checka11y (MIT), WAVE (External service)
-- **2026-02-17** - Added BSD-3-Clause and MIT license texts to LICENSES/ directory
+- **2026-02-17** - Fixed Sa11y CDN URL (now uses jsDelivr bookmarklet script), corrected license to GPL v2
+- **2026-02-17** - Fixed tota11y CDN URL (now uses jsDelivr npm package), updated attribution
+- **2026-02-17** - Added HTML_CodeSniffer (BSD-3-Clause), Sa11y (GPL v2), tota11y (MIT), ANDI (moved to private), Checka11y (MIT), WAVE (External service)
+- **2026-02-17** - Added BSD-3-Clause, MIT, and GPL-2.0 license texts to LICENSES/ directory
 - **2026-02-04** - Initial third-party notices created
 - **2026-02-04** - Added alejandrogiga98 attributions
 - **2026-02-04** - Clarified WebAIM permission status
