@@ -99,16 +99,7 @@ The following bookmarklets are from [alejandrogiga98/A11y-Bookmarklets](https://
 
 ## BSD-3-Clause Licensed Components
 
-### Squiz Labs - HTML_CodeSniffer
-
-**Files:**
-- `src/accessibility/analysis/html-codesniffer.js` - HTML_CodeSniffer
-
-**License:** BSD 3-Clause "New" or "Revised" License
-**Organization:** Squiz Pty Ltd
-**Source:** <https://github.com/squizlabs/HTML_CodeSniffer>
-**Copyright:** © Squiz Pty Ltd
-**License Text:** See `LICENSES/BSD-3-Clause.txt`
+_There are currently no BSD-3-Clause licensed components in the public distribution._
 
 ---
 
@@ -175,6 +166,12 @@ The following bookmarklets are from [alejandrogiga98/A11y-Bookmarklets](https://
 
 The following bookmarklets are in `src/_private/` and are **not** included in public builds:
 
+### Squiz Labs - HTML_CodeSniffer
+
+**File:** `src/_private/html-codesniffer.js`
+**Status:** Moved to private - copyright and functional concerns
+**Reason:** BSD 3-Clause licensed code that requires specific copyright notices. The bookmarklet implementation had functional issues and requires proper attribution handling per BSD terms.
+
 ### U.S. Social Security Administration - ANDI
 
 **File:** `src/_private/andi.js`
@@ -229,10 +226,12 @@ Full license texts are stored in the `LICENSES/` directory:
 
 ## Changelog
 
+- **2026-02-17** - Moved HTML_CodeSniffer to private due to copyright and functional concerns
 - **2026-02-17** - Fixed Sa11y CDN URL (now uses jsDelivr bookmarklet script), corrected license to GPL v2
 - **2026-02-17** - Fixed tota11y CDN URL (now uses jsDelivr npm package), updated attribution
-- **2026-02-17** - Added HTML_CodeSniffer (BSD-3-Clause), Sa11y (GPL v2), tota11y (MIT), ANDI (moved to private), Checka11y (MIT), WAVE (External service)
-- **2026-02-17** - Added BSD-3-Clause, MIT, and GPL-2.0 license texts to LICENSES/ directory
+- **2026-02-17** - Added Sa11y (GPL v2), tota11y (MIT), Checka11y (MIT), WAVE (External service)
+- **2026-02-17** - Moved ANDI to private (broken link, unclear licensing)
+- **2026-02-17** - Added MIT and GPL-2.0 license texts to LICENSES/ directory
 - **2026-02-04** - Initial third-party notices created
 - **2026-02-04** - Added alejandrogiga98 attributions
 - **2026-02-04** - Clarified WebAIM permission status
