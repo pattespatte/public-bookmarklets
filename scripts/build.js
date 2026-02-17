@@ -707,8 +707,8 @@ ${subContent}
     .bookmarklet-item { display: flex; align-items: center; justify-content: space-between; gap: 0.9375rem; padding: 0.75rem 0.9375rem; border: 0.0625rem solid var(--border-color); border-radius: 0.5rem; margin-bottom: 0.5rem; transition: box-shadow 0.2s, background 0.2s; }
     .bookmarklet-item:hover { box-shadow: 0 0.125rem 0.5rem var(--shadow-subtle); background: var(--bg-hover); }
     .bookmarklet-info { flex: 1; min-width: 0; }
-    .bookmarklet-info > a { text-decoration: none; color: inherit; transition: color 0.2s; }
-    .bookmarklet-info > a:hover { color: var(--text-link); }
+    .bookmarklet-info > a { color: var(--text-link); transition: color 0.2s; }
+    .bookmarklet-info > a:hover { color: var(--text-link-hover); }
     .bookmarklet-info > a strong { pointer-events: none; }
     .bookmarklet-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
     .bookmarklet-link { display: inline-block; padding: 0.5rem 1rem; background: #0066cc; color: white; text-decoration: none; border-radius: 0.375rem; font-weight: 500; transition: background 0.2s; white-space: nowrap; cursor: pointer; font-size: 0.875rem; }
