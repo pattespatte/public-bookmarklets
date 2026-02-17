@@ -777,6 +777,15 @@ ${subContent}
         `}
       </div>
 
+      <div class="instructions">
+        <strong>💡 Quick Start:</strong>
+        <ul style="margin-top:0.5rem; margin-left:1.5rem;">
+          <li><strong>To test:</strong> Click the blue button link — the bookmarklet will run on this page</li>
+          <li><strong>To install:</strong> Drag the blue button link to your browser's bookmarks bar</li>
+          <li><strong>For details:</strong> Click the bookmarklet name to view its full description and WCAG references</li>
+        </ul>
+      </div>
+
       <p style="margin-bottom:0.9375rem;">Available Bookmarklets (${bookmarklets.length})</p>
 
       <div class="search-container">
