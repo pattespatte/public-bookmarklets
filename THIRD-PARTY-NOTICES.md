@@ -59,16 +59,17 @@ The following bookmarklets are from [alejandrogiga98/A11y-Bookmarklets](https://
 **Copyright:** © Explosion-Scratch
 **Note:** Permission requested 2026-02-04 - [status]
 
-### Khan Academy - tota11y
+### Jordan Scales - tota11y
 
 **Files:**
 - `src/accessibility/analysis/tota11y.js` - tota11y
 
 **License:** MIT License
-**Organization:** Khan Academy
-**Source:** <https://github.com/Khan/tota11y>
-**Copyright:** © Khan Academy
+**Author:** Jordan Scales
+**Source:** <https://github.com/jdan/tota11y>
+**Copyright:** © Jordan Scales
 **License Text:** See `LICENSES/MIT.txt`
+**Note:** Project is deprecated but available on npm as @khanacademy/tota11y. Loads from jsDelivr CDN.
 
 ### Toronto Metropolitan University - Sa11y
 
