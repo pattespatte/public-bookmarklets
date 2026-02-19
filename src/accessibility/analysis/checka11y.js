@@ -9,17 +9,10 @@
 		// Checka11y bookmarklet - loads CSS from jsDelivr CDN
 		// Note: The CSS file includes required attribution header
 
-		(function () {
-			(function () {
-				javascript: (function () {
-					var link = document.createElement('link');
-					link.rel = 'stylesheet';
-					link.href =
-						'https://cdn.jsdelivr.net/npm/checka11y.css@2.5.0/checka11y.min.css';
-					document.head.appendChild(link);
-				})();
-			})();
-		})();
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = 'https://cdn.jsdelivr.net/npm/checka11y.css@2.5.0/checka11y.min.css';
+		document.head.appendChild(link);
 		// ===== END CHECKA11Y =====
 	} catch (err) {
 		alert('Bookmarklet Error: ' + err.message);
