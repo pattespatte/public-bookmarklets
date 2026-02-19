@@ -5,7 +5,7 @@
  */
 javascript: (function () {
 	'use strict';
-	// Description: The JAWS Helper bookmarklet displays a comprehensive quick reference guide for testing with the JAWS screen reader. Shows modal panels with keyboard shortcuts for reading navigation (headings, landmarks, tables, lists, links), text reading (by line, character, word, sentence), forms mode, and other commands. Includes tables organized by topic with task descriptions and corresponding keystrokes. References Deque University as the source. Useful for testers learning JAWS or needing a quick reference during audits. Close with X, clicking outside, or pressing Escape. WCAG SC 2.1.1: Keyboard, 2.4.1: Bypass Blocks, 3.3.2: Labels or Instructions.
+	// Description: The JAWS Helper bookmarklet displays a comprehensive quick reference guide for testing with the JAWS screen reader. Shows modal panels with keyboard shortcuts for reading navigation (headings, landmarks, tables, lists, links), text reading (by line, character, word, sentence), forms mode, and other commands. Includes tables organized by topic with task descriptions and corresponding keystrokes. References Deque University as the source. Useful for testers learning JAWS or needing a quick reference during audits. Close with X, clicking outside, or pressing Escape. WCAG SC 2.1.1: Keyboard, WCAG SC 2.4.1: Bypass Blocks, WCAG SC 3.3.2: Labels or Instructions.
 
 	function addJAWSGuide() {
 		var modal = document.createElement('div');

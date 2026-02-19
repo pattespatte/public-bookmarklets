@@ -1,6 +1,6 @@
 javascript: (function () {
 	'use strict';
-	// Description: The VoiceOver Helper bookmarklet displays a quick reference guide for testing with Apple's VoiceOver screen reader. Shows a modal panel with essential VoiceOver commands including start/stop, navigation, rotor usage, and element interaction. Explains the VoiceOver modifier (Ctrl+Alt), rotor navigation for element types, and basic commands like entering/escaping sections and interacting with controls. References Apple's official documentation and Deque University. Useful for testers learning VoiceOver or needing quick reference during audits. Close with X, clicking outside, or pressing Escape. WCAG SC 2.1.1: Keyboard, 2.4.1: Bypass Blocks.
+	// Description: The VoiceOver Helper bookmarklet displays a quick reference guide for testing with Apple's VoiceOver screen reader. Shows a modal panel with essential VoiceOver commands including start/stop, navigation, rotor usage, and element interaction. Explains the VoiceOver modifier (Ctrl+Alt), rotor navigation for element types, and basic commands like entering/escaping sections and interacting with controls. References Apple's official documentation and Deque University. Useful for testers learning VoiceOver or needing quick reference during audits. Close with X, clicking outside, or pressing Escape. WCAG SC 2.1.1: Keyboard, WCAG SC 2.4.1: Bypass Blocks.
 
 	function addVoiceOverGuide() {
 		var modal = document.createElement('div');

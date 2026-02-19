@@ -3,7 +3,7 @@
  * Author: Patrik (pattespatte)
  * License: MIT
  */
-// Description: The NVDA Helper bookmarklet displays a quick reference guide for testing with the NVDA screen reader. Shows a modal panel with essential keyboard shortcuts for reading navigation, headings, landmarks, tables, lists, graphics, links, and form controls. Displays the NVDA modifier key (Ctrl+Alt+N or Insert) and lists common commands for on/off, stop reading, continuous reading, and element navigation. References Deque University for more comprehensive shortcuts. Useful for testers learning NVDA or needing quick reference during audits. Close with X, clicking outside, or pressing Escape. WCAG SC 2.1.1: Keyboard, 2.4.1: Bypass Blocks, 3.3.2: Labels or Instructions.
+// Description: The NVDA Helper bookmarklet displays a quick reference guide for testing with the NVDA screen reader. Shows a modal panel with essential keyboard shortcuts for reading navigation, headings, landmarks, tables, lists, graphics, links, and form controls. Displays the NVDA modifier key (Ctrl+Alt+N or Insert) and lists common commands for on/off, stop reading, continuous reading, and element navigation. References Deque University for more comprehensive shortcuts. Useful for testers learning NVDA or needing quick reference during audits. Close with X, clicking outside, or pressing Escape. WCAG SC 2.1.1: Keyboard, WCAG SC 2.4.1: Bypass Blocks, WCAG SC 3.3.2: Labels or Instructions.
 (function () {
 	'use strict';
 
