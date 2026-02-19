@@ -26,7 +26,7 @@
 		document.addEventListener('keydown', r),
 		o.addEventListener('close', t));
 })();
-// Description: The VoiceOver Helper Popover (minified) bookmarklet displays a quick reference guide for Apple's VoiceOver in a native HTML popover. Creates a green "VoiceOver Helper" button in the bottom-right corner that opens a compact popover with essential VoiceOver commands including start/stop, navigation, rotor usage, and element interaction. Uses the native popover API for modern browser support. Close with X button, clicking outside, or pressing Escape. References Apple's official documentation and Deque University. Useful for quick reference during testing.
+// Description: The VoiceOver Helper Popover (minified) bookmarklet displays a quick reference guide for Apple's VoiceOver in a native HTML popover. Creates a green "VoiceOver Helper" button in the bottom-right corner that opens a compact popover with essential VoiceOver commands including start/stop, navigation, rotor usage, and element interaction. Uses the native popover API for modern browser support. Close with X button, clicking outside, or pressing Escape. References Apple's official documentation and Deque University. Useful for quick reference during testing. WCAG SC 2.1.1: Keyboard, 2.4.1: Bypass Blocks.
 console.log(
 	'\nSource: https://github.com/joelanman/voiceover-helper\nBookmarklet name: VoiceOver Helper Popover\n'
 );

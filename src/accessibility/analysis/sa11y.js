@@ -1,4 +1,4 @@
-// Description: Sa11y is an accessibility quality assurance tool that visually highlights common accessibility and usability issues. Dynamically identifies headings, landmarks, links, images (with alt text), tables, lists, form inputs, buttons, and highlight text contrast issues. Provides a panel showing identified issues with links to relevant WCAG success criteria. WCAG SC: Multiple.
+// Description: Sa11y is an accessibility quality assurance tool that visually highlights common accessibility and usability issues. Dynamically identifies headings, landmarks, links, images (with alt text), tables, lists, form inputs, buttons, and highlight text contrast issues. Provides a panel showing identified issues with links to relevant WCAG success criteria. WCAG SC 1.1.1: Non-text Content, 1.3.1: Info and Relationships, 1.3.2: Meaningful Sequence, 1.4.3: Contrast (Minimum), 2.1.1: Keyboard, 2.1.2: No Keyboard Trap, 2.4.1: Bypass Blocks, 2.4.2: Page Titled, 2.4.6: Headings and Labels, 2.5.5: Target Size, 3.3.2: Labels or Instructions.
 (function () {
 	'use strict';
 	try {

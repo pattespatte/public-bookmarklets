@@ -1,4 +1,4 @@
-// Description: Checka11y is a CSS-based accessibility visualization tool that highlights potential accessibility issues by adding visual overlays. It identifies elements with missing alt text, indicates focus states, shows heading hierarchy, reveals links that may be confusing, and highlights potential color contrast issues. Uses CSS injection for visual feedback. Run again to remove. WCAG SC: Multiple.
+// Description: Checka11y is a CSS-based accessibility visualization tool that highlights potential accessibility issues by adding visual overlays. It identifies elements with missing alt text, indicates focus states, shows heading hierarchy, reveals links that may be confusing, and highlights potential color contrast issues. Uses CSS injection for visual feedback. Run again to remove. WCAG SC 1.1.1: Non-text Content, 1.4.3: Contrast (Minimum), 2.1.1: Keyboard, 2.4.1: Bypass Blocks, 2.4.2: Page Titled, 2.4.6: Headings and Labels.
 (function () {
 	'use strict';
 	try {

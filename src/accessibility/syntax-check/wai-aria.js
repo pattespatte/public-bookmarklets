@@ -1,4 +1,4 @@
-// Description: Wai aria.min bookmarklet
+// Description: Wai aria.min bookmarklet validates WAI-ARIA attributes and roles for accessibility compliance. Checks for proper ARIA usage, validates required attributes, checks for deprecated ARIA properties, and ensures ARIA roles are used correctly. WCAG SC 4.1.2: Name, Role, Value.
 (!(function () {
 	var e,
 		a = {

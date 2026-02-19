@@ -1,4 +1,4 @@
-// Description: Remove Colors bookmarklet
+// Description: Remove Colors bookmarklet that overrides page colors to black text on white background. Useful for testing that information is not conveyed by color alone. Helps verify compliance with color-only information requirements. WCAG SC 1.4.1: Use of Color.
 (function () {
 	var newSS,
 		styles =

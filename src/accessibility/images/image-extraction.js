@@ -1,4 +1,4 @@
-// Description: The Image Extraction bookmarklet replaces the page content with a gallery of all images found, including <img> src attributes and background-image CSS values. Each image is displayed as a thumbnail with a link to open the full-size version. Useful for reviewing all graphical content on a page. Note: Does not detect <input type="image"> or SVG background images.
+// Description: The Image Extraction bookmarklet replaces the page content with a gallery of all images found, including <img> src attributes and background-image CSS values. Each image is displayed as a thumbnail with a link to open the full-size version. Useful for reviewing all graphical content on a page for accessibility testing. Note: Does not detect <input type="image"> or SVG background images. WCAG SC 1.1.1: Non-text Content.
 javascript: {
 	let e = [],
 		t = /url\([ \t]*['"`]\x3f([^\)'"`]+)['"`]\x3f[ \t]*\)/,

@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	// Description: The Voice Command Readiness bookmarklet checks controls for unique and concise names suitable for voice control. Finds links, buttons, and inputs, extracts their accessible names (aria-label, aria-labelledby, visible text), normalizes names (lowercase, collapse whitespace, truncate to 60), identifies duplicate names used by multiple controls which would prevent voice targeting, and counts excessively long names (>6 words) which are harder to speak. Displays an alert with counts of duplicates and long names. Useful for testing voice control compatibility.
+	// Description: The Voice Command Readiness bookmarklet checks controls for unique and concise names suitable for voice control. Finds links, buttons, and inputs, extracts their accessible names (aria-label, aria-labelledby, visible text), normalizes names (lowercase, collapse whitespace, truncate to 60), identifies duplicate names used by multiple controls which would prevent voice targeting, and counts excessively long names (>6 words) which are harder to speak. Displays an alert with counts of duplicates and long names. Useful for testing voice control compatibility. WCAG SC 2.4.4: Link Purpose (In Context), 2.5.3: Label in Name, 4.1.2: Name, Role, Value.
 	try {
 		function nameOf(el) {
 			const byId = (id) =>
