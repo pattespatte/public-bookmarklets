@@ -6,13 +6,20 @@
 		// Source: https://github.com/jackdomleo7/Checka11y.css
 		// License: MIT License
 		// Copyright: (c) 2020-present Jack Domleo
-		// Checka11y bookmarklet - loads CSS from jsDelivr CDN
+		// Checka11y bookmarklet - toggles CSS from jsDelivr CDN
 		// Note: The CSS file includes required attribution header
 
-		var link = document.createElement('link');
-		link.rel = 'stylesheet';
-		link.href = 'https://cdn.jsdelivr.net/npm/checka11y.css@2.5.0/checka11y.min.css';
-		document.head.appendChild(link);
+		var cssUrl = 'https://cdn.jsdelivr.net/npm/checka11y.css@2.5.0/checka11y.min.css';
+		var existingLink = document.querySelector('link[href*="checka11y"]');
+
+		if (existingLink) {
+			existingLink.remove();
+		} else {
+			var link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.href = cssUrl;
+			document.head.appendChild(link);
+		}
 		// ===== END CHECKA11Y =====
 	} catch (err) {
 		alert('Bookmarklet Error: ' + err.message);
