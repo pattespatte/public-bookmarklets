@@ -287,13 +287,20 @@ function extractSourceInfo(code) {
 	return null;
 }
 
-// Extract description from source code comments
+// Extract description from new block comment format or legacy single-line format
 function extractDescription(code) {
-	// Match // Description: ... pattern
-	const match = code.match(/\/\/ Description:\s*(.+?)(?:\r?\n|$)/);
-	if (match && match[1]) {
-		return match[1].trim();
+	// Try new multi-line block comment format first
+	const blockMatch = code.match(/\/\*\s*Description:\s*\n([\s\S]*?)\*\//);
+	if (blockMatch && blockMatch[1]) {
+		return blockMatch[1].trim();
 	}
+
+	// Fall back to legacy single-line format
+	const lineMatch = code.match(/\/\/ Description:\s*(.+?)(?:\r?\n|$)/);
+	if (lineMatch && lineMatch[1]) {
+		return lineMatch[1].trim();
+	}
+
 	return null;
 }
 
@@ -328,6 +335,41 @@ function removeWCAGRefsFromDescription(description) {
 		.replace(/\s+\.\s*$/, '.') // Clean up trailing period + space
 		.replace(/\.\s*\./g, '.') // Clean up double periods
 		.trim();
+}
+
+// Extract tags from new block comment format or parse from description
+function extractTags(code, description) {
+	const tags = [];
+
+	// Try new multi-line block comment format first
+	const blockMatch = code.match(/\/\*\s*Tags:\s*\n([\s\S]*?)\*\//);
+	if (blockMatch && blockMatch[1]) {
+		const tagBlock = blockMatch[1].trim();
+		// Parse WCAG SC references from tag block
+		const wcagPattern = /WCAG SC\s+([\d.]+):\s*(.+?)(?:\r?\n|$)/g;
+		let match;
+		while ((match = wcagPattern.exec(tagBlock)) !== null) {
+			tags.push({
+				type: 'wcag-sc',
+				scNumber: match[1],
+				scName: match[2].trim()
+			});
+		}
+	}
+
+	// Fall back to parsing WCAG refs from description if no tags found
+	if (tags.length === 0 && description) {
+		const wcagRefs = extractWCAGRefs(description);
+		for (const ref of wcagRefs) {
+			tags.push({
+				type: 'wcag-sc',
+				scNumber: ref.scNumber,
+				scName: ref.scName
+			});
+		}
+	}
+
+	return tags;
 }
 
 // Strip parenthetical content from badge text
@@ -398,11 +440,17 @@ async function buildBookmarklet(srcPath, displayName, relPath, distDir = DIST_DI
 	// Get leaf name for button (last part of display name)
 	const leafName = displayName.split(' / ').pop();
 
-	// Extract WCAG references and clean description
-	const wcagRefs = extractWCAGRefs(description);
+	// Extract tags and WCAG references
+	const tags = extractTags(code, description);
+	const wcagRefs = tags
+		.filter(t => t.type === 'wcag-sc')
+		.map(t => ({ scNumber: t.scNumber, scName: t.scName }));
+	// For backwards compatibility, also extract from description if no tags found
+	const legacyWcagRefs = wcagRefs.length === 0 ? extractWCAGRefs(description) : [];
+	const allWcagRefs = wcagRefs.length > 0 ? wcagRefs : legacyWcagRefs;
 	const cleanedDescription = removeWCAGRefsFromDescription(description);
-	const wcagBadges = generateWCAGBadges(wcagRefs);
-	const wcagBadgesPlain = wcagRefs.map(ref => `WCAG SC ${ref.scNumber}: ${ref.scName}`);
+	const wcagBadges = generateWCAGBadges(allWcagRefs);
+	const wcagBadgesPlain = allWcagRefs.map(ref => `WCAG SC ${ref.scNumber}: ${ref.scName}`);
 
 	// Write to dist as .html (for drag-and-drop)
 	const htmlOutput = `<!DOCTYPE html>
@@ -490,7 +538,8 @@ async function buildBookmarklet(srcPath, displayName, relPath, distDir = DIST_DI
 		path: `${fileName}.html`,
 		sourceUrl,
 		description,
-		wcagRefs,
+		tags,
+		wcagRefs: allWcagRefs,
 		wcagBadges,
 		wcagBadgesPlain,
 	};
@@ -1226,13 +1275,24 @@ function generateManifest(bookmarklets) {
 		let leaf = parts[parts.length - 1].replace(/-min$/, '').replace(/ Min$/, '');
 		const leafName = toTitleCase(leaf);
 
+		// Generate id from leaf name (kebab-case)
+		const id = toWebFriendlyName(leaf);
+
+		// Clean description by removing WCAG references for JSON output
+		const cleanedDescription = b.description
+			? removeWCAGRefsFromDescription(b.description)
+			: null;
+
 		return {
+			id: id,
 			name: leafName,
 			category: category,
 			url: b.bookmarklet,
 			path: b.path,
 			size: b.size,
-			description: b.description || null,
+			description: cleanedDescription,
+			tags: b.tags || [],
+			sourceUrl: b.sourceUrl || null
 		};
 	});
 

@@ -1,4 +1,4 @@
-// Description: The Deque W3C Validator bookmarklet submits the current page's full HTML source to the W3C Nu Validator for comprehensive markup validation. Extracts the document type declaration and full HTML, creates a hidden form that POSTs the content directly to validator.w3.org/nu, opens results in a new tab with source view enabled, and bypasses URL-based validation which works on localhost/authenticated pages. Validates against HTML5 and identifies syntax errors, accessibility issues, and best practice violations.
+// Description: The Deque W3C Validator bookmarklet submits the current page's full HTML source to the W3C Nu Validator for comprehensive markup validation. Extracts the document type declaration and full HTML, creates a hidden form that POSTs the content directly to validator.w3.org/nu, opens results in a new tab with source view enabled, and bypasses URL-based validation which works on localhost/authenticated pages. Validates against HTML5 and identifies syntax errors, accessibility issues, and best practice violations. WCAG SC 4.1.1: Parsing (Obsolete and removed).
 (function () {
 	var doctypeNode = document.doctype;
 	var doctypeHtml =
