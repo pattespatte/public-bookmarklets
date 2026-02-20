@@ -1,4 +1,4 @@
-// Description: Checka11y is a CSS-based accessibility visualization tool that highlights potential accessibility issues by adding visual overlays. It identifies elements with missing alt text, indicates focus states, shows heading hierarchy, reveals links that may be confusing, and highlights potential color contrast issues. Uses CSS injection for visual feedback. Run again to remove. WCAG SC 1.1.1: Non-text Content, 1.4.3: Contrast (Minimum), 2.1.1: Keyboard, 2.4.1: Bypass Blocks, 2.4.2: Page Titled, 2.4.6: Headings and Labels.
+// Description: Checka11y is a CSS-based accessibility visualization tool that highlights potential accessibility issues by adding visual overlays. It identifies elements with missing alt text, indicates focus states, shows heading hierarchy, reveals links that may be confusing, and highlights potential color contrast issues. Uses CSS injection for visual feedback. WCAG SC 1.1.1: Non-text Content, 1.4.3: Contrast (Minimum), 2.1.1: Keyboard, 2.4.1: Bypass Blocks, 2.4.2: Page Titled, 2.4.6: Headings and Labels.
 (function () {
 	'use strict';
 	try {
@@ -9,17 +9,10 @@
 		// Checka11y bookmarklet - toggles CSS from jsDelivr CDN
 		// Note: The CSS file includes required attribution header
 
-		var cssUrl = 'https://cdn.jsdelivr.net/npm/checka11y.css@2.5.0/checka11y.min.css';
-		var existingLink = document.querySelector('link[href*="checka11y"]');
-
-		if (existingLink) {
-			existingLink.remove();
-		} else {
-			var link = document.createElement('link');
-			link.rel = 'stylesheet';
-			link.href = cssUrl;
-			document.head.appendChild(link);
-		}
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = 'https://cdn.jsdelivr.net/npm/checka11y-css@2.3.3/checka11y.min.css';
+		document.head.appendChild(link);
 		// ===== END CHECKA11Y =====
 	} catch (err) {
 		alert('Bookmarklet Error: ' + err.message);
