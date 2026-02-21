@@ -11,10 +11,10 @@
 		const s = document.createElement('style');
 		s.id = ID;
 		s.textContent = `*{background:transparent !important; box-shadow:none !important}
-        body{background:#000 !important; color:#fff !important}
-        a{color:#0ff !important; text-decoration:underline !important}
-        button,input,select,textarea{background:#000 !important; color:#fff !important; border:2px solid #fff !important}
-        img,video,svg{filter:grayscale(100%) contrast(120%) !important}`;
+		body{background:#000 !important; color:#fff !important}
+		a{color:#0ff !important; text-decoration:underline !important}
+		button,input,select,textarea{background:#000 !important; color:#fff !important; border:2px solid #fff !important}
+		img,video,svg{filter:grayscale(100%) contrast(120%) !important}`;
 		document.head.appendChild(s);
 		console.log(`
 Source: https://github.com/alejandrogiga98/A11y-Bookmarklets

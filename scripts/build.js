@@ -487,7 +487,7 @@ async function buildBookmarklet(srcPath, displayName, relPath, distDir = DIST_DI
     }
     body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: var(--bg-body); }
     .container { text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 8px; box-shadow: 0 2px 8px var(--border-color); max-width: 600px; }
-    h1 { margin: 0 0 1rem; }
+    h1 { margin: 0 0 1rem; color: var(--text-primary); }
     a.bookmarklet { display: inline-block; padding: 0.75rem 1.5rem; background: #0066cc; color: white; text-decoration: none; border-radius: 0.25rem; font-weight: 500; cursor: pointer; }
     a.bookmarklet:hover { background: #0052a3; }
     .code { margin-top: 1.5rem; padding: 1rem; background: var(--bg-code); border-radius: 0.25rem; text-align: left; overflow-x: auto; font-family: monospace; font-size: 0.6875rem; white-space: pre-wrap; word-break: break-all; max-height: 12.5rem; overflow-y: auto; color: var(--text-primary); }
