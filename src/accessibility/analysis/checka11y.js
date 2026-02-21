@@ -11,7 +11,7 @@
 
 		var link = document.createElement('link');
 		link.rel = 'stylesheet';
-		link.href = 'https://cdn.jsdelivr.net/npm/checka11y-css@2.3.3/checka11y.min.css';
+		link.href = 'https://cdn.jsdelivr.net/npm/checka11y-css@2.5.0/checka11y.min.css';
 		document.head.appendChild(link);
 		// ===== END CHECKA11Y =====
 	} catch (err) {
