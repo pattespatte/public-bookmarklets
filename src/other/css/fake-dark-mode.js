@@ -1,5 +1,5 @@
 // Source: https://github.com/pattespatte/public-bookmarklets
-// Description: Toggle dark mode on any website using CSS filters. Creates a floating button in the top-right corner that toggles between light and dark modes. Dark mode inverts colors and adjusts hue/contrast to create a pleasant dark theme while maintaining color relationships. Images and videos are excluded from inversion to preserve their appearance. Click the toggle button to switch modes, or run the bookmarklet again to remove it entirely.
+// Description: Simulates dark mode using brute-force CSS color inversion (invert + hue-rotate). NOTE: This does NOT use or respect native dark mode (prefers-color-scheme). It applies a filter overlay regardless of the page's own dark mode support. Creates a floating toggle button in top-right corner. Images and videos are re-inverted to appear normal. Best for pages without native dark mode support.
 javascript: (function () {
 	'use strict';
 	const id = 'dark-mode-bookmarklet';
