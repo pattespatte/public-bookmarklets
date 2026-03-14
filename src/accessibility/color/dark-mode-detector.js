@@ -11,71 +11,57 @@
 			if (script) {
 				script.remove();
 			}
+			// Clean up global function
+			delete window.__darkModeDetectorToggle;
 			existing.remove();
 			return;
 		}
 
-		// Detect dark mode support type
+		// Detect dark mode support type in a single pass through stylesheets
 		let darkModeType = null; // 'media-query' | 'class-based' | null
+		const darkRules = []; // Store media-query rules for later use
 		const sheets = document.styleSheets;
+		const darkClassRegex = /\.(dark\s|dark:)/;
 
-		// Check for @media (prefers-color-scheme: dark) rules
+		// Single pass: scan for both media-query and class-based dark mode
 		for (let i = 0; i < sheets.length; i++) {
 			try {
 				const rules = sheets[i].cssRules || sheets[i].rules;
 				for (let j = 0; j < rules.length; j++) {
 					const rule = rules[j];
+
+					// Check for media-query dark mode
 					if (
 						rule.conditionText &&
 						rule.conditionText.includes('prefers-color-scheme: dark')
 					) {
-						darkModeType = 'media-query';
-						break;
+						if (!darkModeType) darkModeType = 'media-query';
+						darkRules.push({ sheet: sheets[i], rule, index: j });
 					}
+
+					// Check for class-based dark mode
+					if (rule.selectorText && rule.selectorText.includes('.dark ')) {
+						if (!darkModeType) darkModeType = 'class-based';
+					}
+
+					if (darkModeType && darkModeType !== 'media-query') break;
 				}
 			} catch (e) {
 				// CORS restrictions on some stylesheets
 			}
-			if (darkModeType) break;
+			if (darkModeType && darkModeType !== 'media-query') break;
 		}
 
-		// Check inline styles for media queries
+		// Single pass: check inline styles for both types
 		if (!darkModeType) {
 			const inlineStyles = document.querySelectorAll('style');
 			for (const style of inlineStyles) {
-				if (style.textContent.includes('prefers-color-scheme: dark')) {
+				const text = style.textContent;
+				if (text.includes('prefers-color-scheme: dark')) {
 					darkModeType = 'media-query';
 					break;
 				}
-			}
-		}
-
-		// Check for class-based dark mode (e.g., Tailwind's .dark class)
-		if (!darkModeType) {
-			// Look for .dark descendant selectors in stylesheets
-			for (let i = 0; i < sheets.length; i++) {
-				try {
-					const rules = sheets[i].cssRules || sheets[i].rules;
-					for (let j = 0; j < rules.length; j++) {
-						const rule = rules[j];
-						if (rule.selectorText && rule.selectorText.includes('.dark ')) {
-							darkModeType = 'class-based';
-							break;
-						}
-					}
-				} catch (e) {
-					// CORS restrictions
-				}
-				if (darkModeType === 'class-based') break;
-			}
-		}
-
-		// Check inline styles for class-based dark mode
-		if (!darkModeType) {
-			const inlineStyles = document.querySelectorAll('style');
-			for (const style of inlineStyles) {
-				// Match .dark followed by space (descendant selector) or .dark: (pseudo-class)
-				if (/\.(dark\s|dark:)/.test(style.textContent)) {
+				if (darkClassRegex.test(text)) {
 					darkModeType = 'class-based';
 					break;
 				}
@@ -84,7 +70,6 @@
 
 		// Detect current system preference
 		const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-		let isCurrentlyDark = systemPrefersDark;
 
 		// Create UI container
 		const container = document.createElement('div');
@@ -109,7 +94,16 @@
 			const isToggleable =
 				darkModeType === 'class-based' || !systemPrefersDark;
 
+			// Store original state for proper cleanup
+			const originalClassBasedState =
+				darkModeType === 'class-based' &&
+				document.documentElement.classList.contains('dark');
+
 			function updateButtonText() {
+				const isCurrentlyDark =
+					darkModeType === 'class-based'
+						? document.documentElement.classList.contains('dark')
+						: toggleBtn.dataset.darkMode === 'true';
 				const modeText = isCurrentlyDark ? 'Dark' : 'Light';
 				const typeText =
 					darkModeType === 'class-based' ? ' (Class-based)' : ' (Media Query)';
@@ -119,9 +113,14 @@
 
 			updateButtonText();
 
+			// Initialize tracking state for media-query mode
+			if (darkModeType === 'media-query' && isToggleable) {
+				toggleBtn.dataset.darkMode = 'true'; // Start in dark mode
+			}
+
 			toggleBtn.style.cssText = `
 				padding: 10px 16px;
-				background: ${isCurrentlyDark ? '#1a1a1a' : '#22c55e'};
+				background: ${toggleBtn.dataset.darkMode === 'true' ? '#1a1a1a' : '#22c55e'};
 				color: #fff;
 				border: none;
 				border-radius: 8px;
@@ -151,14 +150,17 @@
 			container.appendChild(closeBtn);
 			document.body.appendChild(container);
 
-			// Inject script to handle CSS rule manipulation for media-query type
-			if (darkModeType === 'media-query') {
+			// Inject script to handle CSS rule manipulation for media-query type (only if toggleable)
+			if (darkModeType === 'media-query' && isToggleable && darkRules.length > 0) {
 				const scriptContent = `
-					(function() {
-						// Find all CSS media rules with prefers-color-scheme: dark
-						const darkRules = [];
-						const sheets = document.styleSheets;
+					(function(systemPrefersDark) {
+						// Store original conditions and rules (already collected by parent)
+						const darkRules = ${JSON.stringify(darkRules.map(({ rule, index }) => ({ conditionText: rule.conditionText, index })))};
+						const originalConditions = darkRules.map(r => r.conditionText);
 
+						// Re-acquire rule references from sheet
+						const sheets = document.styleSheets;
+						const ruleRefs = [];
 						for (let i = 0; i < sheets.length; i++) {
 							try {
 								const rules = sheets[i].cssRules || sheets[i].rules;
@@ -166,23 +168,20 @@
 									const rule = rules[j];
 									if (rule.type === CSSRule.MEDIA_RULE &&
 										rule.conditionText.includes('prefers-color-scheme: dark')) {
-										darkRules.push({ sheet: sheets[i], rule: rule, index: j });
+										ruleRefs.push(rule);
 									}
 								}
 							} catch (e) {}
 						}
 
-						// Store original conditions
-						const originalConditions = darkRules.map(({ rule }) => rule.conditionText);
-
 						// Toggle function exposed globally
 						window.__darkModeDetectorToggle = function(enableDark) {
-							for (let i = 0; i < darkRules.length; i++) {
-								const { rule, sheet, index } = darkRules[i];
+							for (let i = 0; i < ruleRefs.length; i++) {
+								const rule = ruleRefs[i];
 								const original = originalConditions[i];
 
 								if (enableDark) {
-									// Enable dark mode: swap 'dark' to 'light' (always active on light systems)
+									// Enable dark mode: swap 'dark' to 'light'
 									rule.conditionText = original.replace('dark', 'light');
 								} else {
 									// Disable dark mode: restore original
@@ -192,11 +191,10 @@
 						};
 
 						// Auto-enable dark mode on first run if system is in light mode
-						const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 						if (!systemPrefersDark) {
 							window.__darkModeDetectorToggle(true);
 						}
-					})();
+					})(${systemPrefersDark});
 				`;
 
 				const script = document.createElement('script');
@@ -211,26 +209,29 @@
 					// Toggle .dark class on html element
 					const html = document.documentElement;
 					html.classList.toggle('dark');
-					isCurrentlyDark = html.classList.contains('dark');
 				} else {
 					// Use injected script to toggle media queries
 					if (window.__darkModeDetectorToggle) {
-						isCurrentlyDark = !isCurrentlyDark;
-						window.__darkModeDetectorToggle(isCurrentlyDark);
+						const currentState = toggleBtn.dataset.darkMode === 'true';
+						toggleBtn.dataset.darkMode = (!currentState).toString();
+						window.__darkModeDetectorToggle(!currentState);
 					}
 				}
 
 				// Update button appearance
+				const isCurrentlyDark =
+					darkModeType === 'class-based'
+						? document.documentElement.classList.contains('dark')
+						: toggleBtn.dataset.darkMode === 'true';
 				toggleBtn.style.background = isCurrentlyDark ? '#1a1a1a' : '#22c55e';
 				updateButtonText();
 			}
 
 			// For class-based, auto-enable if not already dark
 			if (darkModeType === 'class-based') {
-				isCurrentlyDark = document.documentElement.classList.contains('dark');
+				const isCurrentlyDark = document.documentElement.classList.contains('dark');
 				if (!isCurrentlyDark) {
 					document.documentElement.classList.add('dark');
-					isCurrentlyDark = true;
 				}
 				updateButtonText();
 				toggleBtn.style.background = '#1a1a1a';
@@ -240,15 +241,23 @@
 			if (isToggleable) {
 				toggleBtn.addEventListener('click', toggleMode);
 			}
+
 			closeBtn.addEventListener('click', function () {
 				// Restore original state before closing
-				if (darkModeType === 'class-based') {
-					// Remove .dark class if we added it (optional - keep user's choice?)
+				if (darkModeType === 'class-based' && !originalClassBasedState) {
+					document.documentElement.classList.remove('dark');
 				}
+
+				// Clean up global function
+				delete window.__darkModeDetectorToggle;
+
+				// Remove injected script
 				const script = document.getElementById(SCRIPT_ID);
 				if (script) {
 					script.remove();
 				}
+
+				// Remove container (also removes event listeners)
 				container.remove();
 			});
 		} else {
