@@ -11,7 +11,7 @@
 		const wrap = document.createElement('div');
 		wrap.id = ID;
 		wrap.style =
-			'position:fixed;inset:0;pointer-events:none;z-index:2147483647';
+			'position:absolute;top:0;left:0;pointer-events:none;z-index:2147483647';
 		const nodes = [
 			...document.querySelectorAll(
 				'p,span,div,li,th,td,h1,h2,h3,h4,h5,h6'

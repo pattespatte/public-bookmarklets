@@ -11,7 +11,7 @@
 		const wrap = document.createElement('div');
 		wrap.id = ID;
 		wrap.style =
-			'position:fixed;inset:0;pointer-events:none;z-index:2147483647';
+			'position:absolute;top:0;left:0;pointer-events:none;z-index:2147483647';
 		const isInteractive = (el) =>
 			el.matches(
 				'a[href],button,input:not([type=hidden]),select,textarea,[role="button"],[tabindex]:not([tabindex="-1"])'

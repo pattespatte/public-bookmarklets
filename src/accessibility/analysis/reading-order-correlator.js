@@ -35,7 +35,7 @@
 		const wrap = document.createElement('div');
 		wrap.id = ID;
 		wrap.style =
-			'position:fixed;inset:0;pointer-events:none;z-index:2147483647';
+			'position:absolute;top:0;left:0;pointer-events:none;z-index:2147483647';
 		// flag large inversions
 		visual.forEach((el, i) => {
 			const diff = Math.abs(domOrder.get(el) - i);
