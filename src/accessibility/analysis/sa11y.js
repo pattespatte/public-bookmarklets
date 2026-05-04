@@ -11,7 +11,9 @@
 
 		(function () {
 			const sa11yDialog = document.getElementById('sa11y-csp');
-			const sa11yScripts = document.querySelectorAll("script[src*='sa11y']");
+			const sa11yScripts = document.querySelectorAll(
+				"script[src*='sa11y']"
+			);
 
 			if (sa11yDialog) {
 				sa11yDialog.remove();
@@ -26,7 +28,8 @@
 			}
 
 			const script = document.createElement('script');
-			script.src = 'https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@latest/bookmarklet/v2.js';
+			script.src =
+				'https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@latest/bookmarklet/v2.js';
 			document.head.appendChild(script);
 		})();
 		// ===== END SA11Y =====

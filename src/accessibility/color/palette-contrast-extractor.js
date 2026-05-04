@@ -1,6 +1,42 @@
 (function () {
 	'use strict';
 	// Description: The Palette Contrast Extractor bookmarklet identifies common color pairs used on the page and sorts them by contrast ratio. Samples foreground/background color pairs from visible text elements, traverses up the DOM tree to find non-transparent backgrounds, uses the WCAG 2 relative luminance formula to calculate contrast ratios, counts frequency of each color pair, and displays an alert listing the top 20 pairs sorted from lowest to highest contrast with occurrence counts. Useful for identifying which color combinations on the page may have contrast issues. WCAG SC 1.4.3: Contrast (Minimum).
+	const toast = (function () {
+		const H = 'a11y-toast-host';
+		return function (msg, type) {
+			let host = document.getElementById(H);
+			if (!host) {
+				host = document.createElement('div');
+				host.id = H;
+				host.style.cssText =
+					'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:2147483647;pointer-events:none';
+				document.body.appendChild(host);
+				const sh = host.attachShadow({ mode: 'open' });
+				sh.innerHTML =
+					'<style>@keyframes ti{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes to{from{opacity:1}to{opacity:0;transform:translateY(-8px)}}.t{animation:ti .2s ease-out;pointer-events:auto;color:#fff;font:13px/1.4 system-ui,-apple-system,sans-serif;border-radius:8px;padding:10px 16px;box-shadow:0 4px 12px rgba(0,0,0,.3);white-space:pre-line;word-break:break-word;max-width:400px;text-align:center;cursor:pointer;margin-top:8px}.i{background:#333}.e{background:#b91c1c}.x{animation:to .2s ease-in forwards}</style><div id="s" style="display:flex;flex-direction:column-reverse;align-items:center"></div>';
+			}
+			const s = host.shadowRoot.getElementById('s');
+			const d = document.createElement('div');
+			d.className = 't ' + (type === 'error' ? 'e' : 'i');
+			d.textContent = msg;
+			d.onclick = function () {
+				d.classList.add('x');
+				setTimeout(function () {
+					d.remove();
+				}, 200);
+			};
+			s.appendChild(d);
+			setTimeout(
+				function () {
+					d.classList.add('x');
+					setTimeout(function () {
+						d.remove();
+					}, 200);
+				},
+				type === 'error' ? 8000 : 4000
+			);
+		};
+	})();
 	try {
 		function parseColor(c) {
 			const ctx = document.createElement('canvas').getContext('2d');
@@ -56,7 +92,7 @@
 			.slice(0, 20)
 			.map((x) => `${x.r.toFixed(2)}:1  ${x.k}  (${x.c})`)
 			.join('\n');
-		alert(out || 'No pairs found');
+		toast(out || 'No pairs found');
 		console.log(`
 Source: https://github.com/alejandrogiga98/A11y-Bookmarklets
 Bookmarklet name: Palette contrast extractor
@@ -64,7 +100,7 @@ Author: alejandrogiga98
 License: MIT License
 `);
 	} catch (err) {
-		alert('Bookmarklet Error: ' + err.message);
+		toast('Bookmarklet Error: ' + err.message, 'error');
 	}
 })();
 void 0;

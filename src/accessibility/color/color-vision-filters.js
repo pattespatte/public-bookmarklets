@@ -1,6 +1,42 @@
 (function () {
 	'use strict';
 	// Description: The Color Vision Filters bookmarklet applies SVG color matrix filters to simulate different types of color blindness (color vision deficiencies). Modal interface with buttons to switch between protanopia (red-blind), deuteranopia (green-blind), tritanopia (blue-blind), and normal vision. Uses SVG feColorMatrix elements to transform colors according to scientific color perception data, helping designers test content accessibility for users with color vision deficiencies. WCAG SC 1.4.1: Use of Color.
+	const toast = (function () {
+		const H = 'a11y-toast-host';
+		return function (msg, type) {
+			let host = document.getElementById(H);
+			if (!host) {
+				host = document.createElement('div');
+				host.id = H;
+				host.style.cssText =
+					'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:2147483647;pointer-events:none';
+				document.body.appendChild(host);
+				const sh = host.attachShadow({ mode: 'open' });
+				sh.innerHTML =
+					'<style>@keyframes ti{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes to{from{opacity:1}to{opacity:0;transform:translateY(-8px)}}.t{animation:ti .2s ease-out;pointer-events:auto;color:#fff;font:13px/1.4 system-ui,-apple-system,sans-serif;border-radius:8px;padding:10px 16px;box-shadow:0 4px 12px rgba(0,0,0,.3);white-space:pre-line;word-break:break-word;max-width:400px;text-align:center;cursor:pointer;margin-top:8px}.i{background:#333}.e{background:#b91c1c}.x{animation:to .2s ease-in forwards}</style><div id="s" style="display:flex;flex-direction:column-reverse;align-items:center"></div>';
+			}
+			const s = host.shadowRoot.getElementById('s');
+			const d = document.createElement('div');
+			d.className = 't ' + (type === 'error' ? 'e' : 'i');
+			d.textContent = msg;
+			d.onclick = function () {
+				d.classList.add('x');
+				setTimeout(function () {
+					d.remove();
+				}, 200);
+			};
+			s.appendChild(d);
+			setTimeout(
+				function () {
+					d.classList.add('x');
+					setTimeout(function () {
+						d.remove();
+					}, 200);
+				},
+				type === 'error' ? 8000 : 4000
+			);
+		};
+	})();
 	try {
 		const ID = 'a11y-cvd';
 		const SVG_ID = 'a11y-cvd-filters';
@@ -23,15 +59,31 @@
 		const svg = document.createElementNS(svgNS, 'svg');
 		svg.setAttribute('id', SVG_ID);
 		svg.style.cssText = 'position:fixed;width:0;height:0;';
-		svg.appendChild(createFilter('protanopia', '0.567 0.433 0 0 0  0.558 0.442 0 0 0  0 0.242 0.758 0 0  0 0 0 1 0'));
-		svg.appendChild(createFilter('deuteranopia', '0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0'));
-		svg.appendChild(createFilter('tritanopia', '0.95 0.05 0 0 0  0 0.433 0.567 0 0  0.475 0.525 0 0 0  0 0 0 1 0'));
+		svg.appendChild(
+			createFilter(
+				'protanopia',
+				'0.567 0.433 0 0 0  0.558 0.442 0 0 0  0 0.242 0.758 0 0  0 0 0 1 0'
+			)
+		);
+		svg.appendChild(
+			createFilter(
+				'deuteranopia',
+				'0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0'
+			)
+		);
+		svg.appendChild(
+			createFilter(
+				'tritanopia',
+				'0.95 0.05 0 0 0  0 0.433 0.567 0 0  0.475 0.525 0 0 0  0 0 0 1 0'
+			)
+		);
 		document.body.appendChild(svg);
 
 		// Create modal with Shadow DOM
 		const host = document.createElement('div');
 		host.id = ID;
-		host.style.cssText = 'position:fixed;top:10px;right:10px;z-index:999999;';
+		host.style.cssText =
+			'position:fixed;top:10px;right:10px;z-index:999999;';
 		document.body.appendChild(host);
 		const shadow = host.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
@@ -110,7 +162,8 @@
 		`;
 
 		// Dragging
-		let isDragging = false, dragOffset = { x: 0, y: 0 };
+		let isDragging = false,
+			dragOffset = { x: 0, y: 0 };
 		const header = shadow.getElementById('header');
 		header.addEventListener('mousedown', (e) => {
 			isDragging = true;
@@ -119,11 +172,13 @@
 		});
 		document.addEventListener('mousemove', (e) => {
 			if (!isDragging) return;
-			host.style.left = (e.clientX - dragOffset.x) + 'px';
-			host.style.top = (e.clientY - dragOffset.y) + 'px';
+			host.style.left = e.clientX - dragOffset.x + 'px';
+			host.style.top = e.clientY - dragOffset.y + 'px';
 			host.style.right = 'auto';
 		});
-		document.addEventListener('mouseup', () => { isDragging = false; });
+		document.addEventListener('mouseup', () => {
+			isDragging = false;
+		});
 
 		const modeDisplay = shadow.getElementById('mode-display');
 		const buttons = shadow.querySelectorAll('.mode-btn');
@@ -133,19 +188,20 @@
 			none: 'Normal Vision',
 			protanopia: 'Protanopia (Red-blind)',
 			deuteranopia: 'Deuteranopia (Green-blind)',
-			tritanopia: 'Tritanopia (Blue-blind)'
+			tritanopia: 'Tritanopia (Blue-blind)',
 		};
 
 		function setMode(mode) {
 			currentMode = mode;
-			document.documentElement.style.filter = mode === 'none' ? '' : `url(#${mode})`;
+			document.documentElement.style.filter =
+				mode === 'none' ? '' : `url(#${mode})`;
 			modeDisplay.textContent = modeNames[mode];
-			buttons.forEach(btn => {
+			buttons.forEach((btn) => {
 				btn.classList.toggle('active', btn.dataset.mode === mode);
 			});
 		}
 
-		buttons.forEach(btn => {
+		buttons.forEach((btn) => {
 			btn.addEventListener('click', () => setMode(btn.dataset.mode));
 		});
 
@@ -177,7 +233,7 @@ Enhanced by: pattespatte
 - Original: https://github.com/alejandrogiga98/A11y-Bookmarklets
 `);
 	} catch (err) {
-		alert('Bookmarklet Error: ' + err.message);
+		toast('Bookmarklet Error: ' + err.message, 'error');
 	}
 })();
 void 0;

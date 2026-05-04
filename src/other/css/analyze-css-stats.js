@@ -6,12 +6,18 @@
 		var currentUrl = window.location.href;
 
 		// Check if URL is not publicly accessible (localhost, private IP, file://)
-		var isLocal = /^(localhost|127\.0\.0\.1|0\.0\.0\.0|::1|10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.|file:)/i.test(currentUrl);
+		var isLocal =
+			/^(localhost|127\.0\.0\.1|0\.0\.0\.0|::1|10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.|file:)/i.test(
+				currentUrl
+			);
 
 		// Show loading indicator
 		var loadingDiv = document.createElement('div');
-		loadingDiv.style.cssText = 'position:fixed;top:20px;right:20px;background:#333;color:#fff;padding:12px 20px;border-radius:8px;font-family:sans-serif;font-size:0.875rem;z-index:999999;box-shadow:0 4px 12px rgba(0,0,0,0.3)';
-		loadingDiv.textContent = isLocal ? 'Extracting CSS...' : 'Analyzing CSS...';
+		loadingDiv.style.cssText =
+			'position:fixed;top:20px;right:20px;background:#333;color:#fff;padding:12px 20px;border-radius:8px;font-family:sans-serif;font-size:0.875rem;z-index:999999;box-shadow:0 4px 12px rgba(0,0,0,0.3)';
+		loadingDiv.textContent = isLocal
+			? 'Extracting CSS...'
+			: 'Analyzing CSS...';
 		document.body.appendChild(loadingDiv);
 
 		if (isLocal) {
@@ -43,15 +49,17 @@
 				if (!tryReadSheet(sheets[i])) {
 					// Try to fetch from href if direct access failed
 					if (sheets[i].href) {
-						(function(href) {
+						(function (href) {
 							fetch(href)
-								.then(function(r) { return r.text(); })
-								.then(function(text) {
+								.then(function (r) {
+									return r.text();
+								})
+								.then(function (text) {
 									css += text + '\n';
 									loadedCount++;
 									if (loadedCount === totalCount) finish();
 								})
-								.catch(function() {
+								.catch(function () {
 									loadedCount++;
 									if (loadedCount === totalCount) finish();
 								});
@@ -65,7 +73,9 @@
 			}
 
 			// Also get inline styles
-			var inlineStyles = document.querySelectorAll('style:not([media]), style[media="all"], style[media="screen"]');
+			var inlineStyles = document.querySelectorAll(
+				'style:not([media]), style[media="all"], style[media="screen"]'
+			);
 			for (var j = 0; j < inlineStyles.length; j++) {
 				css += inlineStyles[j].textContent + '\n';
 			}
@@ -76,24 +86,35 @@
 					fetch('https://api.cssstats.com/v1/analyze-css', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({ css: css.trim() })
+						body: JSON.stringify({ css: css.trim() }),
 					})
-					.then(function (res) { return res.json(); })
-					.then(function (data) {
-						loadingDiv.remove();
-						if (data.snapshotId) {
-							window.open('https://cssstats.com/stats/' + data.snapshotId, '_blank');
-						} else {
-							alert('CSS Stats: Could not analyze CSS. Error: ' + (data.message || 'Unknown error'));
-						}
-					})
-					.catch(function (err) {
-						loadingDiv.remove();
-						alert('CSS Stats Error: ' + err.message);
-					});
+						.then(function (res) {
+							return res.json();
+						})
+						.then(function (data) {
+							loadingDiv.remove();
+							if (data.snapshotId) {
+								window.open(
+									'https://cssstats.com/stats/' +
+										data.snapshotId,
+									'_blank'
+								);
+							} else {
+								alert(
+									'CSS Stats: Could not analyze CSS. Error: ' +
+										(data.message || 'Unknown error')
+								);
+							}
+						})
+						.catch(function (err) {
+							loadingDiv.remove();
+							alert('CSS Stats Error: ' + err.message);
+						});
 				} else {
 					loadingDiv.remove();
-					alert('CSS Stats: Could not extract CSS from this page. The page may use CORS-protected stylesheets.');
+					alert(
+						'CSS Stats: Could not extract CSS from this page. The page may use CORS-protected stylesheets.'
+					);
 				}
 			}
 
@@ -106,23 +127,35 @@
 			fetch('https://api.cssstats.com/v1/ingest', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ url: currentUrl })
+				body: JSON.stringify({ url: currentUrl }),
 			})
-			.then(function (res) { return res.json(); })
-			.then(function (data) {
-				loadingDiv.remove();
-				if (data.snapshotId) {
-					window.open('https://cssstats.com/stats/' + data.snapshotId, '_blank');
-				} else if (data.error) {
-					alert('CSS Stats: ' + data.error + (data.details ? '\n' + data.details : ''));
-				} else {
-					alert('CSS Stats: Could not analyze page. Error: ' + (data.message || 'Unknown error'));
-				}
-			})
-			.catch(function (err) {
-				loadingDiv.remove();
-				alert('CSS Stats Error: ' + err.message);
-			});
+				.then(function (res) {
+					return res.json();
+				})
+				.then(function (data) {
+					loadingDiv.remove();
+					if (data.snapshotId) {
+						window.open(
+							'https://cssstats.com/stats/' + data.snapshotId,
+							'_blank'
+						);
+					} else if (data.error) {
+						alert(
+							'CSS Stats: ' +
+								data.error +
+								(data.details ? '\n' + data.details : '')
+						);
+					} else {
+						alert(
+							'CSS Stats: Could not analyze page. Error: ' +
+								(data.message || 'Unknown error')
+						);
+					}
+				})
+				.catch(function (err) {
+					loadingDiv.remove();
+					alert('CSS Stats Error: ' + err.message);
+				});
 		}
 	} catch (err) {
 		alert('Bookmarklet Error: ' + err.message);

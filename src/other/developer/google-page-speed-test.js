@@ -3,12 +3,10 @@
 	'use strict';
 	try {
 		// Open PageSpeed Insights for current URL in new tab
-		void (
-			window.open(
-				'https://developers.google.com/speed/pagespeed/insights/?url=' +
-					encodeURIComponent(location.href),
-				'_blank'
-			)
+		void window.open(
+			'https://developers.google.com/speed/pagespeed/insights/?url=' +
+				encodeURIComponent(location.href),
+			'_blank'
 		);
 	} catch (err) {
 		alert('Bookmarklet Error: ' + err.message);

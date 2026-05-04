@@ -33,14 +33,19 @@
 					// Check for media-query dark mode
 					if (
 						rule.conditionText &&
-						rule.conditionText.includes('prefers-color-scheme: dark')
+						rule.conditionText.includes(
+							'prefers-color-scheme: dark'
+						)
 					) {
 						if (!darkModeType) darkModeType = 'media-query';
 						darkRules.push({ sheet: sheets[i], rule, index: j });
 					}
 
 					// Check for class-based dark mode
-					if (rule.selectorText && rule.selectorText.includes('.dark ')) {
+					if (
+						rule.selectorText &&
+						rule.selectorText.includes('.dark ')
+					) {
 						if (!darkModeType) darkModeType = 'class-based';
 					}
 
@@ -69,7 +74,9 @@
 		}
 
 		// Detect current system preference
-		const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		const systemPrefersDark = window.matchMedia(
+			'(prefers-color-scheme: dark)'
+		).matches;
 
 		// Create UI container
 		const container = document.createElement('div');
@@ -106,8 +113,12 @@
 						: toggleBtn.dataset.darkMode === 'true';
 				const modeText = isCurrentlyDark ? 'Dark' : 'Light';
 				const typeText =
-					darkModeType === 'class-based' ? ' (Class-based)' : ' (Media Query)';
-				const suffix = isToggleable ? ' - Click to Toggle' : ' (Read-only)';
+					darkModeType === 'class-based'
+						? ' (Class-based)'
+						: ' (Media Query)';
+				const suffix = isToggleable
+					? ' - Click to Toggle'
+					: ' (Read-only)';
 				toggleBtn.textContent = `${modeText} Mode${typeText}${suffix}`;
 			}
 
@@ -151,7 +162,11 @@
 			document.body.appendChild(container);
 
 			// Inject script to handle CSS rule manipulation for media-query type (only if toggleable)
-			if (darkModeType === 'media-query' && isToggleable && darkRules.length > 0) {
+			if (
+				darkModeType === 'media-query' &&
+				isToggleable &&
+				darkRules.length > 0
+			) {
 				const scriptContent = `
 					(function(systemPrefersDark) {
 						// Store original conditions and rules (already collected by parent)
@@ -212,7 +227,8 @@
 				} else {
 					// Use injected script to toggle media queries
 					if (window.__darkModeDetectorToggle) {
-						const currentState = toggleBtn.dataset.darkMode === 'true';
+						const currentState =
+							toggleBtn.dataset.darkMode === 'true';
 						toggleBtn.dataset.darkMode = (!currentState).toString();
 						window.__darkModeDetectorToggle(!currentState);
 					}
@@ -223,13 +239,16 @@
 					darkModeType === 'class-based'
 						? document.documentElement.classList.contains('dark')
 						: toggleBtn.dataset.darkMode === 'true';
-				toggleBtn.style.background = isCurrentlyDark ? '#1a1a1a' : '#22c55e';
+				toggleBtn.style.background = isCurrentlyDark
+					? '#1a1a1a'
+					: '#22c55e';
 				updateButtonText();
 			}
 
 			// For class-based, auto-enable if not already dark
 			if (darkModeType === 'class-based') {
-				const isCurrentlyDark = document.documentElement.classList.contains('dark');
+				const isCurrentlyDark =
+					document.documentElement.classList.contains('dark');
 				if (!isCurrentlyDark) {
 					document.documentElement.classList.add('dark');
 				}
@@ -244,7 +263,10 @@
 
 			closeBtn.addEventListener('click', function () {
 				// Restore original state before closing
-				if (darkModeType === 'class-based' && !originalClassBasedState) {
+				if (
+					darkModeType === 'class-based' &&
+					!originalClassBasedState
+				) {
 					document.documentElement.classList.remove('dark');
 				}
 
@@ -279,7 +301,8 @@
 				cursor: pointer;
 				user-select: none;
 			`;
-			container.textContent = '✗ This site does not support dark mode (click to dismiss)';
+			container.textContent =
+				'✗ This site does not support dark mode (click to dismiss)';
 
 			container.addEventListener('click', function () {
 				container.remove();

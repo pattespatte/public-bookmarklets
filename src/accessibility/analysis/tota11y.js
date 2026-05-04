@@ -12,7 +12,8 @@
 		(function () {
 			var tota11y = document.createElement('SCRIPT');
 			tota11y.type = 'text/javascript';
-			tota11y.src = 'https://cdn.jsdelivr.net/npm/@khanacademy/tota11y@0.2.0/dist/tota11y.js';
+			tota11y.src =
+				'https://cdn.jsdelivr.net/npm/@khanacademy/tota11y@0.2.0/dist/tota11y.js';
 			document.getElementsByTagName('head')[0].appendChild(tota11y);
 		})();
 		// ===== END TOTAL11Y =====

@@ -318,7 +318,7 @@ function extractWCAGRefs(description) {
 	while ((match = wcagPattern.exec(description)) !== null) {
 		refs.push({
 			scNumber: match[1],
-			scName: match[2].trim()
+			scName: match[2].trim(),
 		});
 	}
 
@@ -352,7 +352,7 @@ function extractTags(code, description) {
 			tags.push({
 				type: 'wcag-sc',
 				scNumber: match[1],
-				scName: match[2].trim()
+				scName: match[2].trim(),
 			});
 		}
 	}
@@ -364,7 +364,7 @@ function extractTags(code, description) {
 			tags.push({
 				type: 'wcag-sc',
 				scNumber: ref.scNumber,
-				scName: ref.scName
+				scName: ref.scName,
 			});
 		}
 	}
@@ -381,14 +381,22 @@ function stripParenthetical(text) {
 function generateWCAGBadges(wcagRefs) {
 	if (!wcagRefs || wcagRefs.length === 0) return '';
 
-	const badgesHtml = wcagRefs.map(ref =>
-		`<span class="badge badge-secondary">WCAG SC ${ref.scNumber}: ${stripParenthetical(ref.scName)}</span>`
-	).join('');
+	const badgesHtml = wcagRefs
+		.map(
+			(ref) =>
+				`<span class="badge badge-secondary">WCAG SC ${ref.scNumber}: ${stripParenthetical(ref.scName)}</span>`
+		)
+		.join('');
 	return `<div class="badges">${badgesHtml}</div>`;
 }
 
 // Build a single bookmarklet
-async function buildBookmarklet(srcPath, displayName, relPath, distDir = DIST_DIR) {
+async function buildBookmarklet(
+	srcPath,
+	displayName,
+	relPath,
+	distDir = DIST_DIR
+) {
 	if (!existsSync(srcPath)) {
 		console.warn(`Warning: ${srcPath} not found, skipping`);
 		return null;
@@ -435,7 +443,9 @@ async function buildBookmarklet(srcPath, displayName, relPath, distDir = DIST_DI
 	const backPath =
 		depth > 0
 			? '../'.repeat(depth) + (isPrivate ? '../index.html' : 'index.html')
-			: (isPrivate ? '../index.html' : 'index.html');
+			: isPrivate
+				? '../index.html'
+				: 'index.html';
 
 	// Get leaf name for button (last part of display name)
 	const leafName = displayName.split(' / ').pop();
@@ -443,14 +453,17 @@ async function buildBookmarklet(srcPath, displayName, relPath, distDir = DIST_DI
 	// Extract tags and WCAG references
 	const tags = extractTags(code, description);
 	const wcagRefs = tags
-		.filter(t => t.type === 'wcag-sc')
-		.map(t => ({ scNumber: t.scNumber, scName: t.scName }));
+		.filter((t) => t.type === 'wcag-sc')
+		.map((t) => ({ scNumber: t.scNumber, scName: t.scName }));
 	// For backwards compatibility, also extract from description if no tags found
-	const legacyWcagRefs = wcagRefs.length === 0 ? extractWCAGRefs(description) : [];
+	const legacyWcagRefs =
+		wcagRefs.length === 0 ? extractWCAGRefs(description) : [];
 	const allWcagRefs = wcagRefs.length > 0 ? wcagRefs : legacyWcagRefs;
 	const cleanedDescription = removeWCAGRefsFromDescription(description);
 	const wcagBadges = generateWCAGBadges(allWcagRefs);
-	const wcagBadgesPlain = allWcagRefs.map(ref => `WCAG SC ${ref.scNumber}: ${ref.scName}`);
+	const wcagBadgesPlain = allWcagRefs.map(
+		(ref) => `WCAG SC ${ref.scNumber}: ${ref.scName}`
+	);
 
 	// Write to dist as .html (for drag-and-drop)
 	const htmlOutput = `<!DOCTYPE html>
@@ -816,21 +829,25 @@ ${subContent}
             <p>View Collections (Bulk Import)</p>
           </a>
         </div>
-        ${isPrivate ? `
+        ${
+			isPrivate
+				? `
         <div class="quick-link-box test">
           <a href="../index.html">
             <h2>🔓 Public</h2>
             <p>Public Bookmarklets - Return to main collection</p>
           </a>
         </div>
-        ` : `
+        `
+				: `
         <div class="quick-link-box test">
           <a href="test/a11y-nightmare.html" target="_blank">
             <h2>🧪 Test Page</h2>
             <p>90's A11y Nightmare - Retro test page with 50+ accessibility violations</p>
           </a>
         </div>
-        `}
+        `
+		}
       </div>
 
       <div class="instructions">
@@ -1207,8 +1224,9 @@ function generateCollectionsIndex(collections) {
     <h2 style="margin-bottom:1.25rem;">Available Collections</h2>
 
     <div class="collection-grid">
-${allCollection
-			? `
+${
+	allCollection
+		? `
       <div class="collection-card">
         <div class="collection-icon">📚</div>
         <div class="collection-title">
@@ -1218,11 +1236,12 @@ ${allCollection
         <a href="bookmarklets-${allCollection.name}.html" download class="collection-link">Download</a>
       </div>
 `
-			: ''
-		}
+		: ''
+}
 
-${accessibilityCollection
-			? `
+${
+	accessibilityCollection
+		? `
       <div class="collection-card">
         <div class="collection-icon">♿</div>
         <div class="collection-title">
@@ -1232,11 +1251,12 @@ ${accessibilityCollection
         <a href="bookmarklets-${accessibilityCollection.name}.html" download class="collection-link">Download</a>
       </div>
 `
-			: ''
-		}
+		: ''
+}
 
-${otherCollection
-			? `
+${
+	otherCollection
+		? `
       <div class="collection-card">
         <div class="collection-icon">🛠️</div>
         <div class="collection-title">
@@ -1246,8 +1266,8 @@ ${otherCollection
         <a href="bookmarklets-${otherCollection.name}.html" download class="collection-link">Download</a>
       </div>
 `
-			: ''
-		}
+		: ''
+}
     </div>
 
     </main>
@@ -1272,7 +1292,9 @@ function generateManifest(bookmarklets) {
 		const parts = b.name.split(' / ');
 		const category = parts.length > 1 ? parts[0] : 'Other';
 		// Strip -min suffix and " Min" (title-cased version)
-		let leaf = parts[parts.length - 1].replace(/-min$/, '').replace(/ Min$/, '');
+		let leaf = parts[parts.length - 1]
+			.replace(/-min$/, '')
+			.replace(/ Min$/, '');
 		const leafName = toTitleCase(leaf);
 
 		// Generate id from leaf name (kebab-case)
@@ -1292,7 +1314,7 @@ function generateManifest(bookmarklets) {
 			size: b.size,
 			description: cleanedDescription,
 			tags: b.tags || [],
-			sourceUrl: b.sourceUrl || null
+			sourceUrl: b.sourceUrl || null,
 		};
 	});
 
@@ -1411,7 +1433,9 @@ async function buildPrivate() {
 				nextPart &&
 				afterNext &&
 				nextPart.toLowerCase().startsWith(part.toLowerCase()) &&
-				afterNext.toLowerCase().startsWith(nextPart.toLowerCase() + '-');
+				afterNext
+					.toLowerCase()
+					.startsWith(nextPart.toLowerCase() + '-');
 
 			if (isExactMatch || isPrefixMatch) {
 				continue;
@@ -1432,16 +1456,26 @@ async function buildPrivate() {
 		const relPathNoPrivate = relPath.replace(/_private[\/\\]?/, '');
 		const displayName = normalizePath(relPathNoPrivate);
 
-		const result = await buildBookmarklet(srcPath, displayName, relPathNoPrivate, DIST_PRIVATE_DIR);
+		const result = await buildBookmarklet(
+			srcPath,
+			displayName,
+			relPathNoPrivate,
+			DIST_PRIVATE_DIR
+		);
 		if (result) {
 			bookmarklets.push(result);
 		}
 	}
 
 	// Generate private index.html
-	writeFileSync(join(DIST_PRIVATE_DIR, 'index.html'), generateIndex(bookmarklets, true));
+	writeFileSync(
+		join(DIST_PRIVATE_DIR, 'index.html'),
+		generateIndex(bookmarklets, true)
+	);
 
-	console.log(`\n✓ Built ${bookmarklets.length} private bookmarklet(s) to dist/private/`);
+	console.log(
+		`\n✓ Built ${bookmarklets.length} private bookmarklet(s) to dist/private/`
+	);
 	console.log(`✓ Generated dist/private/index.html`);
 
 	// Generate private collection
@@ -1496,7 +1530,9 @@ async function build() {
 				nextPart &&
 				afterNext &&
 				nextPart.toLowerCase().startsWith(part.toLowerCase()) &&
-				afterNext.toLowerCase().startsWith(nextPart.toLowerCase() + '-');
+				afterNext
+					.toLowerCase()
+					.startsWith(nextPart.toLowerCase() + '-');
 
 			if (isExactMatch || isPrefixMatch) {
 				continue;

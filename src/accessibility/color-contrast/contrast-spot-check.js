@@ -1,6 +1,42 @@
 (function () {
 	'use strict';
 	// Description: Click any text element to compute the contrast ratio between foreground and background colors, with pass/fail results for WCAG AA and AAA conformance levels. Displays the ratio, colors, and text size. Press Esc to stop. WCAG SC 1.4.3: Contrast (Minimum).
+	const toast = (function () {
+		const H = 'a11y-toast-host';
+		return function (msg, type) {
+			let host = document.getElementById(H);
+			if (!host) {
+				host = document.createElement('div');
+				host.id = H;
+				host.style.cssText =
+					'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:2147483647;pointer-events:none';
+				document.body.appendChild(host);
+				const sh = host.attachShadow({ mode: 'open' });
+				sh.innerHTML =
+					'<style>@keyframes ti{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes to{from{opacity:1}to{opacity:0;transform:translateY(-8px)}}.t{animation:ti .2s ease-out;pointer-events:auto;color:#fff;font:13px/1.4 system-ui,-apple-system,sans-serif;border-radius:8px;padding:10px 16px;box-shadow:0 4px 12px rgba(0,0,0,.3);white-space:pre-line;word-break:break-word;max-width:400px;text-align:center;cursor:pointer;margin-top:8px}.i{background:#333}.e{background:#b91c1c}.x{animation:to .2s ease-in forwards}</style><div id="s" style="display:flex;flex-direction:column-reverse;align-items:center"></div>';
+			}
+			const s = host.shadowRoot.getElementById('s');
+			const d = document.createElement('div');
+			d.className = 't ' + (type === 'error' ? 'e' : 'i');
+			d.textContent = msg;
+			d.onclick = function () {
+				d.classList.add('x');
+				setTimeout(function () {
+					d.remove();
+				}, 200);
+			};
+			s.appendChild(d);
+			setTimeout(
+				function () {
+					d.classList.add('x');
+					setTimeout(function () {
+						d.remove();
+					}, 200);
+				},
+				type === 'error' ? 8000 : 4000
+			);
+		};
+	})();
 	try {
 		const ID = 'a11y-contrast-check';
 		function rgbToArray(c) {
@@ -8,10 +44,18 @@
 			if (c.startsWith('#')) {
 				const hex = c.slice(1);
 				if (hex.length === 3) {
-					return [parseInt(hex[0] + hex[0], 16), parseInt(hex[1] + hex[1], 16), parseInt(hex[2] + hex[2], 16)];
+					return [
+						parseInt(hex[0] + hex[0], 16),
+						parseInt(hex[1] + hex[1], 16),
+						parseInt(hex[2] + hex[2], 16),
+					];
 				}
 				if (hex.length === 6) {
-					return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)];
+					return [
+						parseInt(hex.slice(0, 2), 16),
+						parseInt(hex.slice(2, 4), 16),
+						parseInt(hex.slice(4, 6), 16),
+					];
 				}
 			}
 			// Handle rgb/rgba format
@@ -36,7 +80,8 @@
 		// Create modal with Shadow DOM
 		const host = document.createElement('div');
 		host.id = ID;
-		host.style.cssText = 'position:fixed;top:10px;right:10px;z-index:999999;';
+		host.style.cssText =
+			'position:fixed;top:10px;right:10px;z-index:999999;';
 		document.body.appendChild(host);
 		const shadow = host.attachShadow({ mode: 'open' });
 		shadow.innerHTML = `
@@ -118,7 +163,8 @@
 			</div>
 		`;
 		// Dragging
-		let isDragging = false, dragOffset = { x: 0, y: 0 };
+		let isDragging = false,
+			dragOffset = { x: 0, y: 0 };
 		const header = shadow.getElementById('header');
 		header.addEventListener('mousedown', (e) => {
 			isDragging = true;
@@ -127,11 +173,13 @@
 		});
 		document.addEventListener('mousemove', (e) => {
 			if (!isDragging) return;
-			host.style.left = (e.clientX - dragOffset.x) + 'px';
-			host.style.top = (e.clientY - dragOffset.y) + 'px';
+			host.style.left = e.clientX - dragOffset.x + 'px';
+			host.style.top = e.clientY - dragOffset.y + 'px';
 			host.style.right = 'auto';
 		});
-		document.addEventListener('mouseup', () => { isDragging = false; });
+		document.addEventListener('mouseup', () => {
+			isDragging = false;
+		});
 		const result = shadow.getElementById('result');
 		const textPreview = shadow.getElementById('text-preview');
 		const fgSwatch = shadow.getElementById('fg-swatch');
@@ -173,7 +221,8 @@
 			const passAAA = large ? r >= 4.5 : r >= 7;
 			// Update modal
 			result.style.display = 'block';
-			textPreview.textContent = el.textContent.trim().slice(0, 80) || el.tagName;
+			textPreview.textContent =
+				el.textContent.trim().slice(0, 80) || el.tagName;
 			fgSwatch.style.background = fg;
 			bgSwatch.style.background = bg;
 			fgColor.textContent = fg;
@@ -184,7 +233,9 @@
 			aaBadge.className = 'level-badge ' + (passAA ? 'pass' : 'fail');
 			aaaBadge.textContent = 'AAA ' + (passAAA ? 'PASS' : 'FAIL');
 			aaaBadge.className = 'level-badge ' + (passAAA ? 'pass' : 'fail');
-			sizeInfo.textContent = large ? 'Large text (≥18pt or ≥14pt bold)' : 'Normal text';
+			sizeInfo.textContent = large
+				? 'Large text (≥18pt or ≥14pt bold)'
+				: 'Normal text';
 		};
 		function end() {
 			document.removeEventListener('click', onClick, true);
@@ -208,7 +259,7 @@ Enhanced by: pattespatte
 - Original: https://github.com/alejandrogiga98/A11y-Bookmarklets
 `);
 	} catch (err) {
-		alert('Bookmarklet Error: ' + err.message);
+		toast('Bookmarklet Error: ' + err.message, 'error');
 	}
 })();
 void 0;

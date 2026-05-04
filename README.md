@@ -45,36 +45,36 @@ npm run build
 
 ```javascript
 (function () {
- 'use strict';
+	'use strict';
 
- try {
-  // ===== YOUR CODE HERE =====
-  alert('Hello from bookmarklet!');
+	try {
+		// ===== YOUR CODE HERE =====
+		alert('Hello from bookmarklet!');
 
-  // ===== END YOUR CODE =====
- } catch (err) {
-  alert('Bookmarklet Error: ' + err.message);
- }
+		// ===== END YOUR CODE =====
+	} catch (err) {
+		alert('Bookmarklet Error: ' + err.message);
+	}
 })();
 void 0;
 ```
 
 ## Requirements
 
-| Rule | Requirement |
-|------|-------------|
-| **IIFE** | Wrap in `(function(){ 'use strict'; ... })();` |
-| **No Navigation** | End with `void 0;` |
-| **Self-contained** | No external runtime dependencies (CDN only if needed) |
-| **Security** | Use `createElement` over `innerHTML`; Shadow DOM for UI |
-| **Z-index** | Use `999999+` for injected elements |
-| **Attribution** | Include source URL and author in header comments |
+| Rule               | Requirement                                             |
+| ------------------ | ------------------------------------------------------- |
+| **IIFE**           | Wrap in `(function(){ 'use strict'; ... })();`          |
+| **No Navigation**  | End with `void 0;`                                      |
+| **Self-contained** | No external runtime dependencies (CDN only if needed)   |
+| **Security**       | Use `createElement` over `innerHTML`; Shadow DOM for UI |
+| **Z-index**        | Use `999999+` for injected elements                     |
+| **Attribution**    | Include source URL and author in header comments        |
 
 ## Collections
 
 All bookmarklets can be installed one by one or with the bulk import approach.
 
-An [overview with descriptions](dist/bookmarklets.md) is available. 
+An [overview with descriptions](dist/bookmarklets.md) is available.
 
 ## Categories
 
@@ -109,12 +109,12 @@ An [overview with descriptions](dist/bookmarklets.md) is available.
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run build` | Build all bookmarklets to `dist/` |
-| `npm run new <name>` | Create new bookmarklet from template |
-| `npm run copy <name>` | Copy bookmarklet URL to clipboard |
-| `npm run serve` | Start HTTP server for testing |
+| Command               | Description                          |
+| --------------------- | ------------------------------------ |
+| `npm run build`       | Build all bookmarklets to `dist/`    |
+| `npm run new <name>`  | Create new bookmarklet from template |
+| `npm run copy <name>` | Copy bookmarklet URL to clipboard    |
+| `npm run serve`       | Start HTTP server for testing        |
 
 ## Project Structure
 
@@ -180,11 +180,11 @@ This project is primarily licensed under the **MIT License** - see [LICENSE](LIC
 
 This repository contains code under multiple licenses:
 
-| License | Bookmarklets |
-|---------|--------------|
-| **MIT** | Most bookmarklets, including JAWS Helper, NVDA Helper |
+| License     | Bookmarklets                                               |
+| ----------- | ---------------------------------------------------------- |
+| **MIT**     | Most bookmarklets, including JAWS Helper, NVDA Helper      |
 | **MPL-2.0** | A11Y Graphics, A11Y LibGuide, A11Y Reporter, A11Y Tabbings |
-| Various | See individual file headers |
+| Various     | See individual file headers                                |
 
 ### Third-Party Content
 

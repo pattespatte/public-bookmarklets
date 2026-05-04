@@ -27,14 +27,14 @@ npm run serve
 
 ## Development Commands
 
-| Command | Description |
-|---------|-------------|
-| `npm run build` | Build all bookmarklets to `dist/` |
-| `npm run new <name>` | Create new bookmarklet from template in `src/` |
-| `npm run copy <name>` | Copy bookmarklet URL to clipboard (use kebab-case name) |
-| `npm run serve` | Start HTTP server on `dist/` for testing |
-| `npm run format` | Format code with Prettier |
-| `npm run format:check` | Check code formatting |
+| Command                | Description                                             |
+| ---------------------- | ------------------------------------------------------- |
+| `npm run build`        | Build all bookmarklets to `dist/`                       |
+| `npm run new <name>`   | Create new bookmarklet from template in `src/`          |
+| `npm run copy <name>`  | Copy bookmarklet URL to clipboard (use kebab-case name) |
+| `npm run serve`        | Start HTTP server on `dist/` for testing                |
+| `npm run format`       | Format code with Prettier                               |
+| `npm run format:check` | Check code formatting                                   |
 
 ## Source File Structure
 
@@ -69,15 +69,14 @@ src/
 ```javascript
 // Description: [What it does, optionally include WCAG SC references]
 (function () {
- 'use strict';
- try {
-  // ===== YOUR CODE HERE =====
-  // Available: document, window, location, navigator, etc.
-
-  // ===== END YOUR CODE =====
- } catch (err) {
-  alert('Bookmarklet Error: ' + err.message);
- }
+	'use strict';
+	try {
+		// ===== YOUR CODE HERE =====
+		// Available: document, window, location, navigator, etc.
+		// ===== END YOUR CODE =====
+	} catch (err) {
+		alert('Bookmarklet Error: ' + err.message);
+	}
 })();
 void 0;
 
@@ -95,14 +94,14 @@ Bookmarklet name: Your Bookmarklet Name
 
 ## Requirements
 
-| Rule | Requirement |
-|------|-------------|
-| **IIFE** | Wrap in `(function(){ 'use strict'; ... })();` |
-| **No Navigation** | End with `void 0;` |
-| **Self-contained** | No external runtime dependencies (CDN OK if needed) |
-| **Security** | Use `createElement` over `innerHTML`; Shadow DOM for UI |
-| **Z-index** | Use `999999+` for injected elements |
-| **Attribution** | Include source URL and author in console.log block |
+| Rule               | Requirement                                             |
+| ------------------ | ------------------------------------------------------- |
+| **IIFE**           | Wrap in `(function(){ 'use strict'; ... })();`          |
+| **No Navigation**  | End with `void 0;`                                      |
+| **Self-contained** | No external runtime dependencies (CDN OK if needed)     |
+| **Security**       | Use `createElement` over `innerHTML`; Shadow DOM for UI |
+| **Z-index**        | Use `999999+` for injected elements                     |
+| **Attribution**    | Include source URL and author in console.log block      |
 
 ## Build Pipeline Architecture
 
@@ -110,9 +109,9 @@ The `scripts/build.js` script (1472 lines) implements a multi-stage build:
 
 1. **Discovery**: Recursively finds all `.js` files (skips `_private/` directories)
 2. **Minification**:
-   - `terser` for JavaScript
-   - `html-minifier-terser` for HTML
-   - `lightningcss` for CSS
+    - `terser` for JavaScript
+    - `html-minifier-terser` for HTML
+    - `lightningcss` for CSS
 3. **Encoding**: URI encode special chars (`%` `%25`, `"` `%22`, `<` `%3C`, `>` `%3E`, `#` `%23`)
 4. **Metadata Extraction**: Parses `// Description:` and `console.log` blocks for WCAG refs, source URLs
 5. **HTML Generation**: Creates individual pages with drag-and-drop support, dark mode

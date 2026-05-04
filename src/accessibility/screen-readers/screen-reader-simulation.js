@@ -12,11 +12,7 @@
 
 			function voidStylesheets(e) {
 				var i, el;
-				for (
-					i = 0;
-					i < e.styleSheets.length;
-					i++
-				)
+				for (i = 0; i < e.styleSheets.length; i++)
 					e.styleSheets.item(i).disabled = !0;
 				for (
 					i = 0, el = e.getElementsByTagName('*');
@@ -29,7 +25,7 @@
 			function restrictImageHeights(e) {
 				var t,
 					l = e.createElement('style');
-				e.head.appendChild(l),
+				(e.head.appendChild(l),
 					(t = l.sheet).insertRule(
 						'img,figure {max-height:200px!important;width:auto!important;}',
 						0
@@ -41,25 +37,19 @@
 					t.insertRule(
 						'video {max-width:500px!important;height:auto!important;}',
 						0
-					);
+					));
 			}
 
 			function addAppStyles() {
 				var e,
 					t = document.createElement('style');
-				document.head.appendChild(t),
-					(e = t.sheet).insertRule(
-						'* {font-size:1.25rem}',
-						0
-					),
+				(document.head.appendChild(t),
+					(e = t.sheet).insertRule('* {font-size:1.25rem}', 0),
 					e.insertRule(
 						'.visually-hidden-revealed {outline:3px dashed purple;}',
 						0
 					),
-					e.insertRule(
-						'.img-warning {outline:3px dashed red;}',
-						0
-					),
+					e.insertRule('.img-warning {outline:3px dashed red;}', 0),
 					e.insertRule(
 						'.swapped-text {outline:3px dashed green;background:#dbefdb;padding:3px;line-height:1.5;}',
 						0
@@ -68,10 +58,7 @@
 						'.img-type-indicator {display:inline-block;margin-left:5px}',
 						0
 					),
-					e.insertRule(
-						'table,th,td {outline:1px dotted black;}',
-						0
-					),
+					e.insertRule('table,th,td {outline:1px dotted black;}', 0),
 					e.insertRule('th,td {padding:3px;}', 0),
 					e.insertRule(
 						'button,[role=button] {padding:3px 20px;background:#dedede;border:3px solid black;display:inline-block;text-align:center;border-radius:5px;}',
@@ -88,7 +75,7 @@
 					e.insertRule(
 						'.append-element-role button:after,.append-element-role [role=button]:after {display:inline-block;margin-left:5px;content: "BUTTON"}',
 						0
-					);
+					));
 			}
 
 			function identifyAllVisualllyHiddenElements() {
@@ -96,10 +83,10 @@
 					document.querySelectorAll('.visually-hidden')
 				).forEach((e) => {
 					let t = document.createElement('span');
-					(t.textContent = e.textContent),
+					((t.textContent = e.textContent),
 						t.classList.add('visually-hidden-revealed'),
 						insertAfter(t, e),
-						e.remove();
+						e.remove());
 				});
 			}
 
@@ -120,7 +107,7 @@
 						u < cs.length;
 						u++
 					)
-						(e = cs.item(u)),
+						((e = cs.item(u)),
 							(t = cs.getPropertyValue(e)),
 							'clip' === e &&
 								'rect(1px, 1px, 1px, 1px)' === t &&
@@ -129,19 +116,11 @@
 								'inset(100%)' === t &&
 								(a = !0),
 							'height' === e && '1px' === t && (r = !0),
-							'overflow-x' === e &&
-								'hidden' === t &&
-								(o = !0),
-							'overflow-y' === e &&
-								'hidden' === t &&
-								(s = !0),
-							'position' === e &&
-								'absolute' === t &&
-								(d = !0),
-							'white-space' === e &&
-								'nowrap' === t &&
-								(c = !0),
-							'width' === e && '1px' === t && (p = !0);
+							'overflow-x' === e && 'hidden' === t && (o = !0),
+							'overflow-y' === e && 'hidden' === t && (s = !0),
+							'position' === e && 'absolute' === t && (d = !0),
+							'white-space' === e && 'nowrap' === t && (c = !0),
+							'width' === e && '1px' === t && (p = !0));
 					!0 === n &&
 						!0 === a &&
 						!0 === r &&
@@ -155,12 +134,10 @@
 			}
 
 			function voidStylesheetsInIframes() {
-				Array.from(document.querySelectorAll('iframe')).forEach(
-					(e) => {
-						voidStylesheets(e.contentWindow.document),
-							restrictImageHeights(e.contentWindow.document);
-					}
-				);
+				Array.from(document.querySelectorAll('iframe')).forEach((e) => {
+					(voidStylesheets(e.contentWindow.document),
+						restrictImageHeights(e.contentWindow.document));
+				});
 			}
 
 			function removeDecorativeIMGs() {
@@ -188,10 +165,10 @@
 					document.querySelectorAll('img:not(img[alt])')
 				).forEach((e) => {
 					let t = document.createElement('span');
-					(t.textContent = e.getAttribute('src')),
+					((t.textContent = e.getAttribute('src')),
 						t.classList.add('img-warning'),
 						insertAfter(t, e),
-						e.remove();
+						e.remove());
 				});
 			}
 
@@ -199,11 +176,11 @@
 				Array.from(document.querySelectorAll('img[alt]')).forEach(
 					(e) => {
 						let t = document.createElement('span');
-						(t.textContent = e.getAttribute('alt')),
+						((t.textContent = e.getAttribute('alt')),
 							t.classList.add('swapped-text'),
 							t.classList.add('img'),
 							insertAfter(t, e),
-							e.remove();
+							e.remove());
 					}
 				);
 			}
@@ -214,39 +191,39 @@
 						'a[aria-label],[role=link][aria-label],b[aria-label],[role=button][aria-label]'
 					)
 				).forEach((e) => {
-					(e.textContent = e.getAttribute('aria-label')),
+					((e.textContent = e.getAttribute('aria-label')),
 						e.classList.add('swapped-text'),
-						e.classList.add('svg');
+						e.classList.add('svg'));
 				});
 			}
 
 			function addImageIconsToSwappedImageText() {
-				Array.from(
+				(Array.from(
 					document.querySelectorAll('.swapped-text.img')
 				).forEach((e) => {
 					let t = document.createElement('span');
-					(t.textContent = '\uD83C\uDFDE️'),
+					((t.textContent = '\uD83C\uDFDE️'),
 						t.setAttribute('aria-hidden', 'true'),
 						t.classList.add('img-type-indicator'),
 						t.setAttribute(
 							'title',
 							'Alternative text from IMG element'
 						),
-						e.appendChild(t);
+						e.appendChild(t));
 				}),
 					Array.from(
 						document.querySelectorAll('.swapped-text.svg')
 					).forEach((e) => {
 						let t = document.createElement('span');
-						(t.textContent = '✳️'),
+						((t.textContent = '✳️'),
 							t.setAttribute('aria-hidden', 'true'),
 							t.classList.add('img-type-indicator'),
 							t.setAttribute(
 								'title',
 								'Alternative text from SVG element'
 							),
-							e.appendChild(t);
-					});
+							e.appendChild(t));
+					}));
 			}
 
 			function replaceAriaLabelledByElsWithText() {
@@ -265,18 +242,18 @@
 						let n = '',
 							a = e.getAttribute('aria-labelledby'),
 							r = a.split(' ');
-						Array.from(r).forEach((e) => {
+						(Array.from(r).forEach((e) => {
 							if (document.querySelector('#' + e)) {
-								let t =
-									document.querySelector('#' + e)
-										.textContent;
+								let t = document.querySelector(
+									'#' + e
+								).textContent;
 								t && (n += t + ' ');
 							}
 						}),
 							(n = n.trim()),
 							(e.textContent = n),
 							e.classList.add('swapped-text'),
-							e.removeAttribute('aria-labelledby');
+							e.removeAttribute('aria-labelledby'));
 					}
 				});
 			}
@@ -289,7 +266,7 @@
 				);
 			}
 
-			confirm(
+			(confirm(
 				'Do you want to include roles for interactive elements?\n[Only links and buttons included at present]\n\nOK - Include roles\nCancel - Leave them out'
 			) && (showElementRole = !0),
 				confirm(
@@ -308,12 +285,11 @@
 				replaceIMGsWithAltsWithText(),
 				identifyAllVisualllyHiddenElements(),
 				findAllVisuallyHiddenText(),
-				removeAllExistingStyling &&
-					voidStylesheets(document),
+				removeAllExistingStyling && voidStylesheets(document),
 				restrictImageHeights(document),
 				addAppStyles(),
 				voidStylesheetsInIframes(),
-				addImageIconsToSwappedImageText();
+				addImageIconsToSwappedImageText());
 		})();
 
 		console.log(`
