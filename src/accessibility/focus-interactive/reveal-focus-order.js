@@ -39,7 +39,7 @@
 			});
 		}
 		let c = document.querySelectorAll(
-				'button:not([disabled]),[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"]):not([disabled]),summary:not(:disabled),[contenteditable]:not([contenteditable="false"])'
+				'button:not([disabled]),a[href],area[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"]):not([disabled]),summary:not(:disabled),[contenteditable]:not([contenteditable="false"])'
 			),
 			b = document.createElement('div'),
 			d = document.createElement('div'),
@@ -48,6 +48,8 @@
 			e = new Array(),
 			o = new Array(),
 			p = '',
+			v = '',
+			w = '',
 			a = '';
 		(b.setAttribute('id', 'focusOrderList'),
 			b.setAttribute('role', 'region'),
@@ -75,6 +77,70 @@
 				".disclosure ul,.disclosure li {list-style:none;padding: 0;}.disclosure li {margin: 0;}.disclosure a {display: block;padding: 0.2em 1em;}.disclosure h2 button {display: inline-block;}.disclosureTriggerButton>span:first-child {display: inline-block;transition-duration: 0.4s;}.disclosureTriggerButton[aria-expanded='true']>span:first-child {transform: rotate(180deg);}.disclosure {margin-top:10px;}"),
 				document.head.appendChild(c));
 		})(),
+			(function () {
+				let f = document.createElement('style');
+				(f.textContent =
+					'.accessible-name-missing {outline:2px dashed red !important;}'),
+					document.head.appendChild(f);
+			})(),
+			(p = function (a) {
+				let b = '';
+				if ('AREA' === a.tagName && a.getAttribute('alt'))
+					return a.getAttribute('alt');
+				if (
+					a.hasAttribute('aria-label') &&
+					(b = a.getAttribute('aria-label').trim())
+				)
+					return b;
+				if (a.hasAttribute('aria-labelledby')) {
+					let c = a
+						.getAttribute('aria-labelledby')
+						.split(/\s+/)
+						.map((b) => document.getElementById(b))
+						.filter(Boolean)
+						.map((b) => b.textContent.trim())
+						.join(' ')
+						.trim();
+					if (c) return c;
+				}
+				if (/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)) {
+					if (a.hasAttribute('title') && (b = a.getAttribute('title').trim()))
+						return b;
+					if (
+						a.id &&
+						(b = document.querySelector('label[for="' + CSS.escape(a.id) + '"]')) &&
+						(b = b.textContent.trim())
+					)
+						return b;
+					let c = a.closest('label');
+					if (c && (b = c.textContent.trim())) return b;
+					if (a.tagName === 'INPUT' && a.type) return a.type;
+					return a.tagName.toLowerCase();
+				}
+				if ('SUMMARY' === a.tagName)
+					return (b = a.textContent.trim()) ? b : 'summary';
+				if (
+					(b = Array.from(
+						a.querySelectorAll('img[alt],[role="img"]')
+					)
+						.map((b) =>
+							b.getAttribute('alt') ||
+							b.getAttribute('aria-label') ||
+							''
+						)
+						.join(' ')
+						.trim())
+				)
+					return b;
+				return a.textContent.trim();
+			}),
+			(w = function (a) {
+				return a
+					.replace(/&/g, '&amp;')
+					.replace(/</g, '&lt;')
+					.replace(/>/g, '&gt;')
+					.replace(/"/g, '&quot;');
+			}),
 			(a += '  <div class="disclosure">\n'),
 			(a += '   <div>\n'),
 			(a +=
@@ -385,23 +451,33 @@
 				'   <div role="status" id="status" class="visually-hidden"></div>\n'),
 			(a += '   </div>\n'),
 			(a += '  </div>\n'),
-			Array.from(c).forEach((a) => {
-				a.getAttribute('tabindex') &&
-					'-1' !== a.getAttribute('tabindex') &&
-					'0' !== a.getAttribute('tabindex') &&
-					('' === (p = a.textContent.trim()) &&
-						(p = '\u203C\uFE0F NON-TEXT CONTENT \u203C\uFE0F'),
-					e.push([parseInt(a.getAttribute('tabindex')), p, a]));
+			Array.from(c).forEach((b) => {
+				b.getAttribute('tabindex') &&
+					'-1' !== b.getAttribute('tabindex') &&
+					'0' !== b.getAttribute('tabindex') &&
+					((v = p(b)),
+					(v ||
+						((v =
+							'\u26A0\uFE0F No accessible name (' +
+							b.tagName.toLowerCase() +
+							')'),
+						b.classList.add('accessible-name-missing'))),
+					e.push([parseInt(b.getAttribute('tabindex')), v, b]));
 			}),
 			e.sort(function (a, b) {
 				return a[0] - b[0];
 			}),
-			Array.from(c).forEach((a) => {
-				(a.getAttribute('tabindex') &&
-					'0' !== a.getAttribute('tabindex')) ||
-					('' === (p = a.textContent.trim()) &&
-						(p = '\u203C\uFE0F NON-TEXT CONTENT \u203C\uFE0F'),
-					e.push(['N/A', p, a]));
+			Array.from(c).forEach((b) => {
+				(b.getAttribute('tabindex') &&
+					'0' !== b.getAttribute('tabindex')) ||
+					((v = p(b)),
+					(v ||
+						((v =
+							'\u26A0\uFE0F No accessible name (' +
+							b.tagName.toLowerCase() +
+							')'),
+						b.classList.add('accessible-name-missing'))),
+					e.push([Number.POSITIVE_INFINITY, v, b]));
 			}));
 		let q = 1;
 		(Array.from(e).forEach((a) => {
@@ -411,7 +487,7 @@
 					'<li><a href="#" data-focusable-el="' +
 					q +
 					'">' +
-					a[1] +
+					w(a[1]) +
 					'</a></li>'),
 				q++);
 		}),
