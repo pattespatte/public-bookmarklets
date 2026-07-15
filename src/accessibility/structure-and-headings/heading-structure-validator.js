@@ -24,6 +24,7 @@
       .hsv-panel {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: white;
+        color: #1a1a1a;
         border: 2px solid #333;
         border-radius: 8px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.3);
@@ -85,8 +86,8 @@
         margin-right: 16px;
         margin-bottom: 4px;
       }
-      .hsv-stat.pass { color: #28a745; }
-      .hsv-stat.fail { color: #dc3545; }
+      .hsv-stat.pass { color: #1a7a32; }
+      .hsv-stat.fail { color: #b32d3e; }
       .hsv-outline {
         background: white;
         border: 1px solid #ddd;
@@ -128,7 +129,7 @@
       .hsv-level {
         font-weight: 700;
         min-width: 35px;
-        color: #666;
+        color: #5a5a5a;
       }
       .hsv-text {
         flex: 1;
@@ -137,7 +138,7 @@
         text-overflow: ellipsis;
       }
       .hsv-issue {
-        color: #dc3545;
+        color: #a52834;
         font-size: 0.6875rem;
         margin-left: 8px;
       }
@@ -155,7 +156,7 @@
         background: rgba(0,123,255,0.1) !important;
       }
       .hsv-empty-section {
-        color: #999;
+        color: #6a6a6a;
         font-style: italic;
         padding: 12px;
         text-align: center;
